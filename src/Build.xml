@@ -8,11 +8,10 @@
 <set name="WX_DIR" value="c:/wxWidgets-2.8.10/" if="windows" unless="WX_DIR"/>
 <set name="WX_DIR" value="/usr/local/" if="macos" unless="WX_DIR"/>
 
-<set name="INCLUDE_EXTRA" value="lib/vc_lib/msw" if="windows"/>
-<set name="INCLUDE_EXTRA" value="include/wx-2.8" unless="windows"/>
+<set name="INCLUDE_EXTRA" value="include" if="windows"/>
 
-<set name="LIB_PREFIX" value="wxbase28" if="windows"/>
-<set name="LIB_BASE_PREFIX" value="wxmsw28" if="windows"/>
+<set name="LIB_PREFIX" value="wxmsw28" if="windows"/>
+<set name="LIB_BASE_PREFIX" value="wxbase28" if="windows"/>
 <set name="LIB_SUFFIX" value=".lib" if="windows"/>
 
 <set name="LIB_PREFIX" value="-lwx_mac" if="macos"/>
@@ -28,7 +27,7 @@
    <compilerflag value = "-D_FILE_OFFSET_BITS=64" if="macos"/>
    <compilerflag value = "-D_LARGE_FILES=64" if="macos"/>
    <compilerflag value = "-D__WXMAC__" if="macos"/>
-   <compilerflag value = "-I${WX_DIR}/${INCLUDE_EXTRA}${DBG}"/>
+   <compilerflag value = "-I${WX_DIR}/${INCLUDE_EXTRA}"/>
    <compilerflag value = "-Iinclude"/>
    <file name="App.cpp"/>
    <file name="HaxeAPI.cpp"/>
