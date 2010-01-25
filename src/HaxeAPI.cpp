@@ -337,7 +337,9 @@ void SetupEventMap()
       wxEVT_NAVIGATION_KEY,
       wxEVT_KEY_DOWN,
       wxEVT_KEY_UP,
+      #ifndef __WXMAC__
       wxEVT_HOTKEY,
+      #endif
    
        // Set cursor event
       wxEVT_SET_CURSOR,
