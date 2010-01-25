@@ -1,0 +1,57 @@
+<xml>
+
+<!-- Build file for waxe.ndll -->
+<!-- Install hxcpp and run with 'haxelib run hxcpp Build.xml' -->
+
+<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+
+<set name="WX_DIR" value="c:/wxWidgets-2.8.10/" if="windows" unless="WX_DIR"/>
+<set name="LIB" value="vc_lib"/>
+   <set name="DBG" value="d" if="debug"/>
+
+<files id="files">
+   <compilerflag value="-I${WX_DIR}/include"/>
+   <compilerflag value = "-I${WX_DIR}/lib/${LIB}/msw${DBG}"/>
+   <compilerflag value = "-Iinclude"/>
+   <file name="App.cpp"/>
+   <file name="HaxeAPI.cpp"/>
+   <file name="Window.cpp"/>
+   <file name="Frame.cpp"/>
+   <file name="StaticText.cpp"/>
+   <file name="TextCtrl.cpp"/>
+   <file name="Sizer.cpp"/>
+   <file name="Panel.cpp"/>
+</files>
+
+<target id="waxe.ndll" tool="linker" toolid="dll" output="waxe">
+   <files id="files"/>
+   <flag value="-libpath:${WX_DIR}/lib/vc_lib" if="windows"/>
+   <ext value=".ndll"/>
+   <outdir name="../ndll/${BINDIR}"/>
+   <lib name="wxbase28${DBG}.lib" if="windows"/>
+   <lib name="wxbase28${DBG}_xml.lib" if="windows"/>
+   <lib name="wxbase28${DBG}_net.lib" if="windows"/>
+   <lib name="wxmsw28${DBG}_core.lib" if="windows"/>
+   <lib name="wxmsw28${DBG}_adv.lib" if="windows"/>
+   <lib name="wxmsw28${DBG}_media.lib" if="windows"/>
+   <lib name="wxmsw28${DBG}_html.lib" if="windows"/>
+   <lib name="wxmsw28${DBG}_qa.lib" if="windows"/>
+   <lib name="wxmsw28${DBG}_richtext.lib" if="windows"/>
+   <lib name="user32.lib" if="windows"/>
+   <lib name="advapi32.lib" if="windows"/>
+   <lib name="gdi32.lib" if="windows"/>
+   <lib name="comdlg32.lib" if="windows"/>
+   <lib name="comctl32.lib" if="windows"/>
+   <lib name="ole32.lib" if="windows"/>
+   <lib name="oleaut32.lib" if="windows"/>
+   <lib name="rpcrt4.lib" if="windows"/>
+   <lib name="shell32.lib" if="windows"/>
+   <lib name="kernel32.lib" if="windows"/>
+</target>
+
+<target id="default">
+   <target id="waxe.ndll"/>
+</target>
+
+
+</xml>
