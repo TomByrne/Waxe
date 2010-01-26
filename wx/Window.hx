@@ -15,6 +15,8 @@ class Window
    public var sizer(getSizer,setSizer):Sizer;
    public var clientSize(getClientSize,setClientSize):Size;
    public var position(getPosition,setPosition):Position;
+   public var shown(isShown,show):Bool;
+   public var backgroundColour(getBackgroundColour,setBackgroundColour):Int;
 
 
 	public static function create(inParent:Window,?inID:Int,?inPosition:Position,
@@ -37,6 +39,7 @@ class Window
 	// These two functions are called by the external DLL...
 	function _wx_deleted() { wxHandle = null; }
 	function _handle_event(event:Dynamic) { HandleEvent(event); }
+	public function wxGetHandle() { return wxHandle;}
 
 
    function HandleEvent(event:Dynamic)
@@ -99,15 +102,29 @@ class Window
 		return inPos;
 	}
 
+	public function isShown() : Bool { return wx_window_get_shown(wxHandle); }
+	public function show(inShow:Bool = true) : Bool
+	{
+		wx_window_set_shown(wxHandle, inShow);
+		return inShow;
+	}
+
+	public function getBackgroundColour() : Int { return wx_window_get_bg_colour(wxHandle); }
+	public function setBackgroundColour(inColour:Int) : Int
+	{
+		wx_window_set_bg_colour(wxHandle, inColour);
+		return inColour;
+	}
+
 
 
    // Helpers ...
-	public var onClick(null,setOnClick) : Dynamic->Void;
-	function setOnClick(f:Dynamic->Void) {setHandler(wx.EventID.LEFT_DOWN,f); return f;}
 	public var onClose(null,setOnClose) : Dynamic->Void;
 	function setOnClose(f:Dynamic->Void) {setHandler(wx.EventID.CLOSE_WINDOW,f); return f;}
 	public var onSize(null,setOnSize) : Dynamic->Void;
 	function setOnSize(f:Dynamic->Void) {setHandler(wx.EventID.SIZE,f); return f;}
+	public var onPaint(null,setOnPaint) : Dynamic->Void;
+	function setOnPaint(f:Dynamic->Void) {setHandler(wx.EventID.PAINT,f); return f;}
 
 
 
@@ -123,6 +140,10 @@ class Window
    static var wx_window_set_sizer = neko.Lib.load("waxe","wx_window_set_sizer",2);
    static var wx_window_get_sizer = neko.Lib.load("waxe","wx_window_get_sizer",1);
    static var wx_window_fit = neko.Lib.load("waxe","wx_window_fit",1);
+   static var wx_window_get_shown = neko.Lib.load("waxe","wx_window_get_shown",1);
+   static var wx_window_set_shown = neko.Lib.load("waxe","wx_window_set_shown",2);
+   static var wx_window_get_bg_colour = neko.Lib.load("waxe","wx_window_get_bg_colour",1);
+   static var wx_window_set_bg_colour = neko.Lib.load("waxe","wx_window_set_bg_colour",2);
 }
 
 

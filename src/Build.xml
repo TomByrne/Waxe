@@ -37,6 +37,9 @@
    <file name="TextCtrl.cpp"/>
    <file name="Sizer.cpp"/>
    <file name="Panel.cpp"/>
+   <file name="Dialog.cpp"/>
+   <file name="Button.cpp"/>
+   <file name="DC.cpp"/>
 </files>
 
 <target id="waxe.ndll" tool="linker" toolid="dll" output="waxe">

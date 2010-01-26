@@ -9,11 +9,15 @@ int Val2Int(value inVal, int inDefault);
 wxPoint Val2Point(value inVal);
 wxSize Val2Size(value inVal);
 wxSizer *Val2Sizer(value inVal);
+bool Val2Bool(value inVal,bool inDefault=false);
+wxColour Val2Colour(value inVa);
 
 value WXToValue(const wxPoint &inPoint);
 value WXToValue(const wxSize &inSize);
 value WXToValue(int &inVal);
+value WXToValue(const bool &inVal);
 value WXToValue(const wxString &inStr);
+value WXToValue(const wxColour &inCol);
 
 class HaxeEventHandler : public wxEvtHandler, public wxClientData
 {
@@ -31,6 +35,7 @@ private:
 DECLARE_KIND(gObjectKind)
 
 value WXToValue(wxObject *inObj);
+value WXToDeletingValue(wxObject *inObj);
 
 template<typename TYPE>
 bool ValueToWX(value inValue, TYPE *&outPointer)

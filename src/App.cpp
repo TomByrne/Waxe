@@ -6,6 +6,7 @@
 #define IMPLEMENT_API
 
 #include <hx/CFFI.h>
+#include <HaxeAPI.h>
 
 
 // --- Bootstrap Object ---------------------------
@@ -52,6 +53,16 @@ value wx_quit()
    return val_null;
 }
 DEFINE_PRIM(wx_quit,0)
+
+value wx_set_top_window(value inWindow)
+{
+	wxTopLevelWindow *window;
+	if (ValueToWX(inWindow,window))
+   	wxTheApp->SetTopWindow(window);
+   return val_null;
+}
+DEFINE_PRIM(wx_set_top_window,1)
+
 
 
 

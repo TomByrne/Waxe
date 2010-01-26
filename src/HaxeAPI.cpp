@@ -39,6 +39,14 @@ int Val2Int(value inVal, int inDefault)
    return inDefault;
 }
 
+bool Val2Bool(value inVal, bool inDefault)
+{
+   if (val_is_bool(inVal))
+      return val_bool(inVal);
+   return inDefault;
+}
+
+
 wxPoint Val2Point(value inVal)
 {
    static int x_id = val_id("x");
@@ -63,11 +71,45 @@ wxSize Val2Size(value inVal)
                   val_is_number(h) ? val_number(h) : -1 );
 }
 
+wxColour Val2Colour(value inVal)
+{
+	if (val_is_string(inVal))
+		return wxColour( Val2Str(inVal) );
+	int col  = val_int(inVal);
+	return wxColour( (col & 0xff0000) >> 16, (col & 0xff00) >> 8, col & 0xff );
+}
+
+
 value WXToValue(wxObject *inObj)
 {
    value result = alloc_abstract(gObjectKind,inObj);
    return result;
 }
+
+static void delete_object(value inObj)
+{
+	val_gc(inObj,0);
+	if (val_is_kind(inObj,gObjectKind))
+	{
+		wxObject *obj = (wxObject *)val_data(inObj);
+		delete obj;
+	}
+}
+
+value WXToDeletingValue(wxObject *inObj)
+{
+	value result = WXToValue(inObj);
+	val_gc(result,delete_object);
+	return result;
+}
+
+value wx_object_destroy(value inObj)
+{
+	if (!val_is_null(inObj))
+		delete_object(inObj);
+	return alloc_null();
+}
+DEFINE_PRIM(wx_object_destroy,1)
 
 value WXToValue(const wxPoint &inPoint)
 {
@@ -88,6 +130,16 @@ value WXToValue(const wxSize &inSize)
 value WXToValue(int &inVal)
 {
 	return alloc_int(inVal);
+}
+
+value WXToValue(const bool &inVal)
+{
+	return alloc_bool(inVal);
+}
+
+value WXToValue(const wxColour &inCol)
+{
+	return alloc_int( ( inCol.Red()<<16 ) | (inCol.Green()<<8) | inCol.Blue() );
 }
 
 

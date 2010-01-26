@@ -71,3 +71,23 @@ value wx_sizer_add(value inHandle,value inSizerOrWindow, value inProportion, val
 }
 DEFINE_PRIM(wx_sizer_add,5)
 
+
+value wx_sizer_add_growable_row(value inHandle,value inRow, value inProportion)
+{
+	wxFlexGridSizer *sizer;
+	if (ValueToWX(inHandle,sizer))
+		sizer->AddGrowableRow(val_int(inRow),val_int(inProportion));
+
+	return alloc_null();
+}
+DEFINE_PRIM(wx_sizer_add_growable_row,3)
+
+value wx_sizer_add_growable_col(value inHandle,value inCol, value inProportion)
+{
+	wxFlexGridSizer *sizer;
+	if (ValueToWX(inHandle,sizer))
+		sizer->AddGrowableCol(val_int(inCol),val_int(inProportion));
+
+	return alloc_null();
+}
+DEFINE_PRIM(wx_sizer_add_growable_col,3)

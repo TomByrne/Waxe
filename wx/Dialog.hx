@@ -1,13 +1,13 @@
 package wx;
 
-class Frame extends TopLevelWindow
+class Dialog extends TopLevelWindow
 {
 
    public static function create(inParent:Window, ?inID:Int, inTitle:String="",
 						?inPosition:{x:Float,y:Float},
                    ?inSize:{w:Float,h:Float}, ?inStyle:Int )
    {
-      var handle = wx_frame_create(
+      var handle = wx_dialog_create(
 			[inParent==null ? null : inParent.wxHandle,inID,inTitle,inPosition,inSize, inStyle] );
       return new Frame(handle);
    }
@@ -18,6 +18,6 @@ class Frame extends TopLevelWindow
 	   super(inHandle);
    }
 
-   static var wx_frame_create = neko.Lib.load("waxe","wx_frame_create",1);
+   static var wx_dialog_create = neko.Lib.load("waxe","wx_dialog_create",1);
 
 }

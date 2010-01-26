@@ -2,15 +2,15 @@ package wx;
 
 class Sizer
 {
-	public static var LEFT   = 0x0010;
-   public static var RIGHT  = 0x0020;
-   public static var UP     = 0x0040;
-   public static var DOWN   = 0x0080;
+	public static var BORDER_LEFT   = 0x0010;
+   public static var BORDER_RIGHT  = 0x0020;
+   public static var BORDER_UP     = 0x0040;
+   public static var BORDER_DOWN   = 0x0080;
 
-   public static var TOP    = 0x0040;
-   public static var BOTTOM = 0x0080;
+   public static var BORDER_TOP    = 0x0040;
+   public static var BORDER_BOTTOM = 0x0080;
 
-   public static var ALL    = 0x00f0;
+   public static var BORDER_ALL    = 0x00f0;
 
 	public static var EXPAND = 0x2000;
 
