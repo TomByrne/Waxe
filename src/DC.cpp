@@ -32,4 +32,14 @@ value wx_dc_clear(value inDC)
 }
 DEFINE_PRIM(wx_dc_clear,1)
 
+value wx_dc_set_pen(value inDC,value inPen)
+{
+	wxDC *dc;
+	wxPen *pen;
+	if (ValueToWX(inDC,dc) && ValueToWX(inPen,pen) )
+      dc->SetPen(*pen);
+	return alloc_null();
+}
+DEFINE_PRIM(wx_dc_set_pen,2)
+
 

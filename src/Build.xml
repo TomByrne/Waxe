@@ -43,6 +43,7 @@
    <file name="Dialog.cpp"/>
    <file name="Button.cpp"/>
    <file name="DC.cpp"/>
+   <file name="Pen.cpp"/>
 </files>
 
 <target id="waxe.ndll" tool="linker" toolid="dll" output="waxe">

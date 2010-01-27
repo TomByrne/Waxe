@@ -2,6 +2,7 @@ package wx;
 
 class DC
 {
+	public var pen(null,setPen):Pen;
 	var wxHandle:Dynamic;
 
 	function new(handle:Dynamic)
@@ -18,6 +19,11 @@ class DC
    {
       wx_dc_clear(wxHandle);
    }
+	public function setPen(inPen:Pen) : Pen
+	{
+		wx_dc_set_pen(wxHandle,inPen.wxGetHandle());
+		return inPen;
+	}
 
 	static public function createPaintDC(inWindow:Window)
 	{
@@ -28,4 +34,5 @@ class DC
 	static var wx_dc_draw_line = neko.Lib.load("waxe","wx_dc_draw_line",5);
 	static var wx_object_destroy = neko.Lib.load("waxe","wx_object_destroy",1);
 	static var wx_dc_clear = neko.Lib.load("waxe","wx_dc_clear",1);
+	static var wx_dc_set_pen = neko.Lib.load("waxe","wx_dc_set_pen",2);
 }
