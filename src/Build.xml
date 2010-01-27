@@ -9,6 +9,7 @@
 <set name="WX_DIR" value="/usr/local/" if="macos" unless="WX_DIR"/>
 
 <set name="INCLUDE_EXTRA" value="include" if="windows"/>
+<set name="INCLUDE_EXTRA" value="include/wx-2.8" if="macos"/>
 
 <set name="LIB_PREFIX" value="wxmsw28" if="windows"/>
 <set name="LIB_BASE_PREFIX" value="wxbase28" if="windows"/>
@@ -29,6 +30,7 @@
    <compilerflag value = "-D__WXMAC__" if="macos"/>
    <compilerflag value = "-I${WX_DIR}/include/msvc" if="windows"/>
    <compilerflag value = "-I${WX_DIR}/${INCLUDE_EXTRA}"/>
+   <compilerflag value = "-I/usr/include/wx-2.8" unless="windows"/>
    <compilerflag value = "-Iinclude"/>
    <file name="App.cpp"/>
    <file name="HaxeAPI.cpp"/>
