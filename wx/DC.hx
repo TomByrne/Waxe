@@ -14,6 +14,10 @@ class DC
 	{
 		wx_dc_draw_line(wxHandle,x1,y1,x2,y2);
 	}
+   public function clear()
+   {
+      wx_dc_clear(wxHandle);
+   }
 
 	static public function createPaintDC(inWindow:Window)
 	{
@@ -23,4 +27,5 @@ class DC
 	static var wx_dc_create_paint = neko.Lib.load("waxe","wx_dc_create_paint",1);
 	static var wx_dc_draw_line = neko.Lib.load("waxe","wx_dc_draw_line",5);
 	static var wx_object_destroy = neko.Lib.load("waxe","wx_object_destroy",1);
+	static var wx_dc_clear = neko.Lib.load("waxe","wx_dc_clear",1);
 }

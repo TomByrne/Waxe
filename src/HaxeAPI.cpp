@@ -151,7 +151,7 @@ CreationParams::CreationParams(value inParams,int inDefaultStyle)
    text = Val2Str(val_array_i(inParams,2));
    position = Val2Point(val_array_i(inParams,3));
    size = Val2Size(val_array_i(inParams,4));
-   flags = Val2Int(val_array_i(inParams,5),inDefaultStyle);
+   flags = Val2Int(val_array_i(inParams,5),inDefaultStyle) /*| wxCLIP_SIBLINGS*/;
 }
 
 

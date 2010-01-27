@@ -27,6 +27,7 @@
    <compilerflag value = "-D_FILE_OFFSET_BITS=64" if="macos"/>
    <compilerflag value = "-D_LARGE_FILES=64" if="macos"/>
    <compilerflag value = "-D__WXMAC__" if="macos"/>
+   <compilerflag value = "-I${WX_DIR}/include/msvc" if="windows"/>
    <compilerflag value = "-I${WX_DIR}/${INCLUDE_EXTRA}"/>
    <compilerflag value = "-Iinclude"/>
    <file name="App.cpp"/>

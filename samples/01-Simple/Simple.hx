@@ -28,7 +28,7 @@ class Simple
 		mFrame.onSize = function(evt) { me.layout(); evt.skip=true; }
 
 		mWindow = wx.Panel.create(mFrame);
-		mDrawArea = wx.Panel.create(mFrame);
+		mDrawArea = wx.Panel.create(mWindow);
 
 		var vertical_sizer = wx.FlexGridSizer.create(null,1);
 		vertical_sizer.addGrowableCol(0);
@@ -66,11 +66,10 @@ class Simple
 		mFrame.shown = true;
    }
 
-	function paintWindow(_)
+	function paintWindow(dc:wx.DC)
 	{
-		var dc = wx.DC.createPaintDC(mDrawArea);
+		dc.clear();
 		dc.drawLine(0,0,300,250);
-		dc.destroy();
 	}
 
 	function layout()

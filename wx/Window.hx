@@ -123,8 +123,14 @@ class Window
 	function setOnClose(f:Dynamic->Void) {setHandler(wx.EventID.CLOSE_WINDOW,f); return f;}
 	public var onSize(null,setOnSize) : Dynamic->Void;
 	function setOnSize(f:Dynamic->Void) {setHandler(wx.EventID.SIZE,f); return f;}
-	public var onPaint(null,setOnPaint) : Dynamic->Void;
-	function setOnPaint(f:Dynamic->Void) {setHandler(wx.EventID.PAINT,f); return f;}
+	public var onPaint(null,setOnPaint) : DC->Void;
+	function setOnPaint(f:DC->Void)
+   {
+      var me = this;
+      setHandler(wx.EventID.PAINT, function(_)
+         { var dc = wx.DC.createPaintDC(me); f(dc); dc.destroy(); } );
+      return f;
+   }
 
 
 

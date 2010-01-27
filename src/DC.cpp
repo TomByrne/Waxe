@@ -23,3 +23,13 @@ value wx_dc_draw_line(value inDC, value inX1, value inY1, value inX2, value inY2
 }
 DEFINE_PRIM(wx_dc_draw_line,5)
 
+value wx_dc_clear(value inDC)
+{
+	wxDC *dc;
+	if (ValueToWX(inDC,dc))
+      dc->Clear();
+	return alloc_null();
+}
+DEFINE_PRIM(wx_dc_clear,1)
+
+
