@@ -44,14 +44,16 @@ class Simple
 
 
       items_sizer.addGrowableCol(1,1);
-      var text = wx.TextCtrl.create(mWindow,null,"Hello !" );
-      items_sizer.add(wx.StaticText.create(mWindow,null,"Text 1"),0,Sizer.ALIGN_CENTRE_VERTICAL);
+      items_sizer.add(wx.StaticText.create(mWindow,null,"TextCtrl"),0,Sizer.ALIGN_CENTRE_VERTICAL);
+      var text = wx.TextCtrl.create(mWindow,null,"Here is some text" );
       items_sizer.add(text,1,Sizer.EXPAND | Sizer.BORDER_ALL, 10);
-      var text = wx.TextCtrl.create(mWindow,null,"Hello !" );
-      items_sizer.add(wx.StaticText.create(mWindow,null,"Text 2"),0,Sizer.ALIGN_CENTRE_VERTICAL);
-      items_sizer.add(text,1,Sizer.EXPAND | Sizer.BORDER_ALL, 10);
-      var text = wx.TextCtrl.create(mWindow,null,"Hello !" );
+
+      items_sizer.add(wx.StaticText.create(mWindow,null,"ComboBox"),0,Sizer.ALIGN_CENTRE_VERTICAL);
+      var combo = wx.ComboBox.create(mWindow,null,"Some Text", ["Choice 1","Choice 2"]);
+      items_sizer.add(combo,1,Sizer.EXPAND | Sizer.BORDER_ALL, 10);
+
       items_sizer.add(wx.StaticText.create(mWindow,null,"Text 3"),0,Sizer.ALIGN_CENTRE_VERTICAL);
+      var text = wx.TextCtrl.create(mWindow,null,"Hello !" );
       items_sizer.add(text,1,Sizer.EXPAND | Sizer.BORDER_ALL, 10);
 
       mWindow.sizer = vertical_sizer;

@@ -79,6 +79,19 @@ wxColour Val2Colour(value inVal)
 	return wxColour( (col & 0xff0000) >> 16, (col & 0xff00) >> 8, col & 0xff );
 }
 
+wxArrayString &Val2ArrayString(value inVal,wxArrayString &outStrings)
+{
+	outStrings.Clear();
+	if (val_is_array(inVal))
+	{
+		int n = val_array_size(inVal);
+		outStrings.Alloc(n);
+		for(int i=0;i<n;i++)
+			outStrings.Add(Val2Str( val_array_i(inVal,i) ));
+	}
+	return outStrings;
+}
+
 
 value WXToValue(wxObject *inObj)
 {
@@ -334,7 +347,10 @@ void SetupEventMap()
       wxEVT_COMMAND_LISTBOX_SELECTED,
       wxEVT_COMMAND_LISTBOX_DOUBLECLICKED,
       wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,
-   
+
+      wxEVT_COMMAND_TEXT_UPDATED,
+      wxEVT_COMMAND_TEXT_ENTER,
+ 
       wxEVT_COMMAND_MENU_SELECTED,
       wxEVT_COMMAND_SLIDER_UPDATED,
       wxEVT_COMMAND_RADIOBOX_SELECTED,
@@ -390,6 +406,8 @@ void SetupEventMap()
       wxEVT_KEY_DOWN,
       wxEVT_KEY_UP,
       #ifndef __WXMAC__
+		0,
+      #else
       wxEVT_HOTKEY,
       #endif
    

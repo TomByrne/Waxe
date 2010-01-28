@@ -42,6 +42,7 @@
    <file name="Panel.cpp"/>
    <file name="Dialog.cpp"/>
    <file name="Button.cpp"/>
+   <file name="ComboBox.cpp"/>
    <file name="DC.cpp"/>
    <file name="Pen.cpp"/>
    <file name="Brush.cpp"/>

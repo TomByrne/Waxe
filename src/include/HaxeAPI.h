@@ -11,6 +11,7 @@ wxSize Val2Size(value inVal);
 wxSizer *Val2Sizer(value inVal);
 bool Val2Bool(value inVal,bool inDefault=false);
 wxColour Val2Colour(value inVa);
+wxArrayString &Val2ArrayString(value inVal,wxArrayString &outStrings);
 
 value WXToValue(const wxPoint &inPoint);
 value WXToValue(const wxSize &inSize);
