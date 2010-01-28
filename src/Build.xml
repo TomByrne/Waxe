@@ -44,6 +44,8 @@
    <file name="Button.cpp"/>
    <file name="DC.cpp"/>
    <file name="Pen.cpp"/>
+   <file name="Brush.cpp"/>
+   <file name="Font.cpp"/>
 </files>
 
 <target id="waxe.ndll" tool="linker" toolid="dll" output="waxe">
