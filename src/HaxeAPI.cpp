@@ -405,7 +405,7 @@ void SetupEventMap()
       wxEVT_NAVIGATION_KEY,
       wxEVT_KEY_DOWN,
       wxEVT_KEY_UP,
-      #ifndef __WXMAC__
+      #ifdef __WXMAC__
 		0,
       #else
       wxEVT_HOTKEY,
