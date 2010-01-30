@@ -32,21 +32,21 @@
    <compilerflag value = "-I${WX_DIR}/${INCLUDE_EXTRA}"/>
    <compilerflag value = "-I/usr/include/wx-2.8" unless="windows"/>
    <compilerflag value = "-Iinclude"/>
-   <file name="App.cpp"/>
-   <file name="HaxeAPI.cpp"/>
-   <file name="Window.cpp"/>
-   <file name="Frame.cpp"/>
-   <file name="StaticText.cpp"/>
-   <file name="TextCtrl.cpp"/>
-   <file name="Sizer.cpp"/>
-   <file name="Panel.cpp"/>
-   <file name="Dialog.cpp"/>
-   <file name="Button.cpp"/>
-   <file name="ComboBox.cpp"/>
-   <file name="DC.cpp"/>
-   <file name="Pen.cpp"/>
-   <file name="Brush.cpp"/>
-   <file name="Font.cpp"/>
+   <file name="waxe/App.cpp"/>
+   <file name="waxe/HaxeAPI.cpp"/>
+   <file name="waxe/Window.cpp"/>
+   <file name="waxe/Frame.cpp"/>
+   <file name="waxe/StaticText.cpp"/>
+   <file name="waxe/TextCtrl.cpp"/>
+   <file name="waxe/Sizer.cpp"/>
+   <file name="waxe/Panel.cpp"/>
+   <file name="waxe/Dialog.cpp"/>
+   <file name="waxe/Button.cpp"/>
+   <file name="waxe/ComboBox.cpp"/>
+   <file name="waxe/DC.cpp"/>
+   <file name="waxe/Pen.cpp"/>
+   <file name="waxe/Brush.cpp"/>
+   <file name="waxe/Font.cpp"/>
 </files>
 
 <target id="waxe.ndll" tool="linker" toolid="dll" output="waxe">
