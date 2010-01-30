@@ -5,33 +5,19 @@
 
 <include name="${HXCPP}/build-tool/BuildCommon.xml"/>
 
-<set name="WX_DIR" value="c:/wxWidgets-2.8.10/" if="windows" unless="WX_DIR"/>
-<set name="WX_DIR" value="/usr/local/" if="macos" unless="WX_DIR"/>
+<set name="LIB_DIR" value="-Llib" unless="windows"/>
+<set name="LIB_DIR" value="-libpath:lib" if="windows"/>
 
-<set name="INCLUDE_EXTRA" value="include" if="windows"/>
-<set name="INCLUDE_EXTRA" value="include/wx-2.8" if="macos"/>
-
-<set name="LIB_PREFIX" value="wxmsw28" if="windows"/>
-<set name="LIB_BASE_PREFIX" value="wxbase28" if="windows"/>
-<set name="LIB_SUFFIX" value=".lib" if="windows"/>
-
-<set name="LIB_PREFIX" value="-lwx_mac" if="macos"/>
-<set name="LIB_BASE_PREFIX" value="-lwx_base_carbon" if="macos"/>
-<set name="LIB_SUFFIX" value="-2.8" if="macos"/>
-
+<set name="LIB_LINK" value="lib/libwx_mac-2.8.a" if="macos"/>
 <set name="DBG" value="d" if="debug"/>
 
-
-
 <files id="files">
-   <compilerflag value = "-I/usr/local/lib/wx/include/mac-ansi-release-static-2.8" if="macos"/>
+   <compilerflag value = "-Iinclude"/>
    <compilerflag value = "-D_FILE_OFFSET_BITS=64" if="macos"/>
    <compilerflag value = "-D_LARGE_FILES=64" if="macos"/>
    <compilerflag value = "-D__WXMAC__" if="macos"/>
-   <compilerflag value = "-I${WX_DIR}/include/msvc" if="windows"/>
-   <compilerflag value = "-I${WX_DIR}/${INCLUDE_EXTRA}"/>
-   <compilerflag value = "-I/usr/include/wx-2.8" unless="windows"/>
-   <compilerflag value = "-Iinclude"/>
+
+
    <file name="waxe/App.cpp"/>
    <file name="waxe/HaxeAPI.cpp"/>
    <file name="waxe/Window.cpp"/>
@@ -51,19 +37,10 @@
 
 <target id="waxe.ndll" tool="linker" toolid="dll" output="waxe">
    <files id="files"/>
-   <flag value="-libpath:${WX_DIR}/lib/vc_lib" if="windows"/>
-   <flag value="-L${WX_DIR}/lib" unless="windows"/>
    <ext value=".ndll"/>
    <outdir name="../ndll/${BINDIR}"/>
-   <lib name="${LIB_BASE_PREFIX}${DBG}${LIB_SUFFIX}"/>
-   <lib name="${LIB_BASE_PREFIX}${DBG}_xml${LIB_SUFFIX}" />
-   <lib name="${LIB_BASE_PREFIX}${DBG}_net${LIB_SUFFIX}" />
-   <lib name="${LIB_PREFIX}${DBG}_core${LIB_SUFFIX}" />
-   <lib name="${LIB_PREFIX}${DBG}_adv${LIB_SUFFIX}" />
-   <lib name="${LIB_PREFIX}${DBG}_media${LIB_SUFFIX}" if="windows"/>
-   <lib name="${LIB_PREFIX}${DBG}_html${LIB_SUFFIX}" />
-   <lib name="${LIB_PREFIX}${DBG}_qa${LIB_SUFFIX}" />
-   <lib name="${LIB_PREFIX}${DBG}_richtext${LIB_SUFFIX}" />
+   <flag value="${LIB_DIR}"/>
+   <lib name="${LIB_LINK}"/>
 
    <lib name="user32.lib" if="windows"/>
    <lib name="advapi32.lib" if="windows"/>
@@ -93,9 +70,6 @@
    <lib name="-framework" if="macos"/>
    <lib name="WebKit" if="macos"/>
 
-   <lib name="-lwxtiff-2.8" unless="windows"/>
-   <lib name="-lwxjpeg-2.8" unless="windows"/>
-   <lib name="-lwxpng-2.8" unless="windows"/>
    <lib name="-lz" unless="windows"/>
    <lib name="-lpthread" unless="windows"/>
    <lib name="-liconv" unless="windows"/>
