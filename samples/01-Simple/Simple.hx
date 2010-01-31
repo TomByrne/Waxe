@@ -30,15 +30,19 @@ class Simple
       mWindow = wx.Panel.create(mFrame);
       mDrawArea = wx.Panel.create(mWindow);
 
+
       var vertical_sizer = wx.FlexGridSizer.create(null,1);
       vertical_sizer.addGrowableCol(0);
-      vertical_sizer.addGrowableRow(1);
       var items_sizer = wx.FlexGridSizer.create(null,2);
       var button_sizer = wx.BoxSizer.create(false);
       vertical_sizer.add(items_sizer,0,Sizer.EXPAND);
       vertical_sizer.add(mDrawArea,1,Sizer.EXPAND);
+      //var scintilla = wx.Scintilla.create(mWindow,null);
+      //vertical_sizer.add(scintilla,1,Sizer.EXPAND);
       vertical_sizer.add(button_sizer,0,
          Sizer.ALIGN_CENTRE | Sizer.BORDER_TOP | Sizer.BORDER_BOTTOM, 10);
+      vertical_sizer.addGrowableRow(1);
+      vertical_sizer.addGrowableRow(2);
       var close = wx.Button.create(mWindow,null,"Close");
       button_sizer.add(close);
 
@@ -55,6 +59,8 @@ class Simple
       items_sizer.add(wx.StaticText.create(mWindow,null,"Text 3"),0,Sizer.ALIGN_CENTRE_VERTICAL);
       var text = wx.TextCtrl.create(mWindow,null,"Hello !" );
       items_sizer.add(text,1,Sizer.EXPAND | Sizer.BORDER_ALL, 10);
+
+
 
       mWindow.sizer = vertical_sizer;
 

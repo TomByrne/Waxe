@@ -33,6 +33,7 @@
    <file name="waxe/Pen.cpp"/>
    <file name="waxe/Brush.cpp"/>
    <file name="waxe/Font.cpp"/>
+   <file name="waxe/Scintilla.cpp"/>
 </files>
 
 <target id="waxe.ndll" tool="linker" toolid="dll" output="waxe">
@@ -41,6 +42,7 @@
    <outdir name="../ndll/${BINDIR}"/>
    <flag value="${LIB_DIR}"/>
    <lib name="${LIB_LINK}"/>
+   <lib name="lib/libwxscintilla_mac.a"/>
 
    <lib name="user32.lib" if="windows"/>
    <lib name="advapi32.lib" if="windows"/>
