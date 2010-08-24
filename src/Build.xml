@@ -13,6 +13,7 @@
 
 <files id="files">
    <compilerflag value = "-Iinclude"/>
+   <compilerflag value = "-Iwaxe"/>
    <compilerflag value = "-D_FILE_OFFSET_BITS=64" if="macos"/>
    <compilerflag value = "-D_LARGE_FILES=64" if="macos"/>
    <compilerflag value = "-D__WXMAC__" if="macos"/>
@@ -34,6 +35,15 @@
    <file name="waxe/Brush.cpp"/>
    <file name="waxe/Font.cpp"/>
    <file name="waxe/Scintilla.cpp"/>
+
+   <file name="waxe/clay/Container.cpp"/>
+   <file name="waxe/clay/HintWindow.cpp"/>
+   <file name="waxe/clay/Manager.cpp"/>
+   <file name="waxe/clay/Serializer.cpp"/>
+   <file name="waxe/clay/Skin.cpp"/>
+   <file name="waxe/clay/ToolBox.cpp"/>
+
+
 </files>
 
 <target id="waxe.ndll" tool="linker" toolid="dll" output="waxe">
