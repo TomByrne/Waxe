@@ -8,7 +8,6 @@
 <set name="LIB_DIR" value="-Llib" unless="windows"/>
 <set name="LIB_DIR" value="-libpath:lib" if="windows"/>
 
-<set name="LIB_LINK" value="lib/libwx_mac-2.8.a" if="macos"/>
 <set name="DBG" value="d" if="debug"/>
 
 <files id="files">
@@ -51,8 +50,12 @@
    <ext value=".ndll"/>
    <outdir name="../ndll/${BINDIR}"/>
    <flag value="${LIB_DIR}"/>
-   <lib name="${LIB_LINK}"/>
-   <lib name="lib/libwxscintilla_mac.a"/>
+
+   <lib name="lib/Mac/libwx_mac-2.8.a" if="macos"/>
+   <lib name="lib/Mac/libwxscintilla_mac.a" if="macos"/>
+
+   <lib name="lib/Windows/wxmsw28.lib" if="windows"/>
+   <lib name="lib/windows/libwxscintilla.a" if="windows"/>
 
    <lib name="user32.lib" if="windows"/>
    <lib name="advapi32.lib" if="windows"/>

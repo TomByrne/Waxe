@@ -10,3 +10,24 @@ copy lib/wx/include/mac-ansi-release-static-2.8/wx/setup.h mac_setup.h
 create wx/setup.h to point to the mac_setup.h
 
 
+Building on Windows:
+Download + extract wxMSW-2.8.10.tar.gz
+ edit Config.vc:
+     BUILD = release
+	  MONOLITHIC = 1
+	  USE_OPENGL = 1
+	  RUNTIME_LIBS = static
+
+nmake -f makefile.vc
+
+cp lib/vc_lib/*.h
+cp lib/vc_lib/msw/wx/setup.h wx/windows_setup.h
+create wx/setup.h to point to the windows_setup.h
+
+
+
+---------------------
+scintilla
+
+Download & extract wxscintilla_1.69.2
+For windows, use the makefile from lib/Windows, pointing wx/include to here.
