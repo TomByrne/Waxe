@@ -481,8 +481,7 @@ public:
          mChild->SetRect( Rect() );
          mChild->RecordSize(stFloating);
       }
-      else
-         inEvt.Skip();
+      inEvt.Skip();
    }
 
    void DoLayout()

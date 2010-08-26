@@ -54,7 +54,7 @@ enum WindowStyle
    wsToolbar,
 };
 
-class Container
+class Container : public wxObject
 {
 public:
    Container(class Manager *inManager);
@@ -140,9 +140,7 @@ public:
 
    virtual void Render(wxDC &inDC,Skin *inSkin) = 0;
 
-	// TODO: haxe will manage this, and the reference in haxe code kill be
-	//  killed by the destructor callback.
-	wxClientData *mClientData;
+   wxClientDataContainer mData;
    Manager *mManager;
    wxSize  mSizes[stSIZE];
    int     mUID;
@@ -157,7 +155,7 @@ typedef std::map<wxWindow *,Container *> ContainerMap;
 void ToSerial(const wxFrame *inFrame, Serializer &outSerializer);
 void FromSerial(wxFrame *inFrame, Serializer &inSerializer);
 
-class Manager
+class Manager : public wxObject
 {
 public:
    Manager(wxFrame *inFrame);
@@ -195,6 +193,8 @@ public:
 
    void RecordWindow(wxWindow *inWindow,Container *inContainer);
    void RemoveWindow(wxWindow *inWindow);
+
+   wxClientDataContainer mData;
 
 private:
    wxFrame          *mFrame;

@@ -110,7 +110,7 @@ Manager::Manager(wxFrame *inFrame)
 {
    mFrame = inFrame;
    mRootContainer = Create(mFrame,false);
-   mRootContainer->SetRect( mRootContainer->Rect() );
+   //mRootContainer->SetRect( mRootContainer->Rect() );
    mTopLevelContainers.push_back(mRootContainer);
    mMDI = 0;
    mMDIClientContainer = 0;

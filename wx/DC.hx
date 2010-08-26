@@ -4,6 +4,7 @@ class DC
 {
    public var pen(null,setPen):Pen;
    public var brush(null,setBrush):Brush;
+   public var background(null,setBackground):Brush;
    public var font(null,setFont):Font;
    var wxHandle:Dynamic;
 
@@ -29,6 +30,11 @@ class DC
    public function setBrush(inBrush:Brush) : Brush
    {
       wx_dc_set_brush(wxHandle,inBrush.wxGetHandle());
+      return inBrush;
+   }
+   public function setBackground(inBrush:Brush) : Brush
+   {
+      wx_dc_set_background(wxHandle,inBrush.wxGetHandle());
       return inBrush;
    }
    public function setFont(inFont:Font) : Font
@@ -65,6 +71,7 @@ class DC
    static var wx_dc_set_pen = neko.Lib.load("waxe","wx_dc_set_pen",2);
    static var wx_dc_set_font = neko.Lib.load("waxe","wx_dc_set_font",2);
    static var wx_dc_set_brush = neko.Lib.load("waxe","wx_dc_set_brush",2);
+   static var wx_dc_set_background = neko.Lib.load("waxe","wx_dc_set_background",2);
    static var wx_dc_draw_rectangle = neko.Lib.load("waxe","wx_dc_draw_rectangle",5);
    static var wx_dc_draw_circle = neko.Lib.load("waxe","wx_dc_draw_circle",4);
    static var wx_dc_draw_ellipse = neko.Lib.load("waxe","wx_dc_draw_ellipse",5);

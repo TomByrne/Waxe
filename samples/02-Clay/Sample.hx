@@ -1,26 +1,36 @@
 import wx.EventID;
 import wx.Sizer;
 
+import wx.clay.AddPosition;
+
 class Sample
 {
    var mFrame : wx.Frame;
-   var mWindow : wx.Window;
-   var mDrawArea : wx.Window;
-	var mManager : wx.clay.Manager;
+   var mManager : wx.clay.Manager;
 
    function new()
    {
       mFrame = wx.Frame.create(null,"Main Frame");
       var count = 0;
-		mManager = new wx.clay.Manager(mFrame);
+      mManager = new wx.clay.Manager(mFrame);
 
-      mFrame.onPaint = paintWindow;
+      var content = wx.Panel.create(mFrame);
+      content.onPaint = paintWindow;
+      var c1 = mManager.root.addWindow(content,AddPosition.Left);
+
+      var content = wx.Panel.create(mFrame);
+      content.onPaint = paintWindow;
+      c1.addWindow(content,AddPosition.Right);
+
       wx.App.setTopWindow(mFrame);
       mFrame.shown = true;
    }
 
+
+
    function paintWindow(dc:wx.DC)
    {
+      dc.background = new wx.Brush( wx.Colour.White(), wx.Brush.SOLID );
       dc.clear();
       dc.pen = new wx.Pen( wx.Colour.Pink(), 3 );
       dc.drawLine(0,0,300,250);

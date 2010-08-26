@@ -112,5 +112,18 @@ value wx_dc_set_brush(value inDC,value inBrush)
 DEFINE_PRIM(wx_dc_set_brush,2)
 
 
+value wx_dc_set_background(value inDC,value inBrush)
+{
+	wxDC *dc;
+	wxBrush *brush;
+	if (ValueToWX(inDC,dc) && ValueToWX(inBrush,brush) )
+      dc->SetBackground(*brush);
+	return alloc_null();
+}
+DEFINE_PRIM(wx_dc_set_background,2)
+
+
+
+
 
 

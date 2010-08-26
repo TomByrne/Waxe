@@ -843,24 +843,26 @@ public:
 
    static wxDC &GetDoubleBufferDC(const wxRect &inRect)
    {
-      if (mDoubleBuffer.GetWidth() < inRect.width ||
-             mDoubleBuffer.GetHeight() < inRect.height)
+      if (!mMemDC)
+         mMemDC = new wxMemoryDC;
+
+      if (!mDoubleBuffer ||mDoubleBuffer->GetWidth() < inRect.width || mDoubleBuffer->GetHeight() < inRect.height)
       {
          wxBitmap empty;
-         mMemDC.SelectObject(empty);
-         mDoubleBuffer = wxBitmap(inRect.width,inRect.height);
-         mMemDC.SelectObject(mDoubleBuffer);
+         mMemDC->SelectObject(empty);
+         delete mDoubleBuffer;
+         mDoubleBuffer = new wxBitmap(inRect.width,inRect.height);
+         mMemDC->SelectObject(*mDoubleBuffer);
       }
 
-      mMemDC.SetDeviceOrigin(-inRect.x,-inRect.y);
-      return mMemDC;
+      mMemDC->SetDeviceOrigin(-inRect.x,-inRect.y);
+      return *mMemDC;
    }
 
    static void SwapDoubleBuffer(wxDC &inDC,const wxRect &inRect)
    {
-      mMemDC.SetDeviceOrigin(0,0);
-      inDC.Blit(inRect.x,inRect.y,inRect.width,inRect.height,
-                &mMemDC, 0, 0);
+      mMemDC->SetDeviceOrigin(0,0);
+      inDC.Blit(inRect.x,inRect.y,inRect.width,inRect.height, mMemDC, 0, 0);
    }
  
 
@@ -872,12 +874,12 @@ public:
    wxColour mTBLow;
    wxColour mTBHigh;
 
-   static wxBitmap mDoubleBuffer;
-   static wxMemoryDC mMemDC;
+   static wxBitmap *mDoubleBuffer;
+   static wxMemoryDC *mMemDC;
 };
 
-wxMemoryDC DefaultSkin::mMemDC;
-wxBitmap DefaultSkin::mDoubleBuffer;
+wxMemoryDC *DefaultSkin::mMemDC = 0;
+wxBitmap *DefaultSkin::mDoubleBuffer = 0;
 
 
 Skin * CreateDefaultSkin() { return new DefaultSkin(); }
