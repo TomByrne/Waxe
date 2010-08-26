@@ -5,7 +5,7 @@ typedef Size = { width:Int, height:Int };
 
 class Window
 {
-   var wxHandle:Dynamic;
+   public var wxHandle:Dynamic;
 	var wxEventHandlers:IntHash<Dynamic->Void>;
 
 	public static var INVALID_PARENT = "Invalid Parent";

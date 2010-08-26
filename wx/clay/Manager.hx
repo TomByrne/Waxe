@@ -9,10 +9,15 @@ class Manager
 
    public function new(inFrame:wx.Frame)
    {
-      mHandle = wx_clay_man_create(inFrame.wxHandle);
+      //mHandle = wx_clay_man_create(inFrame.wxHandle);
    }
 
+	function wxGetRoot():Container
+	{
+	   return null;
+	}
 
-   static var wx_clay_man_create = neko.Lib.load("waxe","wx_clay_man_create",1);
+
+   //static var wx_clay_man_create = neko.Lib.load("waxe","wx_clay_man_create",1);
 
 }

@@ -140,6 +140,9 @@ public:
 
    virtual void Render(wxDC &inDC,Skin *inSkin) = 0;
 
+	// TODO: haxe will manage this, and the reference in haxe code kill be
+	//  killed by the destructor callback.
+	wxClientData *mClientData;
    Manager *mManager;
    wxSize  mSizes[stSIZE];
    int     mUID;
