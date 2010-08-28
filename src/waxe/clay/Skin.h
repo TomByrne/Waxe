@@ -107,7 +107,7 @@ public:
                    bool inRenderBlock)=0;
    virtual void RenderTabs(wxDC &inDC,const wxRect &inParent,
                        TabInfos &inInfo, int inCurrent, int inFirst,
-                       HostedButtons &inButtons)=0;
+                       HostedButtons &inButtons,bool inCanDrag=true)=0;
 
    virtual void LayoutToolbar(wxRect &ioRect,
                       wxRect &outDragBox,
@@ -118,6 +118,7 @@ public:
                       HostedButtons &inButtons,
                       bool inOnWide)=0;
 
+   virtual void RenderEmptyNotebook(wxDC &inDC,const wxRect &inRect)=0;
 };
 
 

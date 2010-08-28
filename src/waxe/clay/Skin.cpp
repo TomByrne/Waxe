@@ -30,19 +30,19 @@ static unsigned char close_bits[]={
       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 
 static bool sCloseInit = false;
-static wxBitmap sCloseBitmaps[3];
+static wxBitmap *sCloseBitmaps[3] = { 0,0,0 };
 static bool sMenuInit = false;
-static wxBitmap sMenuBitmaps[3];
+static wxBitmap *sMenuBitmaps[3] = { 0,0,0 };
 
 
-wxBitmap BitmapFromBits(const unsigned char bits[], int w, int h,
+wxBitmap *BitmapFromBits(const unsigned char bits[], int w, int h,
                              const wxColour& color)
 {
     wxImage img = wxBitmap((const char*)bits, w, h).ConvertToImage();
     img.Replace(0,0,0,123,123,123);
     img.Replace(255,255,255,color.Red(),color.Green(),color.Blue());
     img.SetMaskColour(123,123,123);
-    return wxBitmap(img);
+    return new wxBitmap(img,24);
 }
 
 
@@ -104,10 +104,8 @@ public:
 
       for(int y=0;y<21;y++)
       {
-         mActiveTabPen[y] = wxPen(
-          wxColour( r0+dr*y/21, g0+dg*y/20, b0+db*y/21 ) );
-         mTabPen[y] = wxPen(
-          wxColour( (r0+dr*y/21)*8/10, (g0+dg*y/21)*8/10, (b0+db*y/21)*8/10 ) );
+         mActiveTabPen[y] = wxPen( wxColour( r0+dr*y/21, g0+dg*y/20, b0+db*y/21 ) );
+         mTabPen[y] = wxPen( wxColour( (r0+dr*y/21)*8/10, (g0+dg*y/21)*8/10, (b0+db*y/21)*8/10 ) );
       }
    }
    
@@ -133,9 +131,9 @@ public:
       int n = outButtons.size();
       outButtons.resize(n+1);
       HostedButton &but = outButtons[n];
-      but.mBitmap[0] = sCloseBitmaps[0];
-      but.mBitmap[1] = sCloseBitmaps[1];
-      but.mBitmap[2] = sCloseBitmaps[2];
+      but.mBitmap[0] = *sCloseBitmaps[0];
+      but.mBitmap[1] = *sCloseBitmaps[1];
+      but.mBitmap[2] = *sCloseBitmaps[2];
       but.mRect = wxRect(inX+2, inY+ (inHeight-16)/2, 16, 16);
       but.mCommand = bcClose;
       return 20;
@@ -150,12 +148,16 @@ public:
          wxMemoryDC dc;
          for(int i=0;i<3;i++)
          {
-            sMenuBitmaps[i] = wxBitmap(16,16);
-            wxBitmap &bmp = sMenuBitmaps[i];
+            sMenuBitmaps[i] = new wxBitmap(16,16,32);
+            wxBitmap &bmp = *sMenuBitmaps[i];
             dc.SelectObject(bmp);
-            dc.SetBrush( wxBrush(wxColour(255,0,255)) );
+            #if 1
+            dc.SetBrush( *wxTRANSPARENT_BRUSH );
+            #else
+            dc.SetBrush( wxBrush(wxColor(255,0,255)) );
+            #endif
             dc.SetPen(*wxBLACK_PEN);
-            dc.DrawRectangle(-1,-1,18,18);
+            dc.DrawRectangle(-2,-2,20,20);
 
             dc.SetBrush( *wxTRANSPARENT_BRUSH );
             dc.SetPen(*wxTRANSPARENT_PEN);
@@ -180,16 +182,19 @@ public:
    
             wxBitmap empty;
             dc.SelectObject(empty);
+            #if 0
+            // No good when anti-aliased lines are used (wxMac)...
             bmp.SetMask( new wxMask(bmp,wxColour(255,0,255)) );
+            #endif
          }
       }
    
       int n = outButtons.size();
       outButtons.resize(n+1);
       HostedButton &but = outButtons[n];
-      but.mBitmap[0] = sMenuBitmaps[0];
-      but.mBitmap[1] = sMenuBitmaps[1];
-      but.mBitmap[2] = sMenuBitmaps[2];
+      but.mBitmap[0] = *sMenuBitmaps[0];
+      but.mBitmap[1] = *sMenuBitmaps[1];
+      but.mBitmap[2] = *sMenuBitmaps[2];
       but.mFireOnDown = false;
       but.mRect = wxRect(inX+2, inY+ (inHeight-16)/2, 16, 16);
       but.mCommand = bcMenu;
@@ -241,6 +246,13 @@ public:
    {
       DrawRect(inDC,inRect,scBG);
    }
+
+   void RenderEmptyNotebook(wxDC &inDC,const wxRect &inRect)
+   {
+      DrawRect(inDC,inRect,sc3DDark);
+   }
+
+
 
 
    void DrawEmptyFrame(wxDC &inDC,const wxSize &inSize)
@@ -429,8 +441,6 @@ public:
 
       inDC.SetBrush(*wxTRANSPARENT_BRUSH);
    
-      inDC.SetPen(wxPen(mColour[scTabOutline],1));
-   
       int h = sTabHeight;
    
       wxPen *p = inSelected ? mActiveTabPen : mTabPen;
@@ -446,7 +456,6 @@ public:
                wxPoint(inX+inWidth+7,inY+1),
                wxPoint(inX+inWidth+7,inY+h+1),
             };
-         inDC.DrawPolygon(6, points);
  
          for(int y=0;y<21;y++)
          {
@@ -454,6 +463,8 @@ public:
             inDC.DrawLine(inX,inY+1+y,inX+inWidth+7,inY+1+y);
          }
          inDC.DrawLine(inX,inY+1+21,inX+inWidth+7,inY+1+21);
+         inDC.SetPen(wxPen(mColour[scTabOutline],1));
+         inDC.DrawPolygon(6, points);
 
       }
       else
@@ -471,14 +482,14 @@ public:
             };
    
    
-         inDC.DrawPolygon(7, points);
-
          for(int y=0;y<21;y++)
          {
             inDC.SetPen( p[y] );
             inDC.DrawLine(inX,inY+1+y,inX+inWidth-3+sDX[y],inY+1+y);
          }
          inDC.DrawLine(inX,inY+1+21,inX+inWidth-3+sDX[20],inY+1+21);
+         inDC.SetPen(wxPen(mColour[scTabOutline],1));
+         inDC.DrawPolygon(7, points);
       }
 
    
@@ -502,7 +513,7 @@ public:
    
    void RenderTabs(wxDC &inDC,const wxRect &inParent,
             TabInfos &inInfo, int inCurrent, int inFirst,
-            HostedButtons &inButtons)
+            HostedButtons &inButtons,bool inCanDrag)
    {
       // Draw the outline directly
       wxRect outline(inParent);
@@ -528,7 +539,8 @@ public:
          dc.SetPen( mTabPen[y] );
          dc.DrawLine(x,oy+1+y,x+sTabBoxX-3+sDX[y],oy+1+y);
       }
-      RenderGripper(dc,x,oy);
+      if (inCanDrag)
+         RenderGripper(dc,x,oy);
 
       x+=sTabBoxX;
       int last = inParent.GetRight();
@@ -844,7 +856,9 @@ public:
    static wxDC &GetDoubleBufferDC(const wxRect &inRect)
    {
       if (!mMemDC)
+      {
          mMemDC = new wxMemoryDC;
+      }
 
       if (!mDoubleBuffer ||mDoubleBuffer->GetWidth() < inRect.width || mDoubleBuffer->GetHeight() < inRect.height)
       {
@@ -853,6 +867,8 @@ public:
          delete mDoubleBuffer;
          mDoubleBuffer = new wxBitmap(inRect.width,inRect.height);
          mMemDC->SelectObject(*mDoubleBuffer);
+         //printf("Created double buffer %dx%D (%d)\n", mDoubleBuffer->GetWidth(), mDoubleBuffer->GetHeight(),
+              //mDoubleBuffer->GetDepth() );
       }
 
       mMemDC->SetDeviceOrigin(-inRect.x,-inRect.y);

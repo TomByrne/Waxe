@@ -599,6 +599,8 @@ public:
 
    Manager *GetManager() { return mParent ? mParent->GetManager() : 0; }
 
+   virtual bool CanRemove() const { return true; }
+   bool DoCanRemove() const { return CanRemove(); }
 
    void OnChildChange(unsigned int inFlags,Container *inChild) 
    {
@@ -686,7 +688,7 @@ public:
          }
       }
 
-      if (mDragOff[0].Contains(mouse) )
+      if (mDragOff[0].Contains(mouse) && CanRemove() )
       {
          DoCapture();
          mDragOffing = 0;
@@ -1221,6 +1223,9 @@ public:
    {
       if (!ContainsVisPoint(inPos))
          return false;
+
+      if (mChildren.empty())
+         return HostedContainer::HintsFromMouse(outHints,inDrop,inPos);
 
       for(int c=0;c<mChildren.size();c++)
          if (mChildren[c]->Visible() && 
@@ -2384,13 +2389,13 @@ public:
       delete mMenu;
    }
 
+
    ContainerStyle GetStyle() { return csNotebook; }
 
    bool CanAddChild(AddPosition inWhere)
    {
       return super::mChildren.empty() || inWhere==apOver;
    }
-
 
 
    wxString GetCaption()
@@ -2462,10 +2467,15 @@ public:
    {
       if (!super::mVisible) return;
 
-      inSkin->RenderTabs(inDC,super::mRect,mInfo,mCurrentPage,mFirst,super::mButtons);
+      inSkin->RenderTabs(inDC,super::mRect,mInfo,mCurrentPage,mFirst,super::mButtons,super::DoCanRemove());
 
       if (mCurrentPage>=0 && mCurrentPage<super::mChildren.size())
          super::mChildren[mCurrentPage]->Render(inDC,inSkin);
+
+      if (super::mChildren.empty())
+      {
+         inSkin->RenderEmptyNotebook(inDC,super::mRect);
+      }
    }
 
    bool  ShowsChildsTitle() { return true; }
@@ -2879,6 +2889,41 @@ public:
 };
 
 
+
+#ifdef PSEUDO_MDI
+
+class MDIClientContainer : public NotebookContainer
+{
+   typedef NotebookContainer super;
+   wxMDIParentFrame *mFrame;
+public:
+   MDIClientContainer(Manager *inManager, wxMDIParentFrame *inFrame) : super(inManager)
+   {
+     mFrame = inFrame;
+   }
+
+   wxWindow *AsParent() { return mFrame; }
+
+   virtual bool CanAddChild(AddPosition inWhere) 
+   {
+      //return inWhere==apOver;
+      return true;
+   }
+
+   void OnSingleChild()
+   {
+      DoLayout();
+   }
+
+   bool CanRemove() const { return false; }
+
+
+   bool Visible() { return true; }
+
+};
+
+#else
+
 class MDIClientContainer : public NotebookBase<MyMDIChildFrame>
 {
 public:
@@ -3099,7 +3144,7 @@ public:
    {
       if (!super::mChildren.empty())
       {
-         inSkin->RenderTabs(inDC,mRect,mInfo,mCurrentPage,mFirst,mButtons);
+         inSkin->RenderTabs(inDC,mRect,mInfo,mCurrentPage,mFirst,mButtons,DoCanRemove());
       }
    }
 
@@ -3149,6 +3194,8 @@ BEGIN_EVENT_TABLE(MDIClientContainer,NotebookBase<MyMDIChildFrame> )
    EVT_LEAVE_WINDOW(MDIClientContainer::OnLeave)
    EVT_MENU_RANGE( ChildMenu, ChildMenu+1000, NotebookBase<MyMDIChildFrame>::OnCommand)
 END_EVENT_TABLE()
+
+#endif
 
 
 
