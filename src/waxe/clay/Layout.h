@@ -105,6 +105,7 @@ public:
    virtual bool CanAddChild(AddPosition inWhere)  { return false; }
    virtual bool ShowsChildsTitle() { return true; }
    virtual bool IsWideDock() { return true; }
+   virtual bool ChildContains(wxPoint inPos) { return false; }
 
    // Positioning
    // Rects are w.r.t parent window, not container...

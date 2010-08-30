@@ -12,6 +12,7 @@
 
 //#define DEBUG_COLOUR
 
+
 namespace clay
 {
 
@@ -229,6 +230,27 @@ Container *Container::Add(ToolBox *inToolBox,AddPosition inWhere)
    to its children.  It snoops the frame for resize and paint events
 */
 
+class FrameContainer;
+class CursorWindow : public wxWindow
+{
+public:
+   CursorWindow(wxWindow *inParent,FrameContainer *inC) : wxWindow(inParent,-1), mContainer(inC) { }
+
+   void OnPaint(wxPaintEvent &inEvt);
+   void OnErase(wxEraseEvent &inEvt) { }
+
+   FrameContainer *mContainer;
+
+   DECLARE_EVENT_TABLE();
+};
+
+BEGIN_EVENT_TABLE(CursorWindow,wxWindow)
+   EVT_PAINT(CursorWindow::OnPaint)
+   EVT_ERASE_BACKGROUND(CursorWindow::OnErase)
+END_EVENT_TABLE()
+
+
+
 class FrameContainer : public wxEvtHandler, public Container
 {
 public:
@@ -239,6 +261,8 @@ public:
       mFrame->PushEventHandler(this);
       mChild = 0;
       mIsFloating = inFloating;
+
+      mCursorWindow = new CursorWindow(mFrame,this);
    }
 
    ContainerStyle GetStyle() { return csFrame; } 
@@ -347,7 +371,7 @@ public:
 
    bool ShowsChildsTitle() { return mIsFloating; }
 
-   wxWindow *AsParent() { return mFrame; }
+   wxWindow *AsParent() { return mCursorWindow ? mCursorWindow : mFrame; }
 
    bool CanAddChild(AddPosition inWhere) { return mChild==0; }
 
@@ -476,6 +500,8 @@ public:
 
    void OnParentSize(wxSizeEvent &inEvt)
    {
+      if (mCursorWindow)
+         mCursorWindow->SetSize( mFrame->GetClientSize() );
       if (mChild)
       {
          mChild->SetRect( Rect() );
@@ -502,8 +528,15 @@ public:
 
       Render(dc,mManager->GetSkin());
    }
+   void OnCursorWindowPaint(wxPaintEvent &inEvent)
+   {
+      wxPaintDC dc(mCursorWindow);
+      Render(dc,mManager->GetSkin());
+   }
    void OnErase(wxEraseEvent &inEvt) { }
 
+
+   wxWindow  *mCursorWindow;
 
    Container *mChild;
    wxFrame *mFrame;
@@ -518,6 +551,7 @@ BEGIN_EVENT_TABLE(FrameContainer,wxEvtHandler)
    EVT_ERASE_BACKGROUND(FrameContainer::OnErase)
 END_EVENT_TABLE()
 
+void CursorWindow::OnPaint(wxPaintEvent &inEvt) { mContainer->OnCursorWindowPaint(inEvt); }
 
 Container *Manager::Create(wxFrame *inFrame,bool inIsFloating)
 {
@@ -613,9 +647,18 @@ public:
       if (IgnoreMouse(inEvent))
          return;
 
-      ButtonTest(inEvent);
-
-      if (mSnoopWindow)
+      wxPoint mouse = inEvent.GetPosition();
+      if (ButtonTest(inEvent))
+      {
+         if (mSnoopWindow)
+            mSnoopWindow->SetCursor(NULL);
+      }
+      else if (mSnoopWindow && (mDragOff[0].Contains(mouse) && CanRemove() ||
+                           mDragOff[1].Contains(mouse) ) )
+      {
+         mSnoopWindow->SetCursor( wxCURSOR_SIZING );
+      }
+      else if (mSnoopWindow)
          mSnoopWindow->SetCursor(NULL);
 
    }
@@ -634,6 +677,7 @@ public:
       wxPoint pos = inEvent.GetPosition();
 
       int old = mHoverButton;
+      bool result = false;
 
       mHoverButton = -1;
       for(int i=0;i<mButtons.size();i++)
@@ -642,6 +686,7 @@ public:
          if (but.mRect.Contains(pos))
          {
             mHoverButton = i;
+            result = true;
             but.mState = HostedButton::Hover;
          }
          else
@@ -651,7 +696,7 @@ public:
       if (mHoverButton!=old && mSnoopWindow!=0)
          mSnoopWindow->Refresh();
 
-      return false;
+      return result;
    }
 
 
@@ -682,7 +727,9 @@ public:
                but.mState = HostedButton::Down;
                DoCapture();
                if (mSnoopWindow)
+               {
                   mSnoopWindow->SetCursor( 0 );
+               }
             }
             return;
          }
@@ -824,7 +871,22 @@ public:
          return true;
       }
 
+      if ( mHostedCapture == this )
+         return false;
+
       if ( mHostedCapture && mHostedCapture!=this )
+      {
+         inEvt.Skip();
+         return true;
+      }
+
+      if (!Rect().Contains(inEvt.GetPosition()))
+      {
+         inEvt.Skip();
+         return true;
+      }
+
+      if (ChildContains(inEvt.GetPosition()) )
       {
          inEvt.Skip();
          return true;
@@ -1303,6 +1365,16 @@ public:
             mChildren[c]->Render(inDC,inSkin);
    }
 
+   bool ChildContains(wxPoint inPos)
+   {
+       for(int i=0;i<mChildren.size();i++)
+          if (mChildren[i]->Rect().Contains(inPos))
+             return true;
+       return false;
+   }
+
+
+
 
    virtual void OnSingleChild()
    {
@@ -1521,6 +1593,7 @@ void LayoutContainerSizes(ContainerList &inList,
 
 class RowContainer : public MultiChildParent<Container>
 {
+   typedef MultiChildParent<Container> super;
    struct CRect
    {
       CRect() {}
@@ -2293,11 +2366,12 @@ public:
       else
       {
          if (StopHit(inEvt)>=0 && mSnoopWindow)
+            mSnoopWindow->SetCursor( mHorizontal ?  wxCURSOR_SIZEWE  : wxCURSOR_SIZENS );
+         else
          {
-             mSnoopWindow->SetCursor( mHorizontal ?
-                          wxCURSOR_SIZEWE  : wxCURSOR_SIZENS );
+            super::DoMouseMove(inEvt);
+            inEvt.Skip();
          }
-         HostedContainer::DoMouseMove(inEvt);
       }
    }
 
@@ -2320,8 +2394,7 @@ public:
       int stop = StopHit(inEvent);
       if (stop>=0)
       {
-         mSnoopWindow->SetCursor( mHorizontal ?
-                       wxCURSOR_SIZEWE  : wxCURSOR_SIZENS );
+         mSnoopWindow->SetCursor( mHorizontal ?  wxCURSOR_SIZEWE  : wxCURSOR_SIZENS );
          mDragging = true;
          mDragStop = stop;
 
@@ -2624,7 +2697,10 @@ public:
          return;
 
       if (super::mSnoopWindow)
+      {
+         wxRect r = super::Rect();
          super::mSnoopWindow->SetCursor(NULL);
+      }
 
       int h = HitRect(inEvent);
       if (h>=0 && h!=mCurrentPage)
@@ -2662,6 +2738,7 @@ public:
 
 class NotebookContainer : public NotebookBase<Container>
 {
+   typedef NotebookBase<Container> super;
 public:
    NotebookContainer(Manager *inManager) :
        NotebookBase<Container>(inManager)
@@ -2798,6 +2875,7 @@ typedef void (wxMDIChildFrame::*wxActivateEventFunction2)(wxActivateEvent&);
 
 class MyMDIChildFrame : public wxMDIChildFrame, public FrameContainer
 {
+   typedef FrameContainer super;
 public:
    MyMDIChildFrame(wxMDIParentFrame *inParent,Manager *inManager,
               Container *inClientContainer) :
@@ -2900,6 +2978,10 @@ public:
    MDIClientContainer(Manager *inManager, wxMDIParentFrame *inFrame) : super(inManager)
    {
      mFrame = inFrame;
+      for(int i=0;i<stSIZE;i++)
+         mSizes[i] = wxSize(200,200);
+      mSizes[stMin] = wxSize(40,20);
+      mSizes[stMax] = wxSize(0xffff,0xffff);
    }
 
    wxWindow *AsParent() { return mFrame; }
@@ -2926,6 +3008,7 @@ public:
 
 class MDIClientContainer : public NotebookBase<MyMDIChildFrame>
 {
+   typedef NotebookBase<MyMDIChildFrame> super;
 public:
    MDIClientContainer(Manager *inManager,wxMDIParentFrame *inMDI) :
        NotebookBase<MyMDIChildFrame>(inManager)

@@ -10,17 +10,23 @@ class Sample
 
    function new()
    {
-      mFrame = wx.Frame.create(null,"Main Frame");
-      var count = 0;
+      mFrame = wx.MDIParentFrame.create(null,"Main Frame",null,{width:800,height:600} );
       mManager = new wx.clay.Manager(mFrame);
 
-      var content = wx.Panel.create(mFrame);
+      var content = wx.Panel.create(mFrame,null,null,{width:200,height:200});
       content.onPaint = paintWindow;
-      var c1 = mManager.root.addWindow(content,AddPosition.Left);
+      var root = mManager.root;
+      var c1 = mManager.root.addWindow(content,AddPosition.Over);
 
-      var content = wx.Panel.create(mFrame);
+      var content = wx.Panel.create(mFrame,null,null,{width:200,height:200});
       content.onPaint = paintWindow;
-      c1.addWindow(content,AddPosition.Right);
+      c1.addWindow(content,AddPosition.Over);
+
+      var content = wx.Panel.create(mFrame,null,null,{width:50,height:50});
+      content.onPaint = paintWindow;
+      var container = root.addWindow(content,AddPosition.Left);
+      container.minWidth = 200;
+      container.minHeight = 200;
 
       wx.App.setTopWindow(mFrame);
       mFrame.shown = true;

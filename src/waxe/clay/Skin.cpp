@@ -860,12 +860,14 @@ public:
          mMemDC = new wxMemoryDC;
       }
 
-      if (!mDoubleBuffer ||mDoubleBuffer->GetWidth() < inRect.width || mDoubleBuffer->GetHeight() < inRect.height)
+      int w = std::max(2,inRect.width);
+      int h = std::max(2,inRect.height);
+      if (!mDoubleBuffer ||mDoubleBuffer->GetWidth() < w || mDoubleBuffer->GetHeight() < h)
       {
          wxBitmap empty;
          mMemDC->SelectObject(empty);
          delete mDoubleBuffer;
-         mDoubleBuffer = new wxBitmap(inRect.width,inRect.height);
+         mDoubleBuffer = new wxBitmap(w,h);
          mMemDC->SelectObject(*mDoubleBuffer);
          //printf("Created double buffer %dx%D (%d)\n", mDoubleBuffer->GetWidth(), mDoubleBuffer->GetHeight(),
               //mDoubleBuffer->GetDepth() );
@@ -877,8 +879,11 @@ public:
 
    static void SwapDoubleBuffer(wxDC &inDC,const wxRect &inRect)
    {
-      mMemDC->SetDeviceOrigin(0,0);
-      inDC.Blit(inRect.x,inRect.y,inRect.width,inRect.height, mMemDC, 0, 0);
+      if (inRect.width>0 && inRect.height>0)
+      {
+         mMemDC->SetDeviceOrigin(0,0);
+         inDC.Blit(inRect.x,inRect.y,inRect.width,inRect.height, mMemDC, 0, 0);
+      }
    }
  
 

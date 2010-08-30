@@ -7,10 +7,19 @@ class Container
    public var shown(wxGetShown,wxSetShown) : Bool;
    public var rect(wxGetRect,wxSetRect) : wx.Rect;
    public var window(wxGetWindow,null) : wx.Window;
+   public var minWidth(wxGetMinWidth,wxSetMinWidth) : Int;
+   public var minHeight(wxGetMinHeight,wxSetMinHeight) : Int;
 
    public var wxHandle:Dynamic;
    function _wx_deleted() { wxHandle=null; }
 
+   static var stBest = 0;
+   static var stMin = 1;
+   static var stMax = 2;
+   static var stFloating = 3;
+   static var stWideDock = 4;
+   static var stTallDock = 5;
+   
    
    function new() {}
 
@@ -45,11 +54,20 @@ class Container
 
    public function wxGetWindow() : wx.Window { return null; }
 
+   function wxGetMinWidth() : Int { return wx_container_get_width(wxHandle,stMin); }
+   function wxSetMinWidth(inW:Int) : Int { return wx_container_set_width(wxHandle,stMin,inW); return inW; }
+   function wxGetMinHeight() : Int { return wx_container_get_height(wxHandle,stMin); }
+   function wxSetMinHeight(inH:Int) : Int { return wx_container_set_height(wxHandle,stMin,inH); return inH; }
+
 
    public static function wxCreate() { return new Container(); }
 
 
     static var wx_container_add_window = neko.Lib.load("waxe","wx_container_add_window",-1);
+    static var wx_container_get_width = neko.Lib.load("waxe","wx_container_get_width",2);
+    static var wx_container_set_width = neko.Lib.load("waxe","wx_container_set_width",3);
+    static var wx_container_get_height = neko.Lib.load("waxe","wx_container_get_height",2);
+    static var wx_container_set_height = neko.Lib.load("waxe","wx_container_set_height",3);
 }
 
 

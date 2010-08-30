@@ -60,7 +60,7 @@ value wx_container_add_window(value *arg, int argc)
       return alloc_null();
 
    Container *c = parent->Add(window, (AddPosition)val_int(arg[aWhere]), wxIconBundle(),
-          val_int(arg[aFlags]), val_bool(arg[aAsToolbar]) ? wsNormal : wsToolbar );
+          val_int(arg[aFlags]), val_bool(arg[aAsToolbar]) ? wsToolbar : wsNormal );
 
    c->mData.SetClientObject( new HaxeData(arg[aNewContainer]) );
    return WXToValue(c);
@@ -68,6 +68,44 @@ value wx_container_add_window(value *arg, int argc)
 DEFINE_PRIM_MULT(wx_container_add_window)
 
 
+value wx_container_get_width(value inContainer, value inWhich)
+{
+   Container *container;
+   if ( ValueToWX(inContainer,container) )
+      return alloc_int(container->GetSize((SizeType)val_int(inWhich)).x);
+   return alloc_null();
+}
+DEFINE_PRIM(wx_container_get_width,2)
+
+
+value wx_container_set_width(value inContainer, value inWhich, value inW)
+{
+   Container *container;
+   if ( ValueToWX(inContainer,container) )
+      container->SetWidth(val_int(inW),(SizeType)val_int(inWhich));
+   return alloc_null();
+}
+DEFINE_PRIM(wx_container_set_width,3)
+
+
+value wx_container_get_height(value inContainer, value inWhich)
+{
+   Container *container;
+   if ( ValueToWX(inContainer,container) )
+      return alloc_int(container->GetSize((SizeType)val_int(inWhich)).y);
+   return alloc_null();
+}
+DEFINE_PRIM(wx_container_get_height,2)
+
+
+value wx_container_set_height(value inContainer, value inWhich, value inW)
+{
+   Container *container;
+   if ( ValueToWX(inContainer,container) )
+      container->SetHeight(val_int(inW),(SizeType)val_int(inWhich));
+   return alloc_null();
+}
+DEFINE_PRIM(wx_container_set_height,3)
 
 
 
