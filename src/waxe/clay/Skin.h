@@ -17,6 +17,7 @@ enum SkinColour
    scError,
    scTitle,
    scTitleText,
+   scTitleTextShadow,
    scTabOutline,
    sc3DLight,
    sc3DDark,

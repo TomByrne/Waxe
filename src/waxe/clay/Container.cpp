@@ -894,14 +894,17 @@ public:
       return false;
    }
 
-   virtual void DoLeave(wxMouseEvent &inEvent)
+   virtual void DoLeave()
    {
       ButtonRelease();
+      // TODO : this does not seem to work on wxMac
+      if (mSnoopWindow)
+         mSnoopWindow->SetCursor(0);
    }
 
    void OnLeave(wxMouseEvent &inEvent)
    {
-      DoLeave(inEvent);
+      DoLeave();
       inEvent.Skip();
    }
 
@@ -2717,10 +2720,10 @@ public:
       inEvent.Skip();
    }
 
-   void DoLeave(wxMouseEvent &inEvent)
+   void DoLeave()
    {
       QuickRelease();
-      super::ButtonRelease();
+      super::DoLeave();
    }
 
 

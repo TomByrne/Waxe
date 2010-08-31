@@ -60,6 +60,7 @@ class DefaultSkin : public Skin
 public:
    wxPen mActiveTabPen[21];
    wxPen mTabPen[21];
+   bool  mDoShadowText;
 
    DefaultSkin()
    {
@@ -72,6 +73,7 @@ public:
       mColour[scError] =  wxColour(255,0,255);
       mColour[scTitle] =  wxColour(80,80,180);
       mColour[scTitleText] =  wxColour(255,255,255);
+      mColour[scTitleTextShadow] =  wxColour(0,0,0);
       mColour[scTabOutline] =  wxColour(20,20,128);
       mColour[scBlack] =  wxColour(0,0,0);
 
@@ -89,9 +91,9 @@ public:
                           mColour[scMedium].Green() - dg/2,
                           mColour[scMedium].Blue() - db/2 );
    
-      mFont = new wxFont(10,wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL,
+      mFont = new wxFont(12,wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL,
                           wxFONTWEIGHT_LIGHT);
-      mFontActive = new wxFont(10,wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL,
+      mFontActive = new wxFont(12,wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL,
                           wxFONTWEIGHT_NORMAL);
 
       int r0 = mColour[scLight].Red();
@@ -101,6 +103,8 @@ public:
       dr = mColour[scDark].Red()-r0;
       dg = mColour[scDark].Green()-g0;
       db = mColour[scDark].Blue()-b0;
+
+      mDoShadowText = true;
 
       for(int y=0;y<21;y++)
       {
@@ -222,8 +226,13 @@ public:
    
       if (!inTitle.empty())
       {
-         inDC.SetTextForeground(mColour[scTitleText]);
          inDC.SetFont(*mFontActive);
+         if (mDoShadowText)
+         {
+            inDC.SetTextForeground(mColour[scTitleTextShadow]);
+            inDC.DrawText(inTitle,r.x+5,r.y+3);
+         }
+         inDC.SetTextForeground(mColour[scTitleText]);
          inDC.DrawText(inTitle,r.x+4,r.y+2);
       }
    
@@ -506,6 +515,12 @@ public:
          inX+=inIcon->GetWidth()+1;
       }
 
+      if (mDoShadowText)
+      {
+         inDC.SetTextForeground(*wxWHITE);
+         inDC.DrawText(inText,inX,inY+4);
+      }
+      inDC.SetTextForeground(*wxBLACK);
       inDC.DrawText(inText,inX,inY+3);
    }
    
