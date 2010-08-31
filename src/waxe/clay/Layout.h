@@ -6,7 +6,9 @@
 #include<vector>
 #include<map>
 
+#ifndef HX_WINDOWS
 #define PSEUDO_MDI
+#endif
 
 
 DECLARE_EVENT_TYPE(wxEVT_WINDOW_LIST_CHANGED, -1)

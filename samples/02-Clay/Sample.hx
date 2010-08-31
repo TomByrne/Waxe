@@ -20,7 +20,7 @@ class Sample
 
       var content = wx.Panel.create(mFrame,null,null,{width:200,height:200});
       content.onPaint = paintWindow;
-      c1.addWindow(content,AddPosition.Over);
+      root.addWindow(content,AddPosition.Over);
 
       var content = wx.Panel.create(mFrame,null,null,{width:50,height:50});
       content.onPaint = paintWindow;

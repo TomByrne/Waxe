@@ -262,7 +262,11 @@ public:
       mChild = 0;
       mIsFloating = inFloating;
 
+		#ifdef HX_WINDOWS
+      mCursorWindow = 0;
+		#else
       mCursorWindow = new CursorWindow(mFrame,this);
+		#endif
    }
 
    ContainerStyle GetStyle() { return csFrame; } 
@@ -3117,7 +3121,9 @@ public:
    Container *Add(Container *inContainer,AddPosition inWhere)
    {
       if (inWhere!=apOver)
+		{
          return Container::Add(inContainer,inWhere);
+		}
 
        MyMDIChildFrame *child =
           new MyMDIChildFrame(mMDI,GetManager(),this);
@@ -3146,7 +3152,7 @@ public:
    // Window info ...
    wxString     GetCaption() { return "MDI Child"; }
    const wxIconBundle *GetIconSet() { return 0; }
-   wxWindow *AsParent() { return mMDI; }
+   wxWindow *AsParent() { return mClient; }
 
 
    // Container details

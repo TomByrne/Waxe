@@ -91,9 +91,16 @@ public:
                           mColour[scMedium].Green() - dg/2,
                           mColour[scMedium].Blue() - db/2 );
    
-      mFont = new wxFont(12,wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL,
+		#ifdef HX_WINDOWS
+		int size = 10;
+		mDoShadowText = false;
+		#else
+		int size = 12;
+		mDoShadowText = true;
+		#endif
+      mFont = new wxFont(size,wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL,
                           wxFONTWEIGHT_LIGHT);
-      mFontActive = new wxFont(12,wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL,
+      mFontActive = new wxFont(size,wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL,
                           wxFONTWEIGHT_NORMAL);
 
       int r0 = mColour[scLight].Red();
@@ -104,7 +111,6 @@ public:
       dg = mColour[scDark].Green()-g0;
       db = mColour[scDark].Blue()-b0;
 
-      mDoShadowText = true;
 
       for(int y=0;y<21;y++)
       {
