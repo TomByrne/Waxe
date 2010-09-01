@@ -41,6 +41,10 @@ class Container
    }
    public function addToolbox(inToolbox:Toolbox, inWhere:AddPosition )
    {
+       var container = new Container();
+       container.wxHandle = wx_container_add_window(wxHandle, inToolbox.wxHandle, container,
+           Type.enumIndex(inWhere), 0, true );
+       return container;
    }
 
    public function wxGetParent() : Container { return null; }

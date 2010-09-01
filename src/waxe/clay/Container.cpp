@@ -983,7 +983,7 @@ public:
        HostedContainer(inManager)
    {
       mToolBox = inToolBox;
-      mWindow = *inToolBox;
+      mWindow = inToolBox;
       mStyle = wsToolbar;
       mFlags  = 0;
       Init();

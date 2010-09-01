@@ -405,9 +405,13 @@ public:
 typedef std::vector<ToolBoxTool *> ToolBoxTools;
 
 
+ToolBox::ToolBox(wxWindow *inParent,const wxString &inName) :
+       wxPanel(inParent,-1,wxDefaultPosition,wxDefaultSize, wxCLIP_CHILDREN, inName)
+{
+}
 
 
-class ToolBoxImpl : public wxPanel, public ToolBox
+class ToolBoxImpl : public ToolBox
 {
    static const int HGap = 2;
    static const int VGap = 2;
@@ -417,8 +421,7 @@ class ToolBoxImpl : public wxPanel, public ToolBox
 public:
    ToolBoxImpl(wxWindow *inParent,ToolButtonLabel inPos, bool inRadioPreview,
           ToolBoxSkin *inSkin,const wxString &inName) :
-       wxPanel(inParent,-1,wxDefaultPosition,wxDefaultSize,
-          wxCLIP_CHILDREN, inName),
+       ToolBox(inParent,inName),
             mLabelPos(inPos), mRadioPreview(inRadioPreview),
             mSkin(inSkin)
    {

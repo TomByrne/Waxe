@@ -1,5 +1,6 @@
 #include <HaxeAPI.h>
 #include "clay/Layout.h"
+#include "clay/ToolBox.h"
 
 using namespace clay;
 
@@ -107,6 +108,39 @@ value wx_container_set_height(value inContainer, value inWhich, value inW)
 }
 DEFINE_PRIM(wx_container_set_height,3)
 
+
+
+// --- Toolbox ----------------------------------------------
+
+
+value wx_toolbox_create(value inParent, value inName, value inPos, value inRadioPreview, value inSkin)
+{
+   wxWindow *parent;
+   ValueToWX(inParent,parent);
+
+   ToolBox *toolbox = ToolBox::Create(parent,(ToolButtonLabel)val_int(inPos), val_bool(inRadioPreview), 0, Val2Str(inName) );
+   return WXToValue(toolbox);
+}
+DEFINE_PRIM(wx_toolbox_create,5)
+
+value wx_toolbox_add_control(value inToolbox,value inControl)
+{
+   ToolBox *toolbox;
+   wxWindow *control;
+   if (ValueToWX(inToolbox,toolbox) && ValueToWX(inControl,control))
+      toolbox->AddControl(control);
+   return alloc_null();
+}
+DEFINE_PRIM(wx_toolbox_add_control,2)
+
+value wx_toolbox_add_separator(value inToolbox)
+{
+   ToolBox *toolbox;
+   if (ValueToWX(inToolbox,toolbox))
+      toolbox->AddSeparator();
+   return alloc_null();
+}
+DEFINE_PRIM(wx_toolbox_add_separator,1)
 
 
 

@@ -8,7 +8,7 @@ class Window
    public var wxHandle:Dynamic;
 	var wxEventHandlers:IntHash<Dynamic->Void>;
 
-	public static var INVALID_PARENT = "Invalid Parent";
+   public static var INVALID_PARENT = "Invalid Parent";
 
 
    public var size(getSize,setSize):Size;
@@ -16,6 +16,7 @@ class Window
    public var clientSize(getClientSize,setClientSize):Size;
    public var position(getPosition,setPosition):Position;
    public var shown(isShown,show):Bool;
+   public var name(getName,setName):String;
    public var backgroundColour(getBackgroundColour,setBackgroundColour):Int;
 
 
@@ -116,6 +117,15 @@ class Window
 		return inColour;
 	}
 
+	public function getName() : String { return wx_window_get_name(wxHandle); }
+	public function setName(inName:String) : String
+	{
+		wx_window_set_name(wxHandle, inName);
+		return inName;
+	}
+
+
+
 
 
    // Helpers ...
@@ -150,6 +160,8 @@ class Window
    static var wx_window_set_shown = neko.Lib.load("waxe","wx_window_set_shown",2);
    static var wx_window_get_bg_colour = neko.Lib.load("waxe","wx_window_get_bg_colour",1);
    static var wx_window_set_bg_colour = neko.Lib.load("waxe","wx_window_set_bg_colour",2);
+   static var wx_window_get_name = neko.Lib.load("waxe","wx_window_get_name",1);
+   static var wx_window_set_name = neko.Lib.load("waxe","wx_window_set_name",2);
 }
 
 

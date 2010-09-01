@@ -8,26 +8,20 @@
 namespace clay
 {
 
-enum ToolButtonLabel { tblNone, tblRight, tblBottom };
-
 class ToolBoxTool;
 
+enum ToolButtonLabel { tblNone, tblRight, tblBottom };
 
-class ToolBox
+class ToolBox : public wxPanel
 {
 public:
+   ToolBox(wxWindow *inParent,const wxString &inName);
+
    static ToolBox *Create(wxWindow *inParent,
                   ToolButtonLabel inLabelPos = tblNone,
                   bool inRadioPreview = true,
                   class ToolBoxSkin *inSkin = 0,
                   const wxString &inName="Toolbar");
-
-   // Since toolbox is a wxWindow, you probalbly don't need to call this
-   //  explicity.
-   virtual ~ToolBox() { }
-
-   // For using it as a parent for controls
-   virtual operator wxWindow *() = 0;
 
    virtual ToolBoxTool *AddControl(wxWindow *inControl) = 0;
 
