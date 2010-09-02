@@ -80,6 +80,7 @@ public:
    virtual bool ShouldFloatFullFrame() const { return false; }
    virtual bool CanClose() { return true; }
    virtual bool ShouldClose() { return true; }
+   virtual Container *FindClientContainer() { return 0; }
 
    virtual void Raise() = 0;
 

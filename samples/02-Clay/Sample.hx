@@ -14,11 +14,10 @@ class Sample
       mManager = new wx.clay.Manager(mFrame);
       var root = mManager.root;
 
-
       var content = wx.Panel.create(mFrame,null,null,{width:200,height:200});
       content.name = "Panel 1";
       content.onPaint = paintWindow;
-      var c1 = mManager.root.addWindow(content,AddPosition.Over);
+      var c1 = mManager.root.addWindow(content,AddPosition.Left);
 
       var content = wx.Panel.create(mFrame,null,null,{width:200,height:200});
       content.name = "Panel 2";
@@ -28,13 +27,14 @@ class Sample
       var content = wx.Panel.create(mFrame,null,null,{width:50,height:50});
       content.name = "Panel 3";
       content.onPaint = paintWindow;
-      var container = root.addWindow(content,AddPosition.Left);
+      var container = root.addWindow(content,AddPosition.Over);
       container.minWidth = 200;
       container.minHeight = 200;
 
       var toolbar = new wx.clay.Toolbox(mFrame,"Toolbar 1");
       toolbar.addControl(wx.ComboBox.create(toolbar,null,"Combo",null, ["Opt 1","Opt 2"] ));
-      container.addToolbox(toolbar,AddPosition.Above);
+      toolbar.addSeparator();
+      root.addToolbox(toolbar,AddPosition.Above);
 
       wx.App.setTopWindow(mFrame);
       mFrame.shown = true;

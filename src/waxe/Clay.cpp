@@ -49,7 +49,7 @@ DEFINE_PRIM(wx_clay_man_get_root,1)
 
 value wx_container_add_window(value *arg, int argc)
 {
-   enum { aParent, aWindow, aNewContainer, aWhere, aFlags, aAsToolbar, aSIZE };
+   enum { aParent, aWindow, aNewContainer, aWhere, aFlags, aSIZE };
 
    Container *parent;
    wxWindow    *window;
@@ -60,8 +60,13 @@ value wx_container_add_window(value *arg, int argc)
    if (! ValueToWX(arg[aWindow],window) )
       return alloc_null();
 
-   Container *c = parent->Add(window, (AddPosition)val_int(arg[aWhere]), wxIconBundle(),
-          val_int(arg[aFlags]), val_bool(arg[aAsToolbar]) ? wsToolbar : wsNormal );
+   Container *c = 0;
+
+   ToolBox *toolbox;
+   if (ValueToWX(arg[aWindow],toolbox) )
+      c = parent->Add(toolbox, (AddPosition)val_int(arg[aWhere]) );
+   else
+      c = parent->Add(window, (AddPosition)val_int(arg[aWhere]), wxIconBundle(), val_int(arg[aFlags]), wsNormal );
 
    c->mData.SetClientObject( new HaxeData(arg[aNewContainer]) );
    return WXToValue(c);

@@ -185,7 +185,12 @@ Container *Container::Add(Container *inContainer,AddPosition inWhere)
          new_child = mManager->Create(csVStack,wide ? stWideDock : stTallDock);
          break;
       case apOver:
+         {
+         Container *client = FindClientContainer();
+         if (client)
+            return client->Add(inContainer,inWhere);
          new_child = mManager->Create(csNotebook);
+         }
    }
 
    wxRect r = Rect();
@@ -262,11 +267,11 @@ public:
       mChild = 0;
       mIsFloating = inFloating;
 
-		#ifdef HX_WINDOWS
+      #ifdef HX_WINDOWS
       mCursorWindow = 0;
-		#else
+      #else
       mCursorWindow = new CursorWindow(mFrame,this);
-		#endif
+      #endif
    }
 
    ContainerStyle GetStyle() { return csFrame; } 
@@ -389,8 +394,10 @@ public:
       delete this;
    }
 
+   Container *FindClientContainer() { return mChild?mChild->FindClientContainer():0; }
 
 
+   // FrameContainer
    Container *Add(Container *inContainer, AddPosition inWhere)
    {
       if (!mChild)
@@ -400,8 +407,17 @@ public:
       }
       else
       {
-         if (mChild->CanAddChild(inWhere))
+         Container *client = 0;
+         if (inWhere==apOver)
+             client = FindClientContainer();
+         if (client)
+         {
+            return client->Add(inContainer,inWhere);
+         }
+         else if (mChild->CanAddChild(inWhere))
+         {
             mChild->Add(inContainer,inWhere);
+         }
          else
          {
             Container *new_child = 0;
@@ -431,6 +447,7 @@ public:
       OnChildChange(ccfCaption|ccfMinSize|ccfChildAdded,this);
       return inContainer;
    }
+
 
    Container *Insert(Container *inContainer,Container *inSibling,
                          AddPosition inWhere)
@@ -483,6 +500,7 @@ public:
    }
 
 
+   // Frame Container
    virtual bool CanAddChild()  { return true; }
 
 
@@ -511,9 +529,11 @@ public:
          mChild->SetRect( Rect() );
          mChild->RecordSize(stFloating);
       }
-      inEvt.Skip();
+      // Don't skip so we can avoid msw mdi moving our client window
+      //inEvt.Skip();
    }
 
+   // Frame Container
    void DoLayout()
    {
       if (mChild)
@@ -1337,6 +1357,17 @@ public:
          Container *child = mChildren[i];
          child->Reparent(this);
       }
+   }
+
+
+   Container *FindClientContainer()
+   {
+      for(int i=0;i<mChildren.size();i++)
+      {
+         Container *c = mChildren[i]->FindClientContainer();
+         if (c) return c;
+      }
+      return 0;
    }
 
 
@@ -2917,8 +2948,6 @@ public:
    }
 
 
-
-
    // MyMDIChildFrame
    void OnChildChange(unsigned int inFlags,Container *inContainer)
    {
@@ -2968,9 +2997,7 @@ public:
    bool ShowsChildsTitle() { return true; }
 
    wxWindow *AsParent() { return this; }
-
    Container *mClientContainer;
-
 };
 
 
@@ -2984,10 +3011,12 @@ class MDIClientContainer : public NotebookContainer
 public:
    MDIClientContainer(Manager *inManager, wxMDIParentFrame *inFrame) : super(inManager)
    {
-     mFrame = inFrame;
+      mFrame = inFrame;
+      mClient = inFrame->GetClientWindow();
+      wxSize s = mFrame->GetClientSize();
       for(int i=0;i<stSIZE;i++)
-         mSizes[i] = wxSize(200,200);
-      mSizes[stMin] = wxSize(40,20);
+         mSizes[i] = s;
+      mSizes[stMin] = wxSize(20,20);
       mSizes[stMax] = wxSize(0xffff,0xffff);
    }
 
@@ -2995,8 +3024,8 @@ public:
 
    virtual bool CanAddChild(AddPosition inWhere) 
    {
-      //return inWhere==apOver;
-      return true;
+      return inWhere==apOver;
+      //return true;
    }
 
    void OnSingleChild()
@@ -3004,11 +3033,23 @@ public:
       DoLayout();
    }
 
+   /*
+   Container *Add(Container *inContainer,AddPosition inWhere)
+   {
+      return super::Add(inContainer,inWhere);
+   }
+   */
+
+   Container *FindClientContainer() { return this; }
+
+   ContainerStyle GetStyle() { return csMDIClient; }
+
    bool CanRemove() const { return false; }
 
 
    bool Visible() { return true; }
 
+   wxMDIClientWindow *mClient;
 };
 
 #else
@@ -3121,19 +3162,19 @@ public:
    Container *Add(Container *inContainer,AddPosition inWhere)
    {
       if (inWhere!=apOver)
-		{
+      {
          return Container::Add(inContainer,inWhere);
-		}
+      }
 
-       MyMDIChildFrame *child =
+      MyMDIChildFrame *child =
           new MyMDIChildFrame(mMDI,GetManager(),this);
 
-       child->SetClientSize( inContainer->GetSize(stFloating) );
+      child->SetClientSize( inContainer->GetSize(stFloating) );
 
-       child->Add(inContainer,inWhere);
-       super::mChildren.push_back(child);
-       DoLayout();
-       return inContainer;
+      child->Add(inContainer,inWhere);
+      super::mChildren.push_back(child);
+      DoLayout();
+      return inContainer;
    }
 
    Container *Insert(Container *inContainer,Container *inSibling,
@@ -3206,6 +3247,7 @@ public:
       return false;
    }
 
+   Container *FindClientContainer() { return this; }
    
    // MDI Client container
    void GetDockPos(Container *inDrop, int inDirection, wxRect &outDock)

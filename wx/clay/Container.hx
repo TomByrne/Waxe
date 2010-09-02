@@ -32,18 +32,18 @@ class Container
    }
 
    public function addWindow(inWindow:wx.Window, inWhere:AddPosition, /* Icons */
-                     inFlags:Int = 0, inAsToolbar:Bool = false ) : Container
+                     inFlags:Int = 0 ) : Container
    {
        var container = new Container();
        container.wxHandle = wx_container_add_window(wxHandle, inWindow.wxHandle, container,
-           Type.enumIndex(inWhere), inFlags, inAsToolbar );
+           Type.enumIndex(inWhere), inFlags );
        return container;
    }
    public function addToolbox(inToolbox:Toolbox, inWhere:AddPosition )
    {
        var container = new Container();
        container.wxHandle = wx_container_add_window(wxHandle, inToolbox.wxHandle, container,
-           Type.enumIndex(inWhere), 0, true );
+           Type.enumIndex(inWhere), 0 );
        return container;
    }
 
