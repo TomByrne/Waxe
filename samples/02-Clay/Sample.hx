@@ -7,6 +7,7 @@ class Sample
 {
    var mFrame : wx.Frame;
    var mManager : wx.clay.Manager;
+   var mBmp:wx.Bitmap;
 
    function new()
    {
@@ -34,6 +35,8 @@ class Sample
       var toolbar = new wx.clay.Toolbox(mFrame,"Toolbar 1");
       toolbar.addControl(wx.ComboBox.create(toolbar,null,"Combo",null, ["Opt 1","Opt 2"] ));
       toolbar.addSeparator();
+      mBmp = wx.Bitmap.fromResource("bitmaps/new.bmp");
+      toolbar.addTool(1000, "New", mBmp, false, "Create new thingy" );
       root.addToolbox(toolbar,AddPosition.Above);
 
       wx.App.setTopWindow(mFrame);
@@ -56,6 +59,7 @@ class Sample
       dc.drawEllipse(100,200,200,40);
       dc.font = new wx.Font(20);
       dc.drawText("Hello!",20,20);
+      dc.drawBitmap(mBmp,100,100,true);
    }
 
    public static function main()

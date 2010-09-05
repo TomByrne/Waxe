@@ -4,6 +4,8 @@
 #include <wx/wx.h>
 #include <hx/CFFI.h>
 
+typedef unsigned char uint8;
+
 wxString Val2Str(value inVal);
 int Val2Int(value inVal, int inDefault);
 wxPoint Val2Point(value inVal);
@@ -12,6 +14,14 @@ wxSizer *Val2Sizer(value inVal);
 bool Val2Bool(value inVal,bool inDefault=false);
 wxColour Val2Colour(value inVa);
 wxArrayString &Val2ArrayString(value inVal,wxArrayString &outStrings);
+
+struct ByteData
+{
+   uint8 *data;
+   int   length;
+};
+ByteData Val2ByteData(value inData);
+
 
 value WXToValue(const wxPoint &inPoint);
 value WXToValue(const wxSize &inSize);

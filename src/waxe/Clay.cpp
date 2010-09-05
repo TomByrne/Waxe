@@ -148,5 +148,23 @@ value wx_toolbox_add_separator(value inToolbox)
 DEFINE_PRIM(wx_toolbox_add_separator,1)
 
 
+value wx_toolbox_add_tool(value *arg,int argc)
+{
+   enum { aToolbox, aID, aLabel, aBitmap, aRadio, aHelp };
+
+   ToolBox *toolbox;
+   if (ValueToWX(arg[aToolbox],toolbox))
+   {
+      wxBitmap *bitmap;
+      wxBitmap empty;
+      ValueToWX(arg[aBitmap],bitmap);
+      if (!bitmap) bitmap = &empty;
+      toolbox->AddTool( val_int(arg[aID]),  Val2Str(arg[aLabel]), *bitmap,
+                 Val2Str(arg[aHelp]), val_bool(arg[aRadio]) ? wxITEM_RADIO : wxITEM_NORMAL );
+   }
+   return alloc_null();
+}
+DEFINE_PRIM_MULT(wx_toolbox_add_tool)
+
 
 

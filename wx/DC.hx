@@ -58,6 +58,10 @@ class DC
    {
       wx_dc_draw_text(wxHandle,text,x,y);
    }
+   public function drawBitmap(bitmap:Bitmap,x:Int, y:Int, inTransparent:Bool)
+   {
+      wx_dc_draw_bitmap(wxHandle,bitmap.wxHandle,x,y,inTransparent);
+   }
 
    static public function createPaintDC(inWindow:Window)
    {
@@ -76,4 +80,5 @@ class DC
    static var wx_dc_draw_circle = neko.Lib.load("waxe","wx_dc_draw_circle",4);
    static var wx_dc_draw_ellipse = neko.Lib.load("waxe","wx_dc_draw_ellipse",5);
    static var wx_dc_draw_text = neko.Lib.load("waxe","wx_dc_draw_text",4);
+   static var wx_dc_draw_bitmap = neko.Lib.load("waxe","wx_dc_draw_bitmap",5);
 }

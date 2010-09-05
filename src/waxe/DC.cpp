@@ -69,6 +69,20 @@ value wx_dc_draw_text(value inDC, value text, value x, value y)
 DEFINE_PRIM(wx_dc_draw_text,4)
 
 
+value wx_dc_draw_bitmap(value inDC, value inBitmap, value x, value y, value transparent)
+{
+	wxDC *dc;
+	wxBitmap *bitmap;
+	if (ValueToWX(inDC,dc) && ValueToWX(inBitmap,bitmap) )
+	{
+		dc->DrawBitmap(*bitmap, val_int(x), val_int(y), val_bool(transparent) );
+	}
+	return alloc_null();
+}
+DEFINE_PRIM(wx_dc_draw_bitmap,5)
+
+
+
 
 
 value wx_dc_clear(value inDC)

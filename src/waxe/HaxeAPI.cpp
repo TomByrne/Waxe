@@ -92,6 +92,28 @@ wxArrayString &Val2ArrayString(value inVal,wxArrayString &outStrings)
 	return outStrings;
 }
 
+ByteData Val2ByteData(value inData)
+{
+	ByteData result;
+	result.data = 0;
+	result.length = 0;
+	// Neko byte array....
+	if (val_is_string(inData))
+	{
+		result.length = val_strlen(inData);
+		result.data = (uint8 *)val_string(inData);
+	}
+	else if (val_is_buffer(inData))
+	{
+		buffer buf = val_to_buffer(inData);
+		result.length = buffer_size(buf);
+		result.data = (uint8 *)buffer_data(buf);
+	}
+	return result;
+}
+
+
+
 
 value WXToValue(wxObject *inObj)
 {

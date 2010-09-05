@@ -1,5 +1,7 @@
 package wx.clay;
 
+import wx.Bitmap;
+
 class Toolbox extends wx.Window
 {
    public static var LABEL_NONE = 0;
@@ -22,6 +24,11 @@ class Toolbox extends wx.Window
       wx_toolbox_add_control(wxHandle,inControl.wxHandle);
    }
 
+   public function addTool(inID:Int, inLabel:String, inBitmap:Bitmap, inRadio:Bool=false, ?help:String ) : Void
+   {
+      wx_toolbox_add_tool(wxHandle, inID, inLabel, inBitmap==null?null:inBitmap.wxHandle, inRadio, help );
+   }
+
    public function addSeparator()
    {
       return wx_toolbox_add_separator(wxHandle);
@@ -31,5 +38,6 @@ class Toolbox extends wx.Window
    static var wx_toolbox_create = neko.Lib.load("waxe","wx_toolbox_create",5);
    static var wx_toolbox_add_control = neko.Lib.load("waxe","wx_toolbox_add_control",2);
    static var wx_toolbox_add_separator = neko.Lib.load("waxe","wx_toolbox_add_separator",1);
+   static var wx_toolbox_add_tool = neko.Lib.load("waxe","wx_toolbox_add_tool",-1);
 
 }
