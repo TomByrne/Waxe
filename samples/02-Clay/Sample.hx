@@ -47,7 +47,9 @@ class Sample
       root.addToolbox(toolbar,AddPosition.Above);
 
       var bar = new wx.MenuBar();
-      var menu = new wx.Menu("File");
+      var menu = new wx.Menu();
+		menu.append(1,"Hello!");
+		bar.append(menu,"File");
       mFrame.menuBar = bar;
 
       wx.App.setTopWindow(mFrame);

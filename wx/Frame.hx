@@ -21,7 +21,7 @@ class Frame extends TopLevelWindow
 
    public function wxSetMenuBar(inBar:wx.MenuBar)
    {
-      wx_frame_set_menu_bar(wxHandle,inBar);
+      wx_frame_set_menu_bar(wxHandle,inBar.wxHandle);
       return inBar;
    }
 
