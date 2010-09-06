@@ -15,7 +15,7 @@ class App
 
   public static function setTopWindow(inWindow:TopLevelWindow)
   {
-     wx_set_top_window(inWindow.wxGetHandle());
+     wx_set_top_window(inWindow.wxHandle);
   }
 
 

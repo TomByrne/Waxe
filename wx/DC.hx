@@ -65,7 +65,7 @@ class DC
 
    static public function createPaintDC(inWindow:Window)
    {
-      return new DC(wx_dc_create_paint(inWindow.wxGetHandle()));
+      return new DC(wx_dc_create_paint(inWindow.wxHandle));
    }
 
    static var wx_dc_create_paint = neko.Lib.load("waxe","wx_dc_create_paint",1);

@@ -2,6 +2,7 @@ package wx;
 
 class Frame extends TopLevelWindow
 {
+   public var menuBar(null,wxSetMenuBar) : wx.MenuBar;
 
    public static function create(inParent:Window, ?inID:Int, inTitle:String="",
 						?inPosition:{x:Float,y:Float},
@@ -18,6 +19,13 @@ class Frame extends TopLevelWindow
 	   super(inHandle);
    }
 
+   public function wxSetMenuBar(inBar:wx.MenuBar)
+   {
+      wx_frame_set_menu_bar(wxHandle,inBar);
+      return inBar;
+   }
+
    static var wx_frame_create = neko.Lib.load("waxe","wx_frame_create",1);
+   static var wx_frame_set_menu_bar = neko.Lib.load("waxe","wx_frame_set_menu_bar",2);
 
 }

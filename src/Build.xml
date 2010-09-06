@@ -35,6 +35,7 @@
    <file name="waxe/Brush.cpp"/>
    <file name="waxe/Font.cpp"/>
    <file name="waxe/Bitmap.cpp"/>
+   <file name="waxe/Menu.cpp"/>
    <file name="waxe/Scintilla.cpp"/>
 
    <file name="waxe/Clay.cpp"/>

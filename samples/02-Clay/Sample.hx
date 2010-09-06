@@ -32,17 +32,29 @@ class Sample
       container.minWidth = 200;
       container.minHeight = 200;
 
+      mBmp = wx.Bitmap.fromResource("bitmaps/new.bmp");
       var toolbar = new wx.clay.Toolbox(mFrame,"Toolbar 1");
       toolbar.addControl(wx.ComboBox.create(toolbar,null,"Combo",null, ["Opt 1","Opt 2"] ));
       toolbar.addSeparator();
-      mBmp = wx.Bitmap.fromResource("bitmaps/new.bmp");
-      toolbar.addTool(1000, "New", mBmp, false, "Create new thingy" );
+      toolbar.addTool(1000, "New", BMP("new"), false, "Create new thingy" );
+      toolbar.addTool(1000, "Open", BMP("open"), false, "Open" );
+      toolbar.addTool(1000, "Save", BMP("save"), false, "Save" );
+      toolbar.addTool(1000, "Print", BMP("print"), false, "Print" );
+      toolbar.addSeparator();
+      toolbar.addTool(1001, "Cut", BMP("cut"), false, "Cut" );
+      toolbar.addTool(1001, "Copy", BMP("copy"), false, "Copy" );
+      toolbar.addTool(1001, "Paste", BMP("paste"), false, "Paste" );
       root.addToolbox(toolbar,AddPosition.Above);
+
+      var bar = new wx.MenuBar();
+      var menu = new wx.Menu("File");
+      mFrame.menuBar = bar;
 
       wx.App.setTopWindow(mFrame);
       mFrame.shown = true;
    }
 
+   function BMP(inName:String) { return wx.Bitmap.fromResource("bitmaps/" + inName + ".bmp"); }
 
 
    function paintWindow(dc:wx.DC)
