@@ -34,22 +34,25 @@ class Sample
 
       mBmp = wx.Bitmap.fromResource("bitmaps/new.bmp");
       var toolbar = new wx.clay.Toolbox(mFrame,"Toolbar 1");
+      var id = 1000;
       toolbar.addControl(wx.ComboBox.create(toolbar,null,"Combo",null, ["Opt 1","Opt 2"] ));
       toolbar.addSeparator();
-      toolbar.addTool(1000, "New", BMP("new"), false, "Create new thingy" );
-      toolbar.addTool(1000, "Open", BMP("open"), false, "Open" );
-      toolbar.addTool(1000, "Save", BMP("save"), false, "Save" );
-      toolbar.addTool(1000, "Print", BMP("print"), false, "Print" );
+      mFrame.handle(toolbar.addTool(id++, "New", BMP("new"), false, "Create new thingy" ), onNew );
+      toolbar.addTool(id++, "Open", BMP("open"), false, "Open" );
+      toolbar.addTool(id++, "Save", BMP("save"), false, "Save" );
+      toolbar.addTool(id++, "Print", BMP("print"), false, "Print" );
       toolbar.addSeparator();
-      toolbar.addTool(1001, "Cut", BMP("cut"), false, "Cut" );
-      toolbar.addTool(1001, "Copy", BMP("copy"), false, "Copy" );
-      toolbar.addTool(1001, "Paste", BMP("paste"), false, "Paste" );
+      toolbar.addTool(id++, "Cut", BMP("cut"), false, "Cut" );
+      toolbar.addTool(id++, "Copy", BMP("copy"), false, "Copy" );
+      toolbar.addTool(id++, "Paste", BMP("paste"), false, "Paste" );
       root.addToolbox(toolbar,AddPosition.Above);
 
       var bar = new wx.MenuBar();
       var menu = new wx.Menu();
-		menu.append(1,"Hello!");
-		bar.append(menu,"File");
+      mFrame.handle(menu.append(id++,"Hello!"),function(_)  trace("Hello") );
+      mFrame.handle(menu.append(id++,"Goodbye!"),function(_)  trace("Goodbye") );
+
+      bar.append(menu,"File");
       mFrame.menuBar = bar;
 
       wx.App.setTopWindow(mFrame);
@@ -57,6 +60,14 @@ class Sample
    }
 
    function BMP(inName:String) { return wx.Bitmap.fromResource("bitmaps/" + inName + ".bmp"); }
+
+   function onNew(inEvent:Dynamic)
+   {
+      var content = wx.Scintilla.create(mFrame,null,null,{width:200,height:200});
+      content.name = "Sample.hx";
+      content.value = neko.io.File.getContent("Sample.hx");
+      mManager.root.addWindow(content,AddPosition.Over);
+   }
 
 
    function paintWindow(dc:wx.DC)

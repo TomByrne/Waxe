@@ -17,14 +17,15 @@ class Menu extends EventHandler
    {
       trace("Menu Event!");
    }
-	public function append(inID:Int, inItem:String="", inHelp:String="", inKind:Int=0)
-	{
-	   wx_menu_append(wxHandle,inID,inItem,inHelp,inKind);
-	}
-	public function appendSeparator()
-	{
-	   wx_menu_append_separator(wxHandle);
-	}
+   public function append(inID:Int, inItem:String="", inHelp:String="", inKind:Int=0) : Int
+   {
+      wx_menu_append(wxHandle,inID,inItem,inHelp,inKind);
+      return inID;
+   }
+   public function appendSeparator()
+   {
+      wx_menu_append_separator(wxHandle);
+   }
 
 
    static var wx_menu_create = neko.Lib.load("waxe","wx_menu_create",2);

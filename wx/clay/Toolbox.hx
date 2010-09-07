@@ -24,9 +24,10 @@ class Toolbox extends wx.Window
       wx_toolbox_add_control(wxHandle,inControl.wxHandle);
    }
 
-   public function addTool(inID:Int, inLabel:String, inBitmap:Bitmap, inRadio:Bool=false, ?help:String ) : Void
+   public function addTool(inID:Int, inLabel:String, inBitmap:Bitmap, inRadio:Bool=false, ?help:String ) : Int
    {
       wx_toolbox_add_tool(wxHandle, inID, inLabel, inBitmap==null?null:inBitmap.wxHandle, inRadio, help );
+      return inID;
    }
 
    public function addSeparator()
