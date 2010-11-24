@@ -991,7 +991,7 @@
 // Default is 0.
 //
 // Recommended setting: 1 if you intend to use OpenGL, 0 otherwise
-#define wxUSE_GLCANVAS       0
+#define wxUSE_GLCANVAS       1
 
 // wxRichTextCtrl allows editing of styled text.
 //

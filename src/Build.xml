@@ -37,6 +37,7 @@
    <file name="waxe/Bitmap.cpp"/>
    <file name="waxe/Menu.cpp"/>
    <file name="waxe/Scintilla.cpp"/>
+   <file name="waxe/GLCanvas.cpp"/>
 
    <file name="waxe/Clay.cpp"/>
    <file name="waxe/clay/Container.cpp"/>
@@ -59,6 +60,7 @@
    <lib name="lib/Mac/libwxscintilla_mac.a" if="macos"/>
 
    <lib name="lib/Windows/wxmsw28.lib" if="windows"/>
+   <lib name="lib/Windows/wxmsw28_gl.lib" if="windows"/>
    <lib name="lib/windows/libwxscintilla.a" if="windows"/>
 
    <lib name="user32.lib" if="windows"/>
