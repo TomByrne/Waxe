@@ -217,6 +217,157 @@ HaxeEventHandler::~HaxeEventHandler()
    --handler_count;
 }
 
+
+#define WXK_TRANS(x) case WXK_##x: return key##x;
+
+static HKL gKeyboardLayout = 0;
+
+enum KeyCode
+{
+   keyA = 65,
+   keyZ = 90,
+
+   keyALTERNATE = 18,
+   keyBACKQUOTE = 192,
+   keyBACKSLASH = 220,
+   keyBACKSPACE = 8,
+   keyCAPS_LOCK = 20,
+   keyCOMMA = 188,
+   keyCOMMAND = 15,
+   keyCONTROL = 17,
+   keyDELETE = 46,
+   keyDOWN = 40,
+   keyEND = 35,
+   keyENTER = 13,
+   keyEQUAL = 187,
+   keyESCAPE = 27,
+   keyF1 = 112,
+   keyF2 = 113,
+   keyF3 = 114,
+   keyF4 = 115,
+   keyF5 = 116,
+   keyF6 = 117,
+   keyF7 = 118,
+   keyF8 = 119,
+   keyF9 = 120,
+   keyF10 = 121,
+   keyF11 = 122,
+   keyF12 = 123,
+   keyF13 = 124,
+   keyF14 = 125,
+   keyF15 = 126,
+   keyHOME = 36,
+   keyINSERT = 45,
+   keyLEFT = 37,
+   keyLEFTBRACKET = 219,
+   keyMINUS = 189,
+   keyNUMBER_0 = 48,
+   keyNUMBER_1 = 49,
+   keyNUMBER_2 = 50,
+   keyNUMBER_3 = 51,
+   keyNUMBER_4 = 52,
+   keyNUMBER_5 = 53,
+   keyNUMBER_6 = 54,
+   keyNUMBER_7 = 55,
+   keyNUMBER_8 = 56,
+   keyNUMBER_9 = 57,
+   keyNUMPAD = 21,
+   keyNUMPAD_0 = 96,
+   keyNUMPAD_1 = 97,
+   keyNUMPAD_2 = 98,
+   keyNUMPAD_3 = 99,
+   keyNUMPAD_4 = 100,
+   keyNUMPAD_5 = 101,
+   keyNUMPAD_6 = 102,
+   keyNUMPAD_7 = 103,
+   keyNUMPAD_8 = 104,
+   keyNUMPAD_9 = 105,
+   keyNUMPAD_ADD = 107,
+   keyNUMPAD_DECIMAL = 110,
+   keyNUMPAD_DIVIDE = 111,
+   keyNUMPAD_ENTER = 108,
+   keyNUMPAD_MULTIPLY = 106,
+   keyNUMPAD_SUBTRACT = 109,
+   keyPAGE_DOWN = 34,
+   keyPAGE_UP = 33,
+   keyPERIOD = 190,
+   keyQUOTE = 222,
+   keyRIGHT = 39,
+   keyRIGHTBRACKET = 221,
+   keySEMICOLON = 186,
+   keySHIFT = 16,
+   keySLASH = 191,
+   keySPACE = 32,
+   keyTAB = 9,
+   keyUP = 38,
+};
+
+
+
+
+int FlashCode(int inKey)
+{
+	if (inKey>=keyA && inKey<=keyZ)
+      return inKey;
+   if (inKey>='0' && inKey<='9')
+      return inKey;
+
+   if (inKey>=WXK_NUMPAD0 && inKey<=WXK_NUMPAD9)
+      return inKey - WXK_NUMPAD0 + keyNUMPAD_0;
+
+   if (inKey>=WXK_F1 && inKey<=WXK_F15)
+      return inKey - WXK_F1 + keyF1;
+
+
+   switch(inKey)
+   {
+      case WXK_MENU:
+         return keyALTERNATE;
+
+      case WXK_SHIFT:
+         return keySHIFT;
+
+      case WXK_CONTROL:
+         return keyCONTROL;
+      case WXK_WINDOWS_LEFT:
+      case WXK_WINDOWS_RIGHT:
+         return keyCOMMAND;
+
+      case WXK_CAPITAL: return keyCAPS_LOCK;
+      case WXK_NEXT: return keyPAGE_DOWN;
+      case WXK_PRIOR: return keyPAGE_UP;
+      case '=': return keyEQUAL;
+      case WXK_RETURN:
+         return keyENTER;
+
+      case '`' : return keyBACKQUOTE;
+      //case '\\' : return keyBACKSLASH;
+      case ',' : return keyCOMMA;
+      case WXK_BACK : return keyBACKSPACE;
+      case '-' : return keyMINUS;
+      case '.' : return keyPERIOD;
+      WXK_TRANS(DELETE)
+      WXK_TRANS(DOWN)
+      WXK_TRANS(END)
+      WXK_TRANS(ESCAPE)
+      WXK_TRANS(HOME)
+      WXK_TRANS(INSERT)
+      WXK_TRANS(LEFT)
+      // case '(' : return keyLEFTBRACKET;
+      //WXK_TRANS(QUOTE)
+      WXK_TRANS(RIGHT)
+      //WXK_TRANS(RIGHTBRACKET)
+      //WXK_TRANS(SEMICOLON)
+      //WXK_TRANS(SLASH)
+      WXK_TRANS(SPACE)
+      WXK_TRANS(TAB)
+      WXK_TRANS(UP)
+   }
+
+   return inKey;
+}
+
+
 bool HaxeEventHandler::ProcessEvent(wxEvent& event)
 {
    value data = val_null;
@@ -257,6 +408,22 @@ bool HaxeEventHandler::ProcessEvent(wxEvent& event)
 		alloc_field(obj,val_id("shiftDown"),alloc_bool(me->ShiftDown()));
 		alloc_field(obj,val_id("cmdDown"),alloc_bool(me->CmdDown()));
 	}
+
+	wxKeyEvent *ke = wxDynamicCast(&event,wxKeyEvent);
+	if (ke)
+	{
+		alloc_field(obj,val_id("x"),alloc_int(ke->GetX()));
+		alloc_field(obj,val_id("y"),alloc_int(ke->GetY()));
+		alloc_field(obj,val_id("controlDown"),alloc_bool(ke->ControlDown()));
+		alloc_field(obj,val_id("metaDown"),alloc_bool(ke->MetaDown()));
+		alloc_field(obj,val_id("shiftDown"),alloc_bool(ke->ShiftDown()));
+		alloc_field(obj,val_id("cmdDown"),alloc_bool(ke->CmdDown()));
+		int code = ke->GetKeyCode();
+		if (code==WXK_DELETE) code = 8;
+		alloc_field(obj,val_id("code"),alloc_int(code<=193 ?code:0));
+		alloc_field(obj,val_id("flashCode"),alloc_int(FlashCode(code)));
+	}
+
 
 	val_ocall1(*mObject,val_id("_handle_event"),obj);
 

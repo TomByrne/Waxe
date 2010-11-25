@@ -15,8 +15,29 @@ class EventHandler
    function _wx_deleted() { wxHandle = null; }
    function _handle_event(event:Dynamic) { HandleEvent(event); }
 
+   /*
+	  All events have these fields:
+	   "type"
+	   "name"
+	   "skip"
+	   "veto"
+	   "id"
+
+     Mouse Events have additional fields:
+	   "x"
+	   "y"
+	   "leftIsDown"
+	   "middleIsDown"
+	   "rightIsDown"
+	   "wheelDelta"
+	   "controlDown"
+	   "metaDown"
+	   "shiftDown"
+	   "cmdDown"
+	*/
    function HandleEvent(event:Dynamic)
    {
+
    }
 
    static var wx_set_window_handler = neko.Lib.load("waxe","wx_set_window_handler",2);
