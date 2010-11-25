@@ -57,6 +57,7 @@
    <flag value="${LIB_DIR}"/>
 
    <lib name="lib/Mac/libwx_mac-2.8.a" if="macos"/>
+   <lib name="lib/Mac/libwx_mac_gl-2.8.a" if="macos"/>
    <lib name="lib/Mac/libwxscintilla_mac.a" if="macos"/>
 
    <lib name="lib/Windows/wxmsw28.lib" if="windows"/>
