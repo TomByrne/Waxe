@@ -220,7 +220,6 @@ HaxeEventHandler::~HaxeEventHandler()
 
 #define WXK_TRANS(x) case WXK_##x: return key##x;
 
-static HKL gKeyboardLayout = 0;
 
 enum KeyCode
 {

@@ -8,102 +8,102 @@ import nme.display.ManagedStage;
 class NMEStage extends GLCanvas
 {
    public var stage(default,null) : ManagedStage;
-	var mLastValue:Int;
-	var mTimer:Timer;
+   var mLastValue:Int;
+   var mTimer:Timer;
 
    function new(inHandle:Dynamic)
-	{
-	   super(inHandle);
-		var s = getClientSize();
-		var me = this;
-		mLastValue = 0;
-		stage = new nme.display.ManagedStage(s.width,s.height);
-		stage.beginRender = me.makeCurrent;
-		stage.endRender = me.flip;
-		stage.setNextWake = me.setNextWake;
-		onSize = function(event:Dynamic)
-		{
-		   var s = me.getClientSize();
-		   me.stage.resize(s.width,s.height);
-		}
-		onPaint = render;
-		mTimer = new Timer(this);
-	}
+   {
+      super(inHandle);
+      var s = getClientSize();
+      var me = this;
+      mLastValue = 0;
+      stage = new nme.display.ManagedStage(s.width,s.height);
+      stage.beginRender = me.makeCurrent;
+      stage.endRender = me.flip;
+      stage.setNextWake = me.setNextWake;
+      onSize = function(event:Dynamic)
+      {
+         var s = me.getClientSize();
+         me.stage.resize(s.width,s.height);
+      }
+      onPaint = render;
+      mTimer = new Timer(this);
+   }
 
-	function pumpMouseEvent(inID:Int, inEvent:Dynamic)
-	{
-	   var e:Dynamic = {};
-		e.type = inID;
-		e.x = inEvent.x;
-		e.y = inEvent.y;
-		e.flags = ((inEvent.leftIsDown) ? (ManagedStage.efLeftDown|ManagedStage.efPrimaryTouch) : 0) |
-		          ((inEvent.controlDown) ? ManagedStage.efCtrlDown : 0) |
-		          ((inEvent.metaDown) ? ManagedStage.efAltDown : 0) |
-		          ((inEvent.shiftDown) ? ManagedStage.efShiftDown : 0);
-		stage.pumpEvent(e);
-	}
+   function pumpMouseEvent(inID:Int, inEvent:Dynamic)
+   {
+      var e:Dynamic = {};
+      e.type = inID;
+      e.x = inEvent.x;
+      e.y = inEvent.y;
+      e.flags = ((inEvent.leftIsDown) ? (ManagedStage.efLeftDown|ManagedStage.efPrimaryTouch) : 0) |
+                ((inEvent.controlDown) ? ManagedStage.efCtrlDown : 0) |
+                ((inEvent.metaDown) ? ManagedStage.efAltDown : 0) |
+                ((inEvent.shiftDown) ? ManagedStage.efShiftDown : 0);
+      stage.pumpEvent(e);
+   }
 
-	function pumpKeyEvent(inID:Int, inEvent:Dynamic)
-	{
-	   var e:Dynamic = {};
-		e.type = inID;
-		e.x = inEvent.x;
-		e.y = inEvent.y;
-		e.flags = ((inEvent.leftIsDown) ? (ManagedStage.efLeftDown|ManagedStage.efPrimaryTouch) : 0) |
-		          ((inEvent.controlDown) ? ManagedStage.efCtrlDown : 0) |
-		          ((inEvent.metaDown) ? ManagedStage.efAltDown : 0) |
-		          ((inEvent.shiftDown) ? ManagedStage.efShiftDown : 0);
-		e.code = inEvent.code;
-		e.value = inEvent.flashCode;
-		stage.pumpEvent(e);
-	}
+   function pumpKeyEvent(inID:Int, inEvent:Dynamic)
+   {
+      var e:Dynamic = {};
+      e.type = inID;
+      e.x = inEvent.x;
+      e.y = inEvent.y;
+      e.flags = ((inEvent.leftIsDown) ? (ManagedStage.efLeftDown|ManagedStage.efPrimaryTouch) : 0) |
+                ((inEvent.controlDown) ? ManagedStage.efCtrlDown : 0) |
+                ((inEvent.metaDown) ? ManagedStage.efAltDown : 0) |
+                ((inEvent.shiftDown) ? ManagedStage.efShiftDown : 0);
+      e.code = inEvent.code;
+      e.value = inEvent.flashCode;
+      stage.pumpEvent(e);
+   }
 
   function IsModifier(inCode:Int):Bool
   {
      return (inCode>=15 && inCode<=20);
   }
 
-	override function HandleEvent(event:Dynamic)
-	{
-	   super.HandleEvent(event);
-		switch(Type.createEnumIndex(EventID,Std.int(event.type)))
-		{
-		   case EventID.LEFT_DOWN: pumpMouseEvent(ManagedStage.etMouseDown,event); 
-		   case EventID.LEFT_UP: pumpMouseEvent(ManagedStage.etMouseUp,event); 
-		   case EventID.MOTION: pumpMouseEvent(ManagedStage.etMouseMove,event); 
-		   case EventID.KEY_DOWN:
-			   if (IsModifier(event.flashCode))
-				{
-				   // These don't generate CHARevents ...
-			      pumpKeyEvent(ManagedStage.etKeyDown,event); 
-					mLastValue = 0;
-				}
-		   case EventID.CHAR:
-			   mLastValue = event.code;
-			   pumpKeyEvent(ManagedStage.etKeyDown,event); 
-		   case EventID.KEY_UP:
-				event.code = mLastValue;
-			   pumpKeyEvent(ManagedStage.etKeyUp,event); 
-		   case EventID.TIMER:
-			   stage.pumpEvent({type:ManagedStage.etPoll});
+   override function HandleEvent(event:Dynamic)
+   {
+      super.HandleEvent(event);
+      switch(Type.createEnumIndex(EventID,Std.int(event.type)))
+      {
+         case EventID.LEFT_DOWN: pumpMouseEvent(ManagedStage.etMouseDown,event); 
+         case EventID.LEFT_UP: pumpMouseEvent(ManagedStage.etMouseUp,event); 
+         case EventID.MOTION: pumpMouseEvent(ManagedStage.etMouseMove,event); 
+         case EventID.KEY_DOWN:
+            if (IsModifier(event.flashCode))
+            {
+               // These don't generate CHARevents ...
+               pumpKeyEvent(ManagedStage.etKeyDown,event); 
+               mLastValue = 0;
+            }
+         case EventID.CHAR:
+            mLastValue = event.code;
+            pumpKeyEvent(ManagedStage.etKeyDown,event); 
+         case EventID.KEY_UP:
+            event.code = mLastValue;
+            pumpKeyEvent(ManagedStage.etKeyUp,event); 
+         case EventID.TIMER:
+            stage.pumpEvent({type:ManagedStage.etPoll});
 
-			default:
-		}
-	}
+         default:
+      }
+   }
 
-	function setNextWake(inDelay:Float)
-	{
-	   var start = Std.int(inDelay*1000);
-		if (start<=0) start = -1;
-		mTimer.start(start , true );
-	}
+   function setNextWake(inDelay:Float)
+   {
+      var start = Std.int(inDelay*1000);
+      if (start<=1) start = 1;
+      mTimer.start(start , true );
+   }
 
-	function render(_)
-	{
-		stage.nmeRender(true);
-	}
+   function render(_)
+   {
+      stage.nmeRender(true);
+   }
 
-	public static function create(inParent:Window,?inID:Int,?inPosition:Position,
+   public static function create(inParent:Window,?inID:Int,?inPosition:Position,
                    ?inSize:Size, ?inStyle:Int )
    {
       if (inParent==null)
