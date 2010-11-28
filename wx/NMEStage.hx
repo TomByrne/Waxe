@@ -9,6 +9,7 @@ class NMEStage extends GLCanvas
 {
    public var stage(default,null) : ManagedStage;
 	var mLastValue:Int;
+	var mTimer:Timer;
 
    function new(inHandle:Dynamic)
 	{
@@ -26,6 +27,7 @@ class NMEStage extends GLCanvas
 		   me.stage.resize(s.width,s.height);
 		}
 		onPaint = render;
+		mTimer = new Timer(this);
 	}
 
 	function pumpMouseEvent(inID:Int, inEvent:Dynamic)
@@ -82,12 +84,18 @@ class NMEStage extends GLCanvas
 		   case EventID.KEY_UP:
 				event.code = mLastValue;
 			   pumpKeyEvent(ManagedStage.etKeyUp,event); 
+		   case EventID.TIMER:
+			   stage.pumpEvent({type:ManagedStage.etPoll});
+
 			default:
 		}
 	}
 
 	function setNextWake(inDelay:Float)
 	{
+	   var start = Std.int(inDelay*1000);
+		if (start<=0) start = -1;
+		mTimer.start(start , true );
 	}
 
 	function render(_)
