@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+#define NEKO_COMPATIBLE
 #define IMPLEMENT_API
 
 #include <hx/CFFI.h>
