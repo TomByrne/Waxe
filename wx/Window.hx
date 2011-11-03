@@ -37,9 +37,6 @@ class Window extends EventHandler
 
    override function HandleEvent(event:Dynamic)
    {
-      //trace("HandleEvent : " + event);
-      event.name = neko.Lib.nekoToHaxe(event.name);
-
       var type:Int = event.type;
 
       // Debug event type...
