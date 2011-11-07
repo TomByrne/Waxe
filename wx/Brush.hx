@@ -21,5 +21,5 @@ class Brush
 	}
 	public function wxGetHandle() { return wxHandle; }
 
-   static var wx_brush_create = neko.Lib.load("waxe","wx_brush_create",2);
+   static var wx_brush_create = Loader.load("wx_brush_create",2);
 }

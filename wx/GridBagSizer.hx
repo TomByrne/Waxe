@@ -10,6 +10,6 @@ class GridBagSizer extends FlexGridSizer
 	}
 
 
-	static var wx_sizer_create_grid_bag = neko.Lib.load("waxe","wx_sizer_create_grid_bag",2);
+	static var wx_sizer_create_grid_bag = Loader.load("wx_sizer_create_grid_bag",2);
 
 }

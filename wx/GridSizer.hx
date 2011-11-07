@@ -10,6 +10,6 @@ class GridSizer extends Sizer
 	}
 
 
-	static var wx_sizer_create_grid = neko.Lib.load("waxe","wx_sizer_create_grid",4);
+	static var wx_sizer_create_grid = Loader.load("wx_sizer_create_grid",4);
 
 }

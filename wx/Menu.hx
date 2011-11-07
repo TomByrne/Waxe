@@ -28,9 +28,9 @@ class Menu extends EventHandler
    }
 
 
-   static var wx_menu_create = neko.Lib.load("waxe","wx_menu_create",2);
-   static var wx_menu_append = neko.Lib.load("waxe","wx_menu_append",5);
-   static var wx_menu_append_separator = neko.Lib.load("waxe","wx_menu_append_separator",1);
+   static var wx_menu_create = Loader.load("wx_menu_create",2);
+   static var wx_menu_append = Loader.load("wx_menu_append",5);
+   static var wx_menu_append_separator = Loader.load("wx_menu_append_separator",1);
 }
 
 

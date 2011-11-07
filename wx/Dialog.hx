@@ -18,6 +18,6 @@ class Dialog extends TopLevelWindow
 	   super(inHandle);
    }
 
-   static var wx_dialog_create = neko.Lib.load("waxe","wx_dialog_create",1);
+   static var wx_dialog_create = Loader.load("wx_dialog_create",1);
 
 }

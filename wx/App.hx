@@ -5,7 +5,7 @@ class App
   public static function boot(inOnInit:Void -> Void)
   {
      #if neko
-     var init = neko.Lib.load("waxe","neko_init",5);
+     var init = Loader.load("neko_init",5);
      if (init!=null)
      {
          init(function(s) return new String(s),
@@ -31,7 +31,7 @@ class App
   }
 
 
-  static var wx_set_top_window = neko.Lib.load("waxe","wx_set_top_window",1);
-  static var wx_boot = neko.Lib.load("waxe","wx_boot",1);
-  static var wx_quit = neko.Lib.load("waxe","wx_quit",0);
+  static var wx_set_top_window = Loader.load("wx_set_top_window",1);
+  static var wx_boot = Loader.load("wx_boot",1);
+  static var wx_quit = Loader.load("wx_quit",0);
 }

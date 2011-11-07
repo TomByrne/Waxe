@@ -31,5 +31,5 @@ class Font
    }
    public function wxGetHandle() { return wxHandle; }
 
-   static var wx_font_create = neko.Lib.load("waxe","wx_font_create",-1);
+   static var wx_font_create = Loader.load("wx_font_create",-1);
 }

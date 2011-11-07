@@ -40,7 +40,7 @@ class EventHandler
 
    }
 
-   static var wx_set_window_handler = neko.Lib.load("waxe","wx_set_window_handler",2);
-   static var wx_get_window_handler = neko.Lib.load("waxe","wx_get_window_handler",1);
+   static var wx_set_window_handler = Loader.load("wx_set_window_handler",2);
+   static var wx_get_window_handler = Loader.load("wx_get_window_handler",1);
 }
 

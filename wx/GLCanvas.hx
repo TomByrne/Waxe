@@ -27,8 +27,8 @@ class GLCanvas extends Window
 	}
 
 
-   static var wx_glcanvas_create = neko.Lib.load("waxe","wx_glcanvas_create",1);
-   static var wx_glcanvas_make_current = neko.Lib.load("waxe","wx_glcanvas_make_current",1);
-   static var wx_glcanvas_flip = neko.Lib.load("waxe","wx_glcanvas_flip",1);
+   static var wx_glcanvas_create = Loader.load("wx_glcanvas_create",1);
+   static var wx_glcanvas_make_current = Loader.load("wx_glcanvas_make_current",1);
+   static var wx_glcanvas_flip = Loader.load("wx_glcanvas_flip",1);
 }
 

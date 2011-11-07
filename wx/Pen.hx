@@ -18,5 +18,5 @@ class Pen
 	}
 	public function wxGetHandle() { return wxHandle; }
 
-   static var wx_pen_create = neko.Lib.load("waxe","wx_pen_create",3);
+   static var wx_pen_create = Loader.load("wx_pen_create",3);
 }

@@ -10,6 +10,6 @@ class BoxSizer extends Sizer
 	}
 
 
-	static var wx_sizer_create_box = neko.Lib.load("waxe","wx_sizer_create_box",1);
+	static var wx_sizer_create_box = Loader.load("wx_sizer_create_box",1);
 
 }

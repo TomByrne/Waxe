@@ -17,8 +17,8 @@ class Timer
 	   wx_timer_stop(wxHandle);
 	}
 
-   static var wx_timer_create = neko.Lib.load("waxe","wx_timer_create",2);
-   static var wx_timer_start = neko.Lib.load("waxe","wx_timer_start",3);
-   static var wx_timer_stop = neko.Lib.load("waxe","wx_timer_stop",1);
+   static var wx_timer_create = Loader.load("wx_timer_create",2);
+   static var wx_timer_start = Loader.load("wx_timer_start",3);
+   static var wx_timer_stop = Loader.load("wx_timer_stop",1);
 }
 

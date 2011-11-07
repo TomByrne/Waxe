@@ -37,7 +37,7 @@ class Button extends Window
 	}
 
 
-   static var wx_button_create = neko.Lib.load("waxe","wx_button_create",1);
-   static var wx_button_get_label = neko.Lib.load("waxe","wx_button_get_label",1);
-   static var wx_button_set_label = neko.Lib.load("waxe","wx_button_set_label",2);
+   static var wx_button_create = Loader.load("wx_button_create",1);
+   static var wx_button_get_label = Loader.load("wx_button_get_label",1);
+   static var wx_button_set_label = Loader.load("wx_button_set_label",2);
 }

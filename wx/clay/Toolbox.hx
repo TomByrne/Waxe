@@ -36,9 +36,9 @@ class Toolbox extends wx.Window
    }
 
 
-   static var wx_toolbox_create = neko.Lib.load("waxe","wx_toolbox_create",5);
-   static var wx_toolbox_add_control = neko.Lib.load("waxe","wx_toolbox_add_control",2);
-   static var wx_toolbox_add_separator = neko.Lib.load("waxe","wx_toolbox_add_separator",1);
-   static var wx_toolbox_add_tool = neko.Lib.load("waxe","wx_toolbox_add_tool",-1);
+   static var wx_toolbox_create = Loader.load("wx_toolbox_create",5);
+   static var wx_toolbox_add_control = Loader.load("wx_toolbox_add_control",2);
+   static var wx_toolbox_add_separator = Loader.load("wx_toolbox_add_separator",1);
+   static var wx_toolbox_add_tool = Loader.load("wx_toolbox_add_tool",-1);
 
 }

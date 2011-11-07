@@ -32,7 +32,7 @@ class Scintilla extends Window
       return wx_scintilla_get_value(wxHandle);
    }
 
-   static var wx_scintilla_create = neko.Lib.load("waxe","wx_scintilla_create",1);
-   static var wx_scintilla_get_value = neko.Lib.load("waxe","wx_scintilla_get_value",1);
-   static var wx_scintilla_set_value = neko.Lib.load("waxe","wx_scintilla_set_value",2);
+   static var wx_scintilla_create = Loader.load("wx_scintilla_create",1);
+   static var wx_scintilla_get_value = Loader.load("wx_scintilla_get_value",1);
+   static var wx_scintilla_set_value = Loader.load("wx_scintilla_set_value",2);
 }

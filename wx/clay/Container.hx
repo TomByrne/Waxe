@@ -67,11 +67,11 @@ class Container
    public static function wxCreate() { return new Container(); }
 
 
-    static var wx_container_add_window = neko.Lib.load("waxe","wx_container_add_window",-1);
-    static var wx_container_get_width = neko.Lib.load("waxe","wx_container_get_width",2);
-    static var wx_container_set_width = neko.Lib.load("waxe","wx_container_set_width",3);
-    static var wx_container_get_height = neko.Lib.load("waxe","wx_container_get_height",2);
-    static var wx_container_set_height = neko.Lib.load("waxe","wx_container_set_height",3);
+    static var wx_container_add_window = Loader.load("wx_container_add_window",-1);
+    static var wx_container_get_width = Loader.load("wx_container_get_width",2);
+    static var wx_container_set_width = Loader.load("wx_container_set_width",3);
+    static var wx_container_get_height = Loader.load("wx_container_get_height",2);
+    static var wx_container_set_height = Loader.load("wx_container_set_height",3);
 }
 
 

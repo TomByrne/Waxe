@@ -68,17 +68,17 @@ class DC
       return new DC(wx_dc_create_paint(inWindow.wxHandle));
    }
 
-   static var wx_dc_create_paint = neko.Lib.load("waxe","wx_dc_create_paint",1);
-   static var wx_dc_draw_line = neko.Lib.load("waxe","wx_dc_draw_line",5);
-   static var wx_object_destroy = neko.Lib.load("waxe","wx_object_destroy",1);
-   static var wx_dc_clear = neko.Lib.load("waxe","wx_dc_clear",1);
-   static var wx_dc_set_pen = neko.Lib.load("waxe","wx_dc_set_pen",2);
-   static var wx_dc_set_font = neko.Lib.load("waxe","wx_dc_set_font",2);
-   static var wx_dc_set_brush = neko.Lib.load("waxe","wx_dc_set_brush",2);
-   static var wx_dc_set_background = neko.Lib.load("waxe","wx_dc_set_background",2);
-   static var wx_dc_draw_rectangle = neko.Lib.load("waxe","wx_dc_draw_rectangle",5);
-   static var wx_dc_draw_circle = neko.Lib.load("waxe","wx_dc_draw_circle",4);
-   static var wx_dc_draw_ellipse = neko.Lib.load("waxe","wx_dc_draw_ellipse",5);
-   static var wx_dc_draw_text = neko.Lib.load("waxe","wx_dc_draw_text",4);
-   static var wx_dc_draw_bitmap = neko.Lib.load("waxe","wx_dc_draw_bitmap",5);
+   static var wx_dc_create_paint = Loader.load("wx_dc_create_paint",1);
+   static var wx_dc_draw_line = Loader.load("wx_dc_draw_line",5);
+   static var wx_object_destroy = Loader.load("wx_object_destroy",1);
+   static var wx_dc_clear = Loader.load("wx_dc_clear",1);
+   static var wx_dc_set_pen = Loader.load("wx_dc_set_pen",2);
+   static var wx_dc_set_font = Loader.load("wx_dc_set_font",2);
+   static var wx_dc_set_brush = Loader.load("wx_dc_set_brush",2);
+   static var wx_dc_set_background = Loader.load("wx_dc_set_background",2);
+   static var wx_dc_draw_rectangle = Loader.load("wx_dc_draw_rectangle",5);
+   static var wx_dc_draw_circle = Loader.load("wx_dc_draw_circle",4);
+   static var wx_dc_draw_ellipse = Loader.load("wx_dc_draw_ellipse",5);
+   static var wx_dc_draw_text = Loader.load("wx_dc_draw_text",4);
+   static var wx_dc_draw_bitmap = Loader.load("wx_dc_draw_bitmap",5);
 }

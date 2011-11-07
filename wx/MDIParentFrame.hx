@@ -18,6 +18,6 @@ class MDIParentFrame extends Frame
 	   super(inHandle);
    }
 
-   static var wx_mdi_parent_frame_create = neko.Lib.load("waxe","wx_mdi_parent_frame_create",1);
+   static var wx_mdi_parent_frame_create = Loader.load("wx_mdi_parent_frame_create",1);
 
 }

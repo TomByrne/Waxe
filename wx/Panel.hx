@@ -15,6 +15,6 @@ class Panel extends Window
       return new Panel(handle);
    }
 
-   static var wx_panel_create = neko.Lib.load("waxe","wx_panel_create",1);
+   static var wx_panel_create = Loader.load("wx_panel_create",1);
 }
 

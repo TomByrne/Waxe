@@ -40,7 +40,7 @@ class Frame extends TopLevelWindow
          menuMap.get(id)(event);
    }
 
-   static var wx_frame_create = neko.Lib.load("waxe","wx_frame_create",1);
-   static var wx_frame_set_menu_bar = neko.Lib.load("waxe","wx_frame_set_menu_bar",2);
+   static var wx_frame_create = Loader.load("wx_frame_create",1);
+   static var wx_frame_set_menu_bar = Loader.load("wx_frame_set_menu_bar",2);
 
 }

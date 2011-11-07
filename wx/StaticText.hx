@@ -34,7 +34,7 @@ class StaticText extends Window
 	}
 
 
-   static var wx_static_text_create = neko.Lib.load("waxe","wx_static_text_create",1);
-   static var wx_static_text_get_label = neko.Lib.load("waxe","wx_static_text_get_label",1);
-   static var wx_static_text_set_label = neko.Lib.load("waxe","wx_static_text_set_label",2);
+   static var wx_static_text_create = Loader.load("wx_static_text_create",1);
+   static var wx_static_text_get_label = Loader.load("wx_static_text_get_label",1);
+   static var wx_static_text_set_label = Loader.load("wx_static_text_set_label",2);
 }

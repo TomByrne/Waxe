@@ -16,5 +16,5 @@ class Bitmap
        return fromBytes( haxe.Resource.getBytes(inResorceName));
    }
 
-   static var wx_bitmap_from_bytes = neko.Lib.load("waxe","wx_bitmap_from_bytes",1);
+   static var wx_bitmap_from_bytes = Loader.load("wx_bitmap_from_bytes",1);
 }

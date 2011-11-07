@@ -34,5 +34,5 @@ class ComboBox extends ControlWithItems
 	   {setHandler(wx.EventID.COMMAND_TEXT_ENTER,f); return f;}
 
 
-   static var wx_combo_box_create = neko.Lib.load("waxe","wx_combo_box_create",2);
+   static var wx_combo_box_create = Loader.load("wx_combo_box_create",2);
 }

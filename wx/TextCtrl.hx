@@ -34,7 +34,7 @@ class TextCtrl extends Window
 	}
 
 
-   static var wx_text_ctrl_create = neko.Lib.load("waxe","wx_text_ctrl_create",1);
-   static var wx_text_ctrl_get_value = neko.Lib.load("waxe","wx_text_ctrl_get_value",1);
-   static var wx_text_ctrl_set_value = neko.Lib.load("waxe","wx_text_ctrl_set_value",2);
+   static var wx_text_ctrl_create = Loader.load("wx_text_ctrl_create",1);
+   static var wx_text_ctrl_get_value = Loader.load("wx_text_ctrl_get_value",1);
+   static var wx_text_ctrl_set_value = Loader.load("wx_text_ctrl_set_value",2);
 }

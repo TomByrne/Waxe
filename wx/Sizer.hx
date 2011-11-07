@@ -48,9 +48,9 @@ class Sizer
 
 	public function wxGetHandle() { return wxHandle; }
 
-	static var wx_set_data = neko.Lib.load("waxe","wx_set_data",2);
-   static var wx_get_data = neko.Lib.load("waxe","wx_get_data",1);
-   static var wx_sizer_add = neko.Lib.load("waxe","wx_sizer_add",5);
+	static var wx_set_data = Loader.load("wx_set_data",2);
+   static var wx_get_data = Loader.load("wx_get_data",1);
+   static var wx_sizer_add = Loader.load("wx_sizer_add",5);
 
 }
 

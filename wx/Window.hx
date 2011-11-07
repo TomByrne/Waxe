@@ -133,22 +133,22 @@ class Window extends EventHandler
 
 
 
-   static var wx_window_get_position = neko.Lib.load("waxe","wx_window_get_position",1);
-   static var wx_window_set_position = neko.Lib.load("waxe","wx_window_set_position",2);
-   static var wx_window_get_size = neko.Lib.load("waxe","wx_window_get_size",1);
-   static var wx_window_set_size = neko.Lib.load("waxe","wx_window_set_size",2);
-   static var wx_window_get_client_size = neko.Lib.load("waxe","wx_window_get_client_size",1);
-   static var wx_window_set_client_size = neko.Lib.load("waxe","wx_window_set_client_size",2);
-   static var wx_window_create = neko.Lib.load("waxe","wx_window_create",1);
-   static var wx_window_set_sizer = neko.Lib.load("waxe","wx_window_set_sizer",2);
-   static var wx_window_get_sizer = neko.Lib.load("waxe","wx_window_get_sizer",1);
-   static var wx_window_fit = neko.Lib.load("waxe","wx_window_fit",1);
-   static var wx_window_get_shown = neko.Lib.load("waxe","wx_window_get_shown",1);
-   static var wx_window_set_shown = neko.Lib.load("waxe","wx_window_set_shown",2);
-   static var wx_window_get_bg_colour = neko.Lib.load("waxe","wx_window_get_bg_colour",1);
-   static var wx_window_set_bg_colour = neko.Lib.load("waxe","wx_window_set_bg_colour",2);
-   static var wx_window_get_name = neko.Lib.load("waxe","wx_window_get_name",1);
-   static var wx_window_set_name = neko.Lib.load("waxe","wx_window_set_name",2);
+   static var wx_window_get_position = Loader.load("wx_window_get_position",1);
+   static var wx_window_set_position = Loader.load("wx_window_set_position",2);
+   static var wx_window_get_size = Loader.load("wx_window_get_size",1);
+   static var wx_window_set_size = Loader.load("wx_window_set_size",2);
+   static var wx_window_get_client_size = Loader.load("wx_window_get_client_size",1);
+   static var wx_window_set_client_size = Loader.load("wx_window_set_client_size",2);
+   static var wx_window_create = Loader.load("wx_window_create",1);
+   static var wx_window_set_sizer = Loader.load("wx_window_set_sizer",2);
+   static var wx_window_get_sizer = Loader.load("wx_window_get_sizer",1);
+   static var wx_window_fit = Loader.load("wx_window_fit",1);
+   static var wx_window_get_shown = Loader.load("wx_window_get_shown",1);
+   static var wx_window_set_shown = Loader.load("wx_window_set_shown",2);
+   static var wx_window_get_bg_colour = Loader.load("wx_window_get_bg_colour",1);
+   static var wx_window_set_bg_colour = Loader.load("wx_window_set_bg_colour",2);
+   static var wx_window_get_name = Loader.load("wx_window_get_name",1);
+   static var wx_window_set_name = Loader.load("wx_window_set_name",2);
 }
 
 

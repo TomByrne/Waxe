@@ -19,7 +19,7 @@ class FlexGridSizer extends GridSizer
 		wx_sizer_add_growable_col(wxHandle,col,proportion);
 	}
 
-	static var wx_sizer_create_flex_grid = neko.Lib.load("waxe","wx_sizer_create_flex_grid",4);
-	static var wx_sizer_add_growable_row = neko.Lib.load("waxe","wx_sizer_add_growable_row",3);
-	static var wx_sizer_add_growable_col = neko.Lib.load("waxe","wx_sizer_add_growable_col",3);
+	static var wx_sizer_create_flex_grid = Loader.load("wx_sizer_create_flex_grid",4);
+	static var wx_sizer_add_growable_row = Loader.load("wx_sizer_add_growable_row",3);
+	static var wx_sizer_add_growable_col = Loader.load("wx_sizer_add_growable_col",3);
 }
