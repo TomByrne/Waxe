@@ -26,6 +26,12 @@ class NMEStage extends GLCanvas
       setNextWake(1);
    }
 
+   override function _wx_deleted()
+   {
+      mTimer.stop();
+      super._wx_deleted();
+   }
+
    function myOnSize(event:Dynamic)
    {
       var s = getClientSize();
