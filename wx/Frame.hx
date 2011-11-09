@@ -6,8 +6,8 @@ class Frame extends TopLevelWindow
    var menuMap : IntHash<Dynamic->Void>;
 
    public static function create(inParent:Window, ?inID:Int, inTitle:String="",
-                  ?inPosition:{x:Float,y:Float},
-                   ?inSize:{w:Float,h:Float}, ?inStyle:Int )
+                  ?inPosition:{x:Int,y:Int},
+                   ?inSize:{width:Int,height:Int}, ?inStyle:Int )
    {
       var handle = wx_frame_create(
          [inParent==null ? null : inParent.wxHandle,inID,inTitle,inPosition,inSize, inStyle] );

@@ -5,6 +5,7 @@
 
 #define NEKO_COMPATIBLE
 #define IMPLEMENT_API
+#define NEKO_COMPATIBLE
 
 #include <hx/CFFI.h>
 #include <HaxeAPI.h>

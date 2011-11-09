@@ -11,23 +11,25 @@ class NMEStage extends GLCanvas
    var mLastValue:Int;
    var mTimer:Timer;
 
-   function new(inHandle:Dynamic)
+   function new(inHandle:Dynamic,inWidth:Int, inHeight:Int)
    {
       super(inHandle);
-      var s = getClientSize();
       var me = this;
       mLastValue = 0;
-      stage = new nme.display.ManagedStage(s.width,s.height);
+      stage = nme.Lib.createManagedStage(inWidth,inHeight);
       stage.beginRender = me.makeCurrent;
       stage.endRender = me.flip;
       stage.setNextWake = me.setNextWake;
-      onSize = function(event:Dynamic)
-      {
-         var s = me.getClientSize();
-         me.stage.resize(s.width,s.height);
-      }
+      onSize = myOnSize;
       onPaint = render;
       mTimer = new Timer(this);
+      setNextWake(1);
+   }
+
+   function myOnSize(event:Dynamic)
+   {
+      var s = getClientSize();
+      stage.resize(s.width,s.height);
    }
 
    function pumpMouseEvent(inID:Int, inEvent:Dynamic)
@@ -109,7 +111,11 @@ class NMEStage extends GLCanvas
       if (inParent==null)
          throw Error.INVALID_PARENT;
       var handle = GLCanvas.wx_glcanvas_create([inParent.wxHandle,inID,"",inPosition,inSize, inStyle] );
-      return new NMEStage(handle);
+      var w:Int = inSize==null ? -1 : inSize.width;
+      var h:Int = inSize==null ? -1 : inSize.height;
+      var stage = new NMEStage(handle,w,h);
+      stage.myOnSize(null);
+      return stage;
    }
 
 
