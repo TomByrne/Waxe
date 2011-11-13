@@ -1049,7 +1049,7 @@ public:
    {
       wxCloseEvent close;
       close.SetCanVeto(true);
-      mWindow->ProcessEvent(close);
+      mWindow->ProcessWindowEvent(close);
       return !close.GetVeto();
    }
 
@@ -3012,7 +3012,7 @@ public:
    MDIClientContainer(Manager *inManager, wxMDIParentFrame *inFrame) : super(inManager)
    {
       mFrame = inFrame;
-      mClient = inFrame->GetClientWindow();
+      mClient = (wxMDIClientWindow *)inFrame->GetClientWindow();
       wxSize s = mFrame->GetClientSize();
       for(int i=0;i<stSIZE;i++)
          mSizes[i] = s;

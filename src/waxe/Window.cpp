@@ -18,6 +18,17 @@ value wx_window_fit(value inWindow)
 }
 DEFINE_PRIM(wx_window_fit,1)
 
+value wx_window_refresh(value inWindow)
+{
+   wxWindow *window;
+   if (ValueToWX(inWindow,window))
+       window->Refresh();
+   return alloc_null();
+}
+DEFINE_PRIM(wx_window_refresh,1)
+
+
+
 WIN_PROPERTY(wx_window,wxWindow,size,GetSize,SetSize,Val2Size)
 WIN_PROPERTY(wx_window,wxWindow,client_size,GetClientSize,SetClientSize,Val2Size)
 WIN_PROPERTY(wx_window,wxWindow,position,GetPosition,SetPosition,Val2Point)

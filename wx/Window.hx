@@ -63,6 +63,7 @@ class Window extends EventHandler
    }
 
    public function fit() { wx_window_fit(wxHandle); }
+   public function refresh() { wx_window_refresh(wxHandle); }
 
    public function getSize() : Size { return wx_window_get_size(wxHandle); }
    public function setSize(inSize:Size) : Size
@@ -149,6 +150,7 @@ class Window extends EventHandler
    static var wx_window_set_bg_colour = Loader.load("wx_window_set_bg_colour",2);
    static var wx_window_get_name = Loader.load("wx_window_get_name",1);
    static var wx_window_set_name = Loader.load("wx_window_set_name",2);
+   static var wx_window_refresh = Loader.load("wx_window_refresh",1);
 }
 
 

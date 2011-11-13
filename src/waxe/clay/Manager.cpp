@@ -141,7 +141,7 @@ void Manager::RemoveWindow(wxWindow *inWindow)
       mWindows.erase(i);
 
    wxCommandEvent evt(wxEVT_WINDOW_LIST_CHANGED,id);
-   mFrame->ProcessEvent(evt);
+   mFrame->ProcessWindowEvent(evt);
 }
 
 
@@ -149,7 +149,7 @@ void Manager::RecordWindow(wxWindow *inWindow,Container *inContainer)
 {
    mWindows[inWindow] = inContainer;
    wxCommandEvent evt(wxEVT_WINDOW_LIST_CHANGED,inWindow->GetId());
-   mFrame->ProcessEvent(evt);
+   mFrame->ProcessWindowEvent(evt);
 }
 
 
@@ -356,7 +356,7 @@ public:
 
    void CheckMoveFinished(wxIdleEvent &inEvent)
    {
-      if (!wxGetMouseState().LeftDown())
+      if (!wxGetMouseState().LeftIsDown())
       {
          if (mMoves > 1)
          {

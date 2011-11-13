@@ -1,10 +1,10 @@
 #include <HaxeAPI.h>
-#include <wxscintilla.h>
+#include <wx/stc/stc.h>
 
 value wx_scintilla_create(value inParams)
 {
    CreationParams params(inParams);
-   wxScintilla *window = new wxScintilla(params.parent,params.id,
+   wxStyledTextCtrl *window = new wxStyledTextCtrl(params.parent,params.id,
                  params.position,params.size,params.flags);
 
    return WXToValue(window);
@@ -13,7 +13,7 @@ DEFINE_PRIM(wx_scintilla_create,1)
 
 value wx_scintilla_set_value(value inSci, value inString)
 {
-   wxScintilla *sci;
+   wxStyledTextCtrl *sci;
    if (ValueToWX(inSci, sci))
    {
       sci->SetText( Val2Str(inString) );
@@ -25,7 +25,7 @@ DEFINE_PRIM(wx_scintilla_set_value,2)
 
 value wx_scintilla_get_value(value inSci)
 {
-   wxScintilla *sci;
+   wxStyledTextCtrl *sci;
    if (ValueToWX(inSci, sci))
       return WXToValue( sci->GetText( ) );
 
@@ -34,5 +34,5 @@ value wx_scintilla_get_value(value inSci)
 DEFINE_PRIM(wx_scintilla_get_value,1)
 
 
-//WIN_PROPERTY(wx_scintilla,wxScintilla,label,GetLabel,SetLabel,Val2Str)
+//WIN_PROPERTY(wx_scintilla,wxStyledTextCtrl,label,GetLabel,SetLabel,Val2Str)
 

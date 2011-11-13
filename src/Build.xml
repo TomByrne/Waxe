@@ -10,12 +10,16 @@
 
 <set name="DBG" value="d" if="debug"/>
 
+<set name="WXROOT" value="../../wxWidgets-2.9.2/" unless="WXROOT"/>
+<set name="WXLIB" value="${WXROOT}/lib" />
+
 <files id="files">
    <compilerflag value = "-Iinclude"/>
+   <compilerflag value = "-I${WXROOT}/include"/>
    <compilerflag value = "-Iwaxe"/>
    <compilerflag value = "-D_FILE_OFFSET_BITS=64" if="macos"/>
    <compilerflag value = "-D_LARGE_FILES=64" if="macos"/>
-   <compilerflag value = "-D__WXMAC__" if="macos"/>
+   <compilerflag value = "-D__WXOSX_CARBON__" if="macos"/>
 
 
    <file name="waxe/App.cpp"/>
@@ -57,9 +61,10 @@
    <outdir name="../ndll/${BINDIR}"/>
    <flag value="${LIB_DIR}"/>
 
-   <lib name="lib/Mac/libwx_mac-2.8.a" if="macos"/>
-   <lib name="lib/Mac/libwx_mac_gl-2.8.a" if="macos"/>
-   <lib name="lib/Mac/libwxscintilla_mac.a" if="macos"/>
+   <lib name="${WXLIB}/libwx_osx_carbonu-2.9.a" if="macos"/>
+   <lib name="${WXLIB}/libwx_osx_carbonu_gl-2.9.a" if="macos"/>
+   <lib name="${WXLIB}/libwxscintilla-2.9.a" if="macos"/>
+   <lib name="${WXLIB}/libwxpng-2.9.a" if="macos"/>
 
    <lib name="lib/Windows/wxmsw28.lib" if="windows"/>
    <lib name="lib/Windows/wxmsw28_gl.lib" if="windows"/>
@@ -84,6 +89,8 @@
    <lib name="Cocoa" if="macos"/>
    <lib name="-framework" if="macos"/>
    <lib name="System" if="macos"/>
+   <lib name="-framework" if="macos"/>
+   <lib name="AudioToolbox" if="macos"/>
    <lib name="-framework" if="macos"/>
    <lib name="QuickTime" if="macos"/>
    <lib name="-framework" if="macos"/>

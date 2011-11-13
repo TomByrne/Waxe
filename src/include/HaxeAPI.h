@@ -40,6 +40,7 @@ public:
 
 private:
    value *mObject;
+   wxWindow *mWindow;
 };
 
 
@@ -61,28 +62,28 @@ bool ValueToWX(value inValue, TYPE *&outPointer)
    return outPointer!=0;
 }
 
-bool ValueToWX(value inValue, wxString &outString)
+inline bool ValueToWX(value inValue, wxString &outString)
 {
    outString = Val2Str(inValue);
    return true;
 }
 
 
-bool ValueToWX(value inValue, int &outInt)
+inline bool ValueToWX(value inValue, int &outInt)
 {
    outInt = (int)val_number(inValue);
    return true;
 }
 
 
-bool ValueToWX(value inValue, wxSize &outSize)
+inline bool ValueToWX(value inValue, wxSize &outSize)
 {
    outSize = Val2Size(inValue);
    return true;
 }
 
 
-bool ValueToWX(value inValue, wxPoint &outPoint)
+inline bool ValueToWX(value inValue, wxPoint &outPoint)
 {
    outPoint = Val2Point(inValue);
    return true;

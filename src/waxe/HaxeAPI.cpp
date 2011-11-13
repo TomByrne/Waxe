@@ -197,12 +197,16 @@ CreationParams::CreationParams(value inParams,int inDefaultStyle)
 static int handler_count = 0;
 void SetupEventMap();
 static std::map<int,int> gWX2HaxeIDMap;
+static int sgHandlers = 0;
 
 HaxeEventHandler::HaxeEventHandler(wxWindow *inWindow,value inHandler)
 {
 	SetupEventMap();
+   mWindow = inWindow;
    mObject = alloc_root();
    *mObject = inHandler;
+   sgHandlers++;
+   //printf("Push Event Handler %p -> %p = %d\n", this, inWindow,sgHandlers);
    if (inWindow)
       inWindow->PushEventHandler(this);
 
@@ -211,8 +215,10 @@ HaxeEventHandler::HaxeEventHandler(wxWindow *inWindow,value inHandler)
 
 HaxeEventHandler::~HaxeEventHandler()
 {
+   sgHandlers--;
    if (!val_is_null(*mObject))
       val_ocall0(*mObject,val_id("_wx_deleted"));
+   //printf("Delete me %p (%p) = %d\n",this,mWindow,sgHandlers);
    free_root(mObject);
    --handler_count;
 }
@@ -220,6 +226,29 @@ HaxeEventHandler::~HaxeEventHandler()
 
 #define WXK_TRANS(x) case WXK_##x: return key##x;
 
+
+// Removed in 2.9.2?
+#define WXK_NEXT 0
+#define WXK_PRIOR 0
+#define wxEVT_COMMAND_SPINCTRL_UPDATED 0
+#define wxEVT_SOCKET 0
+#define wxEVT_NC_LEFT_DOWN 0
+#define wxEVT_NC_LEFT_UP 0
+#define wxEVT_NC_MIDDLE_DOWN 0
+#define wxEVT_NC_MIDDLE_UP 0
+#define wxEVT_NC_RIGHT_DOWN 0
+#define wxEVT_NC_RIGHT_UP 0
+#define wxEVT_NC_MOTION 0
+#define wxEVT_NC_ENTER_WINDOW 0
+#define wxEVT_NC_LEAVE_WINDOW 0
+#define wxEVT_NC_LEFT_DCLICK 0
+#define wxEVT_NC_MIDDLE_DCLICK 0
+#define wxEVT_NC_RIGHT_DCLICK 0
+#define wxEVT_PAINT_ICON 0
+#define wxEVT_SETTING_CHANGED 0
+#define wxEVT_DRAW_ITEM 0
+#define wxEVT_MEASURE_ITEM 0
+#define wxEVT_COMPARE_ITEM 0
 
 enum KeyCode
 {
@@ -333,8 +362,8 @@ int FlashCode(int inKey)
          return keyCOMMAND;
 
       case WXK_CAPITAL: return keyCAPS_LOCK;
-      case WXK_NEXT: return keyPAGE_DOWN;
-      case WXK_PRIOR: return keyPAGE_UP;
+      //case WXK_NEXT: return keyPAGE_DOWN;
+      //case WXK_PRIOR: return keyPAGE_UP;
       case '=': return keyEQUAL;
       case WXK_RETURN:
          return keyENTER;
@@ -377,6 +406,14 @@ bool HaxeEventHandler::ProcessEvent(wxEvent& event)
       name = window->GetName();
 
    int type = event.GetEventType();
+
+   if (type==wxEVT_DESTROY && window==mWindow)
+   {
+      // Deleted because it is client data
+      mWindow->PopEventHandler();
+      return false;
+   }
+
 	// ?
 	if (gWX2HaxeIDMap.find(type)==gWX2HaxeIDMap.end())
 	{
@@ -521,6 +558,7 @@ DEFINE_PRIM(wx_get_data,1)
 
 
 
+
 // -- Contants -------------------------------------------------------------
 void SetupEventMap()
 {
@@ -593,7 +631,7 @@ void SetupEventMap()
       wxEVT_NAVIGATION_KEY,
       wxEVT_KEY_DOWN,
       wxEVT_KEY_UP,
-      #ifdef __WXMAC__
+      #ifndef __WXMSW__
 		0,
       #else
       wxEVT_HOTKEY,

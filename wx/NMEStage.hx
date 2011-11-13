@@ -21,8 +21,10 @@ class NMEStage extends GLCanvas
       stage.beginRender = me.makeCurrent;
       stage.endRender = me.flip;
       stage.setNextWake = me.setNextWake;
+      stage.renderRequest = me.refresh;
       onSize = myOnSize;
-      onPaint = render;
+      //onPaint = render;
+      setHandler(wx.EventID.PAINT, me.render);
       mTimer = new Timer(this);
       setNextWake(1);
    }

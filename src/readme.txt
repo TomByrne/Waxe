@@ -1,13 +1,18 @@
-Building on mac:
-Download + extract wxMac-2.8.10.tar.gz
+Getting started on mac ...
 
+Download + extract wxWidgets 2.9.2.
+Put this "next to" the waxe root, or set the WXROOT variable appropriately
+
+Configure + build static libraries:
 ./configure --enable-monolithic --disable-shared --enable-webkit --with-opengl CXXFLAGS=-fvisibility=hidden OBJCXXFLAGS=-fvisibility=hidden OBJCFLAGS=-fvisibility=hidden
+make
 
-copy libwx_mac-2.8.a
+I copied the resulting setup to the waxe svn:
+cp lib/wx/include/osx_carbon-unicode-static-2.9/wx/setup.h ../waxe/src/include/mac_setup.h
 
-copy lib/wx/include/mac-ansi-release-static-2.8/wx/setup.h mac_setup.h
 
-create wx/setup.h to point to the mac_setup.h
+
+
 
 
 Building on Windows:
