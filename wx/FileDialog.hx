@@ -16,19 +16,20 @@ class FileDialog
    public var paths:Array<String>;
 
    // Style flags
-   public static inline var DEFAULT_STYLE = 0;
-   public static inline var OPEN          = 0;
-   public static inline var SAVE          = 1;
-   public static inline var OVERWRITE_PROMPT = 0x10;
-   public static inline var FILE_MUST_EXIST =  0x20;
-   public static inline var MULTIPLE =         0x40;
+   public static inline var DEFAULT_STYLE    = 0x01;
+   public static inline var OPEN             = 0x01;
+   public static inline var SAVE             = 0x02;
+   public static inline var OVERWRITE_PROMPT = 0x04;
+   public static inline var FILE_MUST_EXIST =  0x10;
+   public static inline var MULTIPLE =         0x20;
    public static inline var CHANGE_DIR =       0x80;
    public static inline var PREVIEW =          0x100;
 
 
+
    public function new(inParent:Window=null, inMessage:String="Choose a file",
            inDefaultDir:String="", inDefaultFile:String="", inFilter:String="*",
-           inStyle:Int=0, inPosition:Position=null, inSize:Size=null, inName:String="filedlg")
+           inStyle:Int=1, inPosition:Position=null, inSize:Size=null, inName:String="filedlg")
    {
       parent = inParent==null ? null : inParent.wxHandle;
       message=inMessage;

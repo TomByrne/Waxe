@@ -17,6 +17,7 @@ class NMEStage extends GLCanvas
       var me = this;
       mLastValue = 0;
       stage = nme.Lib.createManagedStage(inWidth,inHeight);
+      stage.onQuit = App.quit;
       stage.beginRender = me.makeCurrent;
       stage.endRender = me.flip;
       stage.setNextWake = me.setNextWake;

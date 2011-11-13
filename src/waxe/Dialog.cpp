@@ -35,6 +35,18 @@ value wx_file_dialog_show(value ioData)
 
    wxFileDialog *dlg = new wxFileDialog(parent,message,directory,file,filter,style,position,size);
    bool result = dlg->ShowModal()==wxID_OK;
+
+   if (result)
+   {
+     alloc_field(ioData,val_id("file"), WXToValue(dlg->GetFilename()));
+     alloc_field(ioData,val_id("directory"), WXToValue(dlg->GetDirectory()));
+     wxArrayString files;
+     dlg->GetFilenames(files);
+     value array = val_field(ioData,val_id("files"));
+     for(int i=0;i<files.size();i++)
+        val_array_push(array,WXToValue(files[i]));
+   }
+
    dlg->Destroy();
    return alloc_bool(result);
 }
