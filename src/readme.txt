@@ -11,7 +11,16 @@ I copied the resulting setup to the waxe svn:
 cp lib/wx/include/osx_carbon-unicode-static-2.9/wx/setup.h ../waxe/src/include/mac_setup.h
 
 
+Linux, simiar procedure - it is not possible to cross-compile to 32 bits
 
+edit the configure script and remove the opengl libraray check
+
+./configure  --disable-shared --with-opengl CC="cc -m32" CXX="g++ -m32"
+
+
+make
+
+cp lib/wx/include/gtk2-unicode-static-2.9/wx/setup.h ../waxe/src/include/linux_setup.h
 
 
 

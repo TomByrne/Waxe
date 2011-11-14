@@ -9,9 +9,9 @@ class Simple
 
    function new()
    {
-      mFrame = wx.Frame.create(null,"Main Frame");
-      var count = 0;
+      mFrame = ApplicationMain.frame;
       /*
+      var count = 0;
       mFrame.onClose = function(ioEvent)
       {
          count++;
@@ -96,6 +96,6 @@ class Simple
 
    public static function main()
    {
-      wx.App.boot( function(){ new Simple(); } );
+      new Simple();
    }
 }
