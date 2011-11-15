@@ -17,10 +17,11 @@
    <compilerflag value = "-Iinclude"/>
    <compilerflag value = "-I${WXROOT}/include"/>
    <compilerflag value = "-Iwaxe"/>
-   <compilerflag value = "-D_FILE_OFFSET_BITS=64" if="macos"/>
-   <compilerflag value = "-D_LARGE_FILES=64" if="macos"/>
+   <compilerflag value = "-D_FILE_OFFSET_BITS=64" />
+   <compilerflag value = "-D_LARGE_FILES=64" />
    <compilerflag value = "-D__WXOSX_CARBON__" if="macos"/>
-
+   <compilerflag value = "-D__WXX11__" if="linux"/>
+   <compilerflag value = "-D__WXUNIVERSAL__" if="linux"/>
 
    <file name="waxe/App.cpp"/>
    <file name="waxe/HaxeAPI.cpp"/>
@@ -63,8 +64,33 @@
 
    <lib name="${WXLIB}/libwx_osx_carbonu-2.9.a" if="macos"/>
    <lib name="${WXLIB}/libwx_osx_carbonu_gl-2.9.a" if="macos"/>
-   <lib name="${WXLIB}/libwxscintilla-2.9.a" if="macos"/>
-   <lib name="${WXLIB}/libwxpng-2.9.a" if="macos"/>
+
+
+   <lib name="${WXLIB}/libwx_x11univu-2.9.a" if="linux"/>
+   <lib name="${WXLIB}/libwx_x11univu_gl-2.9.a" if="linux"/>
+   <lib name="${WXLIB}/libwxpng-2.9.a" if="linux"/>
+   <lib name="${WXLIB}/libwxzlib-2.9.a" if="linux"/>
+   <lib name="-lpango-1.0" if="linux"/>
+   <lib name="-lgthread-2.0" if="linux"/>
+   <lib name="-lcairo" if="linux"/>
+   <lib name="-lgobject-2.0" if="linux"/>
+   <lib name="-lgio-2.0" if="linux"/>
+   <lib name="-lpango-1.0" if="linux"/>
+   <lib name="-lpangocairo-1.0" if="linux"/>
+   <lib name="-lpangox-1.0" if="linux"/>
+   <lib name="-lpangoxft-1.0" if="linux"/>
+   <lib name="-lglib-2.0" if="linux"/>
+   <lib name="-lGL" if="linux"/>
+   <lib name="-lXm" if="linux"/>
+   <lib name="-lXt" if="linux"/>
+   <lib name="-lXext" if="linux"/>
+   <lib name="-lXft" if="linux"/>
+   <lib name="-lX11" if="linux"/>
+
+   <lib name="${WXLIB}/libwxscintilla-2.9.a" />
+
+   <lib name="${WXLIB}/libwxpng-2.9.a" if="macos" />
+   <!-- <lib name="-lpng12" if="linux" /> -->
 
    <lib name="lib/Windows/wxmsw28.lib" if="windows"/>
    <lib name="lib/Windows/wxmsw28_gl.lib" if="windows"/>
@@ -100,9 +126,9 @@
    <lib name="-framework" if="macos"/>
    <lib name="WebKit" if="macos"/>
 
-   <lib name="-lz" unless="windows"/>
+   <lib name="-lz" if="macos"/>
    <lib name="-lpthread" unless="windows"/>
-   <lib name="-liconv" unless="windows"/>
+   <lib name="-liconv" if="macos"/>
 
 </target>
 

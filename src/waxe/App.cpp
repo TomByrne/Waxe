@@ -10,6 +10,9 @@
 #include <hx/CFFI.h>
 #include <HaxeAPI.h>
 
+#ifdef __WXUNIVERSAL__
+WX_USE_THEME(gtk);
+#endif
 
 // --- Bootstrap Object ---------------------------
 

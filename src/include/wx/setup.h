@@ -6,6 +6,10 @@
 
 #include "../windows_setup.h"
 
+#elif defined(HX_LINUX)
+
+#include "../linux_setup.h"
+
 #else
 
 #error "Unknown haxe compile type"

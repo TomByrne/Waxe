@@ -4,8 +4,9 @@
 value wx_glcanvas_create(value inParams)
 {
 	CreationParams params(inParams);
-    wxGLCanvas *window = new wxGLCanvas(params.parent,params.id,
-										  params.position,params.size,params.flags);
+    int *attrs = 0;
+    wxGLCanvas *window = new wxGLCanvas(params.parent,params.id, attrs,
+			  params.position,params.size,params.flags);
 
     int x,y;
     // Hack to fake a resize to get wxwindows to render before a reszie
