@@ -15,12 +15,18 @@ Linux, simiar procedure - it is not possible to cross-compile to 32 bits
 
 edit the configure script and remove the opengl libraray check
 
-./configure  --disable-shared --with-opengl CC="cc -m32" CXX="g++ -m32"
+./configure  --disable-shared --with-opengl CC="cc -m32" CXX="g++ -m32" --build=i486-pc-linux-gnu --with-x11 --without-gtk --enable-monolithic
+
+Then hand edit the resulting setup:
+lib/wx/include/x11univ-unicode-static-2.9/wx/setup.h
+and set:
+(not sure if this is required now)
+#define wxUSE_THEME_GTK     1
 
 
 make
 
-cp lib/wx/include/gtk2-unicode-static-2.9/wx/setup.h ../waxe/src/include/linux_setup.h
+cp ../../wxWidgets-2.9.2/lib/wx/include/x11univ-unicode-static-2.9/wx/setup.h  include/linux_setup.h 
 
 
 

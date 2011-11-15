@@ -1,12 +1,18 @@
 #include <HaxeAPI.h>
 #include <wx/glcanvas.h>
 
+// TODO: Manage this with in a window class...
+wxGLContext *sgContext = 0;
+
 value wx_glcanvas_create(value inParams)
 {
 	CreationParams params(inParams);
     int *attrs = 0;
     wxGLCanvas *window = new wxGLCanvas(params.parent,params.id, attrs,
 			  params.position,params.size,params.flags);
+
+    if (sgContext==0)
+       sgContext = new wxGLContext(window, (wxGLContext *)0);
 
     int x,y;
     // Hack to fake a resize to get wxwindows to render before a reszie
@@ -23,7 +29,7 @@ value wx_glcanvas_make_current(value inCanvas)
 	wxGLCanvas *canvas;
 	if (ValueToWX(inCanvas,canvas))
    {
-		canvas->SetCurrent();
+		canvas->SetCurrent(*sgContext);
    }
 	return alloc_null();
 }
