@@ -13,7 +13,7 @@ class FileDialog
    public var position:Position;
    public var size:Size;
    public var name:String;
-   public var paths:Array<String>;
+   public var files:Array<String>;
 
    // Style flags
    public static inline var DEFAULT_STYLE    = 0x01;
@@ -40,7 +40,7 @@ class FileDialog
       position = inPosition;
       size = inSize;
       name = inName;
-      paths = [];
+      files = [];
    }
 
    public function showModal() : Bool
