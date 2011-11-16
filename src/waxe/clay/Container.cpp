@@ -3062,7 +3062,7 @@ public:
        NotebookBase<MyMDIChildFrame>(inManager)
    {
       mMDI = inMDI;
-      mClient = inMDI->GetClientWindow();
+      mClient = (wxMDIClientWindow *)inMDI->GetClientWindow();
       mParent = 0;
 
       for(int i=0;i<stSIZE;i++)

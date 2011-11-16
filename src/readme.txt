@@ -28,10 +28,8 @@ make
 
 cp ../../wxWidgets-2.9.2/lib/wx/include/x11univ-unicode-static-2.9/wx/setup.h  include/linux_setup.h 
 
-
-
 Building on Windows:
-Download + extract wxMSW-2.8.10.tar.gz
+Download wxWidgets 2.9.2 and extract next to the waxe directory
  edit Config.vc:
      BUILD = release
 	  MONOLITHIC = 1
@@ -40,14 +38,7 @@ Download + extract wxMSW-2.8.10.tar.gz
 
 nmake -f makefile.vc
 
-cp lib/vc_lib/*.h
-cp lib/vc_lib/msw/wx/setup.h wx/windows_setup.h
-create wx/setup.h to point to the windows_setup.h
+cp lib/vc_lib/mswu/wx/setup.h src/include/windows_setup.h
 
 
 
----------------------
-scintilla
-
-Download & extract wxscintilla_1.69.2
-For windows, use the makefile from lib/Windows, pointing wx/include to here.

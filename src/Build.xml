@@ -12,6 +12,7 @@
 
 <set name="WXROOT" value="../../wxWidgets-2.9.2/" unless="WXROOT"/>
 <set name="WXLIB" value="${WXROOT}/lib" />
+<set name="WXLIB" value="${WXROOT}/lib/vc_lib" if="windows" />
 
 <files id="files">
    <compilerflag value = "-Iinclude"/>
@@ -22,6 +23,7 @@
    <compilerflag value = "-D__WXOSX_CARBON__" if="macos"/>
    <compilerflag value = "-D__WXX11__" if="linux"/>
    <compilerflag value = "-D__WXUNIVERSAL__" if="linux"/>
+   <compilerflag value = "-D__WXMSW__" if="windows"/>
 
    <file name="waxe/App.cpp"/>
    <file name="waxe/HaxeAPI.cpp"/>
@@ -64,6 +66,7 @@
 
    <lib name="${WXLIB}/libwx_osx_carbonu-2.9.a" if="macos"/>
    <lib name="${WXLIB}/libwx_osx_carbonu_gl-2.9.a" if="macos"/>
+   <lib name="${WXLIB}/libwxpng-2.9.a" if="macos" />
 
 
    <lib name="${WXLIB}/libwx_x11univu-2.9.a" if="linux"/>
@@ -87,16 +90,18 @@
    <lib name="-lXft" if="linux"/>
    <lib name="-lX11" if="linux"/>
 
-   <lib name="${WXLIB}/libwxscintilla-2.9.a" />
+   <lib name="${WXLIB}/wxmsw29u.lib" if="windows"/>
+   <lib name="${WXLIB}/wxmsw29u_gl.lib" if="windows"/>
+   <lib name="${WXLIB}/wxpng.lib" if="windows"/>
+   <lib name="${WXLIB}/wxzlib.lib" if="windows"/>
+   <lib name="${WXLIB}/wxexpat.lib" if="windows"/>
+   <lib name="${WXLIB}/wxregexu.lib" if="windows"/>
+   <lib name="${WXLIB}/wxscintilla.lib" if="windows"/>
 
-   <lib name="${WXLIB}/libwxpng-2.9.a" if="macos" />
-   <!-- <lib name="-lpng12" if="linux" /> -->
-
-   <lib name="lib/Windows/wxmsw28.lib" if="windows"/>
-   <lib name="lib/Windows/wxmsw28_gl.lib" if="windows"/>
-   <lib name="lib/windows/libwxscintilla.a" if="windows"/>
+   <lib name="${WXLIB}/libwxscintilla-2.9.a" unless="windows" />
 
    <lib name="user32.lib" if="windows"/>
+   <lib name="winspool.lib" if="windows"/>
    <lib name="advapi32.lib" if="windows"/>
    <lib name="gdi32.lib" if="windows"/>
    <lib name="comdlg32.lib" if="windows"/>
