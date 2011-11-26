@@ -21,6 +21,7 @@
    <compilerflag value = "-D_FILE_OFFSET_BITS=64" />
    <compilerflag value = "-D_LARGE_FILES=64" />
    <compilerflag value = "-D__WXOSX_CARBON__" if="macos"/>
+   <compilerflag value = "-DwxDEBUG_LEVEL=0" if="macos"/>
    <compilerflag value = "-D__WXX11__" if="linux"/>
    <compilerflag value = "-D__WXUNIVERSAL__" if="linux"/>
    <compilerflag value = "-D__WXMSW__" if="windows"/>
@@ -64,7 +65,9 @@
    <outdir name="../ndll/${BINDIR}"/>
    <flag value="${LIB_DIR}"/>
 
-   <lib name="${WXLIB}/libwx_osx_carbonu-2.9.a" if="macos"/>
+   <lib name="${WXLIB}/libwx_baseu-2.9.a" if="macos"/>
+   <lib name="${WXLIB}/libwx_osx_carbonu_core-2.9.a" if="macos"/>
+   <lib name="${WXLIB}/libwx_osx_carbonu_stc-2.9.a" if="macos"/>
    <lib name="${WXLIB}/libwx_osx_carbonu_gl-2.9.a" if="macos"/>
    <lib name="${WXLIB}/libwxpng-2.9.a" if="macos" />
 

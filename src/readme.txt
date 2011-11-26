@@ -2,9 +2,8 @@ Getting started on mac ...
 
 Download + extract wxWidgets 2.9.2.
 Put this "next to" the waxe root, or set the WXROOT variable appropriately
-
 Configure + build static libraries:
-./configure --enable-monolithic --disable-shared --enable-webkit --with-opengl CXXFLAGS=-fvisibility=hidden OBJCXXFLAGS=-fvisibility=hidden OBJCFLAGS=-fvisibility=hidden
+./configure --disable-shared --disable-svg with_libtiff=no with_regex=no with_expat=no --enable-stc --disable-debug_flag  --with-opengl CXXFLAGS=-fvisibility=hidden OBJCXXFLAGS=-fvisibility=hidden OBJCFLAGS=-fvisibility=hidden
 make
 
 I copied the resulting setup to the waxe svn:
