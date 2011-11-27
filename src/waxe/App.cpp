@@ -5,14 +5,9 @@
 
 #define NEKO_COMPATIBLE
 #define IMPLEMENT_API
-#define NEKO_COMPATIBLE
 
 #include <hx/CFFI.h>
 #include <HaxeAPI.h>
-
-#ifdef __WXUNIVERSAL__
-WX_USE_THEME(gtk);
-#endif
 
 // --- Bootstrap Object ---------------------------
 
@@ -45,8 +40,8 @@ IMPLEMENT_APP_NO_MAIN(wxWidgetsApp)
 value wx_boot(value inOnInit)
 {
   sgOnInit = inOnInit;
-  char *prog[] = {"prog",0};
-  int argc = 1;
+  wchar_t *prog[] = { (wchar_t *)0};
+  int argc = 0;
   int result =  wxEntry(argc,prog);
   return alloc_int(result);
 }

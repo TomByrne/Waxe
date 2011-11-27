@@ -10,22 +10,19 @@ I copied the resulting setup to the waxe svn:
 cp lib/wx/include/osx_carbon-unicode-static-2.9/wx/setup.h ../waxe/src/include/mac_setup.h
 
 
-Linux, simiar procedure - it is not possible to cross-compile to 32 bits
-
-edit the configure script and remove the opengl libraray check
+Linux - cross compile for 32 Bits:
 
 ./configure  --disable-shared --with-opengl CC="cc -m32" CXX="g++ -m32" --build=i486-pc-linux-gnu --with-x11 --without-gtk --enable-monolithic
 
-Then hand edit the resulting setup:
-lib/wx/include/x11univ-unicode-static-2.9/wx/setup.h
-and set:
-(not sure if this is required now)
-#define wxUSE_THEME_GTK     1
 
+Lunux 64:
+
+./configure -q --disable-shared --with-opengl CC="cc -fpic -fPIC" CXX="g++ -fpic -fPIC" --with-gtk with_tiff=no with_expat=no with_regex=no --without-gtkprint --without-gtkprint
 
 make
 
-cp ../../wxWidgets-2.9.2/lib/wx/include/x11univ-unicode-static-2.9/wx/setup.h  include/linux_setup.h 
+copy setup file from lib file
+
 
 Building on Windows:
 Download wxWidgets 2.9.2 and extract next to the waxe directory

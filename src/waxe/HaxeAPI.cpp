@@ -5,6 +5,14 @@
 
 DEFINE_KIND(gObjectKind);
 
+extern "C" void InitCFFI()
+{
+  gObjectKind = alloc_kind();
+}
+
+DEFINE_ENTRY_POINT(InitCFFI)
+
+
 wxString Val2Str(value inVal)
 {
    if (val_is_string(inVal))
@@ -206,7 +214,6 @@ HaxeEventHandler::HaxeEventHandler(wxWindow *inWindow,value inHandler)
    mObject = alloc_root();
    *mObject = inHandler;
    sgHandlers++;
-   //printf("Push Event Handler %p -> %p = %d\n", this, inWindow,sgHandlers);
    if (inWindow)
       inWindow->PushEventHandler(this);
 
@@ -218,7 +225,6 @@ HaxeEventHandler::~HaxeEventHandler()
    sgHandlers--;
    if (!val_is_null(*mObject))
       val_ocall0(*mObject,val_id("_wx_deleted"));
-   //printf("Delete me %p (%p) = %d\n",this,mWindow,sgHandlers);
    free_root(mObject);
    --handler_count;
 }

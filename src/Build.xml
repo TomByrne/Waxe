@@ -22,8 +22,7 @@
    <compilerflag value = "-D_LARGE_FILES=64" />
    <compilerflag value = "-D__WXOSX_CARBON__" if="macos"/>
    <compilerflag value = "-DwxDEBUG_LEVEL=0" if="macos"/>
-   <compilerflag value = "-D__WXX11__" if="linux"/>
-   <compilerflag value = "-D__WXUNIVERSAL__" if="linux"/>
+   <compilerflag value = "-D__WXGTK__" if="linux"/>
    <compilerflag value = "-D__WXMSW__" if="windows"/>
 
    <file name="waxe/App.cpp"/>
@@ -71,27 +70,39 @@
    <lib name="${WXLIB}/libwx_osx_carbonu_gl-2.9.a" if="macos"/>
    <lib name="${WXLIB}/libwxpng-2.9.a" if="macos" />
 
+   <lib name="${WXLIB}/libwx_baseu-2.9.a" if="linux"/>
+   <lib name="${WXLIB}/libwx_gtk2u_core-2.9.a" if="linux"/>
+   <lib name="${WXLIB}/libwx_gtk2u_gl-2.9.a" if="linux"/>
+   <lib name="${WXLIB}/libwx_baseu-2.9.a" if="linux"/>
+   <lib name="${WXLIB}/libwx_gtk2u_stc-2.9.a" if="linux"/>
+   <lib name="${WXLIB}/libwx_gtk2u_core-2.9.a" if="linux"/>
+   <lib name="-lgtk-x11-2.0" if="linux"/>
+   <lib name="-lglib-2.0" if="linux"/>
+   <lib name="-lgobject-2.0" if="linux"/>
+   <lib name="-lgdk-x11-2.0" if="linux"/>
+   <lib name="-lgdk_pixbuf-2.0" if="linux"/>
+   <lib name="-lcairo" if="linux"/>
+   <lib name="-lpango-1.0" if="linux"/>
+   <lib name="-lpangocairo-1.0" if="linux"/>
+   <lib name="-lgthread-2.0" if="linux"/>
+   <lib name="-lGL" if="linux"/>
+   <lib name="-lX11" if="linux"/>
 
+<!--
    <lib name="${WXLIB}/libwx_x11univu-2.9.a" if="linux"/>
    <lib name="${WXLIB}/libwx_x11univu_gl-2.9.a" if="linux"/>
    <lib name="${WXLIB}/libwxpng-2.9.a" if="linux"/>
    <lib name="${WXLIB}/libwxzlib-2.9.a" if="linux"/>
    <lib name="-lpango-1.0" if="linux"/>
-   <lib name="-lgthread-2.0" if="linux"/>
-   <lib name="-lcairo" if="linux"/>
    <lib name="-lgobject-2.0" if="linux"/>
    <lib name="-lgio-2.0" if="linux"/>
-   <lib name="-lpango-1.0" if="linux"/>
-   <lib name="-lpangocairo-1.0" if="linux"/>
-   <lib name="-lpangox-1.0" if="linux"/>
    <lib name="-lpangoxft-1.0" if="linux"/>
    <lib name="-lglib-2.0" if="linux"/>
-   <lib name="-lGL" if="linux"/>
    <lib name="-lXm" if="linux"/>
    <lib name="-lXt" if="linux"/>
    <lib name="-lXext" if="linux"/>
    <lib name="-lXft" if="linux"/>
-   <lib name="-lX11" if="linux"/>
+-->
 
    <lib name="${WXLIB}/wxmsw29u.lib" if="windows"/>
    <lib name="${WXLIB}/wxmsw29u_gl.lib" if="windows"/>

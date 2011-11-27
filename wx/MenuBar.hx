@@ -9,7 +9,6 @@ class MenuBar extends EventHandler
 
    override function HandleEvent(event:Dynamic)
    {
-      trace("MenuBar Event!");
    }
 	public function append(inMenu:Menu, inTitle:String)
 	{
