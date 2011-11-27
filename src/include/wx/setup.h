@@ -8,7 +8,11 @@
 
 #elif defined(HX_LINUX)
 
-#include "../linux_setup.h"
+  #ifdef HXCPP_M64
+  #include "../linux64_setup.h"
+  #else
+  #include "../linux_setup.h"
+  #endif
 
 #else
 
