@@ -10,9 +10,11 @@
 
 <set name="DBG" value="d" if="debug"/>
 
-<set name="WXROOT" value="../../wxWidgets-2.9.2/" unless="WXROOT"/>
-<set name="WXLIB" value="${WXROOT}/lib" />
-<set name="WXLIB" value="${WXROOT}/lib/vc_lib" if="windows" />
+<set name="WXROOT" value="../../wxwidgets-static/" unless="WXROOT"/>
+<set name="WXLIB" value="${WXROOT}/lib/Windows" if="windows"/>
+<set name="WXLIB" value="${WXROOT}/lib/Mac" if="macos"/>
+<set name="WXLIB" value="${WXROOT}/lib/Linux64" if="linux"/>
+<set name="WXLIB" value="${WXROOT}/lib/Linux" if="linux" unless="HXCPP_M64" />
 
 <files id="files">
    <compilerflag value = "-Iinclude"/>
@@ -104,12 +106,12 @@
    <lib name="-lXft" if="linux"/>
 -->
 
-   <lib name="${WXLIB}/wxmsw29u.lib" if="windows"/>
+   <lib name="${WXLIB}/wxbase29u.lib" if="windows"/>
+   <lib name="${WXLIB}/wxmsw29u_core.lib" if="windows"/>
+   <lib name="${WXLIB}/wxmsw29u_stc.lib" if="windows"/>
    <lib name="${WXLIB}/wxmsw29u_gl.lib" if="windows"/>
    <lib name="${WXLIB}/wxpng.lib" if="windows"/>
    <lib name="${WXLIB}/wxzlib.lib" if="windows"/>
-   <lib name="${WXLIB}/wxexpat.lib" if="windows"/>
-   <lib name="${WXLIB}/wxregexu.lib" if="windows"/>
    <lib name="${WXLIB}/wxscintilla.lib" if="windows"/>
 
    <lib name="${WXLIB}/libwxscintilla-2.9.a" unless="windows" />

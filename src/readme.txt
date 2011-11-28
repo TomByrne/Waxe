@@ -28,7 +28,7 @@ Building on Windows:
 Download wxWidgets 2.9.2 and extract next to the waxe directory
  edit Config.vc:
      BUILD = release
-	  MONOLITHIC = 1
+	  MONOLITHIC = 0
 	  USE_OPENGL = 1
 	  RUNTIME_LIBS = static
 
