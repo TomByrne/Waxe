@@ -1,4 +1,4 @@
-#include <HaxeAPI.h>
+#include "HaxeAPI.h"
 #include <wx/mstream.h>
 
 value wx_bitmap_from_bytes(value inBytes)

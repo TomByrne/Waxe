@@ -7,7 +7,7 @@
 #define IMPLEMENT_API
 
 #include <hx/CFFI.h>
-#include <HaxeAPI.h>
+#include "HaxeAPI.h"
 
 // --- Bootstrap Object ---------------------------
 

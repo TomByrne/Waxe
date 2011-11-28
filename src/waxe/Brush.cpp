@@ -1,4 +1,4 @@
-#include <HaxeAPI.h>
+#include "HaxeAPI.h"
 
 value wx_brush_create(value inColour,value inPattern)
 {

@@ -5,7 +5,7 @@ class Dialog extends TopLevelWindow
 
    public static function create(inParent:Window, ?inID:Int, inTitle:String="",
 						?inPosition:{x:Float,y:Float},
-                   ?inSize:{w:Float,h:Float}, ?inStyle:Int )
+                   ?inSize:{width:Int,height:Int}, ?inStyle:Int )
    {
       var handle = wx_dialog_create(
 			[inParent==null ? null : inParent.wxHandle,inID,inTitle,inPosition,inSize, inStyle] );

@@ -1,4 +1,4 @@
-#include <HaxeAPI.h>
+#include "HaxeAPI.h"
 
 value wx_window_create(value inParams)
 {
@@ -26,6 +26,15 @@ value wx_window_refresh(value inWindow)
    return alloc_null();
 }
 DEFINE_PRIM(wx_window_refresh,1)
+
+value wx_window_destroy(value inWindow)
+{
+   wxWindow *window;
+   if (ValueToWX(inWindow,window))
+       window->Destroy();
+   return alloc_null();
+}
+DEFINE_PRIM(wx_window_destroy,1)
 
 
 

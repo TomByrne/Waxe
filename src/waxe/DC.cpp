@@ -1,4 +1,4 @@
-#include <HaxeAPI.h>
+#include "HaxeAPI.h"
 
 value wx_dc_create_paint(value inWindow)
 {

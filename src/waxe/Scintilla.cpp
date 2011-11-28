@@ -1,4 +1,4 @@
-#include <HaxeAPI.h>
+#include "HaxeAPI.h"
 #include <wx/stc/stc.h>
 
 value wx_scintilla_create(value inParams)

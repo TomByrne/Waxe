@@ -1,4 +1,4 @@
-#include <HaxeAPI.h>
+#include "HaxeAPI.h"
 
 value wx_static_text_create(value inParams)
 {
