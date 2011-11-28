@@ -984,7 +984,7 @@ class WindowContainer : public HostedContainer
 {
 public:
    WindowContainer(Manager *inManager,wxWindow *inWindow,WindowStyle inStyle,
-      const wxIconBundle &inIcons,
+      wxIconBundle inIcons,
       unsigned int inFlags) : HostedContainer(inManager), mIcons(inIcons)
    {
       mToolBox = 0;
@@ -1278,7 +1278,7 @@ public:
 
 
 Container *Manager::Create(wxWindow *inWindow,WindowStyle inStyle,
-               const wxIconBundle &inIcons,
+               wxIconBundle inIcons,
                unsigned int inFlags)
    { return new WindowContainer(this,inWindow,inStyle,inIcons,inFlags); }
 

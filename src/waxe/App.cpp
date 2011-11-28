@@ -21,7 +21,7 @@ public:
     virtual bool OnInit()
     {
        wxImage::AddHandler(new wxGIFHandler);
-       //wxXmlResource::Get()->InitAllHandlers();
+       wxImage::AddHandler(new wxBMPHandler);
 
        val_call0(sgOnInit);
 

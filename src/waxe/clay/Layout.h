@@ -170,7 +170,7 @@ public:
 
    Container *Create(wxFrame *inFrame, bool inIsFloating);
    Container *Create(wxWindow *inFrame,WindowStyle inStyle,
-                             const wxIconBundle &inIcons=wxIconBundle(),
+                             wxIconBundle inIcons=wxIconBundle(),
                              unsigned int inFlags=0);
    Container *Create(class ToolBox *inToolBox);
    Container *Create(wxMDIParentFrame *inMDI);

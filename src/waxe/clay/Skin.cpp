@@ -358,9 +358,9 @@ public:
           TabInfo &info = inInfo[t];
           info.mTruncated = false;
           int w = mRefDC->GetTextExtent(info.mTitle).x + 10;
-          if (info.mIcons)
+          if (info.mIcons && !info.mIcons->IsEmpty())
           {
-             const wxIcon &icon = info.mIcons->GetIcon(16);
+             wxIcon icon = info.mIcons->GetIcon(16);
              if (icon.GetHeight()==16)
                 w+= icon.GetWidth() + 1;
           }
@@ -578,11 +578,13 @@ public:
          wxString text =info.mTitle;
          int w = info.mHitRect->width;
 
-         const wxIcon *icon = 0;
-         if (info.mIcons)
+         wxIcon *icon = 0;
+         wxIcon icon_buf;
+         if (info.mIcons && !info.mIcons->IsEmpty())
          {
-           icon = &info.mIcons->GetIcon(16);
-           if (icon->GetHeight()!=16)
+           icon_buf = info.mIcons->GetIcon(16);
+           icon = &icon_buf;
+           if (icon_buf.GetHeight()!=16)
               icon = 0;
          }
    
@@ -672,10 +674,11 @@ public:
       //int w = r.width - 10;
 
       const wxIcon *icon = 0;
+      wxIcon i;
       const wxIconBundle *icons = inContainer.GetIconSet();
-      if (icons)
+      if (icons && !icons->IsEmpty())
       {
-         const wxIcon &i = icons->GetIcon(16);
+         i = icons->GetIcon(16);
          if (i.GetHeight()==16)
             icon = &i;
       }
@@ -702,9 +705,9 @@ public:
       int w = mRefDC->GetTextExtent(inContainer.GetCaption()).x + 3 + sGripWidth;
 
       const wxIconBundle *icons = inContainer.GetIconSet();
-      if (icons)
+      if (icons && !icons->IsEmpty())
       {
-         const wxIcon &i = icons->GetIcon(16);
+         wxIcon i = icons->GetIcon(16);
          if (i.GetHeight()==16)
             w += i.GetWidth() + 1;
       }
