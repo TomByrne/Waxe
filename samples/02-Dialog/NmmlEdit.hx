@@ -1,14 +1,18 @@
 import wx.Window;
 import wx.EventID;
 import wx.Sizer;
+import wx.BoxSizer;
 import wx.Panel;
 import wx.StaticBox;
 import wx.StaticBoxSizer;
+import wx.CheckBox;
+
+import neko.io.Process;
 
 class NmmlEdit
 {
    var root:Window;
-   var items_sizer:wx.FlexGridSizer;
+   var items_sizer:Sizer;
    var dialogSizer:Sizer;
 
    function new()
@@ -17,17 +21,32 @@ class NmmlEdit
       root = frame;
       frame.onClose = function(_) ApplicationMain.frame.destroy();
 
-
       root = ApplicationMain.frame;
 
+      dialogSizer = BoxSizer.create(true);
 
-      dialogSizer = wx.BoxSizer.create(true);
+      dialogSizer.add( createApplicationBox() ,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
 
+      dialogSizer.add( createWindowBox() ,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
+
+      dialogSizer.add( createIconBox() ,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
+
+      dialogSizer.add( createHaxeLibBox() ,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
+
+      dialogSizer.add(createButtons(),0,
+         Sizer.ALIGN_CENTRE | Sizer.BORDER_TOP | Sizer.BORDER_BOTTOM, 10);
+
+      root.sizer = dialogSizer;
+      dialogSizer.setSizeHints(ApplicationMain.frame);
+   }
+
+   function createApplicationBox()
+   {
       var box_sizer = StaticBoxSizer.create(true,root,"Application");
-      dialogSizer.add(box_sizer,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
 
-      items_sizer    = wx.FlexGridSizer.create(null,2);
-      items_sizer.addGrowableCol(1,1);
+      var s = wx.FlexGridSizer.create(null,2);
+      s.addGrowableCol(1,1);
+      items_sizer = s;
       box_sizer.add(items_sizer,1,Sizer.EXPAND);
 
 
@@ -55,12 +74,17 @@ class NmmlEdit
       var style = wx.ComboBox.create(root,null,"", ["Frame","Dialog","MDIParentFrame"]);
       addControl(style);
 
+      return box_sizer;
+   }
 
+   function createWindowBox()
+   {
+      // --- Window -------------------------
       var box_sizer = StaticBoxSizer.create(true,root,"Window");
-      dialogSizer.add(box_sizer,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
 
-      items_sizer    = wx.FlexGridSizer.create(null,2);
-      items_sizer.addGrowableCol(1,1);
+      var s = wx.FlexGridSizer.create(null,2);
+      s.addGrowableCol(1,1);
+      items_sizer = s;
       box_sizer.add(items_sizer,1,Sizer.EXPAND);
 
       addLabel("Width");
@@ -83,10 +107,61 @@ class NmmlEdit
       var orientation = wx.ComboBox.create(root,null,"", ["landscape","portrait"]);
       addControl(orientation);
 
+      return box_sizer;
+   }
 
-      var button_sizer = wx.BoxSizer.create(false);
-      dialogSizer.add(button_sizer,0,
-         Sizer.ALIGN_CENTRE | Sizer.BORDER_TOP | Sizer.BORDER_BOTTOM, 10);
+   function createIconBox()
+   {
+      var box_sizer = StaticBoxSizer.create(true,root,"Icon");
+
+      var s = wx.FlexGridSizer.create(null,2);
+      s.addGrowableCol(1,1);
+      items_sizer = s;
+      box_sizer.add(items_sizer,1,Sizer.EXPAND);
+
+      addLabel("Icon");
+      var icon = wx.TextCtrl.create(root,null,"" );
+      addControl(icon);
+
+      return box_sizer;
+   }
+
+
+   function createHaxeLibBox()
+   {
+      var box_sizer = StaticBoxSizer.create(true,root,"HaxeLibs");
+      items_sizer = box_sizer;
+
+      var libs = new Array<String>();
+      var proc = new Process ("haxelib", ["list"]);
+      try
+      {
+         while (true)
+         {
+            var line = proc.stdout.readLine ();
+            var words = line.split(":");
+            if (words.length>1)
+               libs.push(words[0]);
+         }
+      } catch (e:Dynamic) { };
+      proc.close();
+
+
+      for(lib in libs)
+      {
+         var checkbox = CheckBox.create(root,null,lib );
+         addControl(checkbox);
+      }
+
+      return box_sizer;
+   }
+
+
+
+
+   function createButtons()
+   {
+      var button_sizer = BoxSizer.create(false);
 
       var load = wx.Button.create(root,null,"Load");
       load.onClick = function(_) trace("Load!");
@@ -104,12 +179,10 @@ class NmmlEdit
       close.onClick = function(_) wx.App.quit();
       button_sizer.add(close);
 
- 
-
-
-      root.sizer = dialogSizer;
-      dialogSizer.setSizeHints(ApplicationMain.frame);
+      return button_sizer;
    }
+
+
 
    function addLabel(inLabel:String)
    {
