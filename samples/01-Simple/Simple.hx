@@ -42,7 +42,6 @@ class Simple
       vertical_sizer.add(button_sizer,0,
          Sizer.ALIGN_CENTRE | Sizer.BORDER_TOP | Sizer.BORDER_BOTTOM, 10);
       vertical_sizer.addGrowableRow(1);
-      vertical_sizer.addGrowableRow(2);
       var close = wx.Button.create(mWindow,null,"Close");
       button_sizer.add(close);
 
