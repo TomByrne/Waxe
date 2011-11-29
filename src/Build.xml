@@ -33,6 +33,7 @@
    <file name="waxe/Frame.cpp"/>
    <file name="waxe/MDI.cpp"/>
    <file name="waxe/StaticText.cpp"/>
+   <file name="waxe/StaticBox.cpp"/>
    <file name="waxe/TextCtrl.cpp"/>
    <file name="waxe/Sizer.cpp"/>
    <file name="waxe/Panel.cpp"/>

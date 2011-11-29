@@ -12,12 +12,12 @@ cp lib/wx/include/osx_carbon-unicode-static-2.9/wx/setup.h ../waxe/src/include/m
 
 Linux - cross compile for 32 Bits:
 
-./configure  --disable-shared --with-opengl CC="cc -m32" CXX="g++ -m32" --build=i486-pc-linux-gnu --with-x11 --without-gtk --enable-monolithic
+./configure  --disable-shared --with-opengl CC="cc -m32" CXX="g++ -m32" --build=i486-pc-linux-gnu --with-gtk with_libtiff=no with_expat=no with_regex=no --without-gtkprint
 
 
 Lunux 64:
 
-./configure -q --disable-shared --with-opengl CC="cc -fpic -fPIC" CXX="g++ -fpic -fPIC" --with-gtk with_tiff=no with_expat=no with_regex=no --without-gtkprint --without-gtkprint
+./configure -q --disable-shared --with-opengl CC="cc -fpic -fPIC" CXX="g++ -fpic -fPIC" --with-gtk with_libtiff=no with_expat=no with_regex=no --without-gtkprint
 
 make
 

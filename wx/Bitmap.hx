@@ -8,6 +8,8 @@ class Bitmap
 
    public static function fromBytes(inBytes:haxe.io.Bytes)
    {
+      if (inBytes==null)
+         throw("Bad bitmap data");
       return new Bitmap( wx_bitmap_from_bytes(inBytes.getData()) );
    }
 

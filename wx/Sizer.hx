@@ -46,11 +46,22 @@ class Sizer
 		wx_sizer_add(wxHandle,handle,proportion,flag,border);
 	}
 
+	public function setSizeHints(inWindow:Window)
+   {
+		wx_sizer_set_size_hints(wxHandle,inWindow.wxHandle);
+   }
+
+	public function fit(inWindow:Window)
+   {
+		wx_sizer_fit(wxHandle,inWindow.wxHandle);
+   }
 	public function wxGetHandle() { return wxHandle; }
 
 	static var wx_set_data = Loader.load("wx_set_data",2);
    static var wx_get_data = Loader.load("wx_get_data",1);
    static var wx_sizer_add = Loader.load("wx_sizer_add",5);
+   static var wx_sizer_set_size_hints = Loader.load("wx_sizer_set_size_hints",2);
+   static var wx_sizer_fit = Loader.load("wx_sizer_fit",2);
 
 }
 

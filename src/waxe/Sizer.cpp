@@ -42,6 +42,28 @@ value wx_sizer_create_grid_bag(value vgap, value hgap)
 }
 DEFINE_PRIM(wx_sizer_create_grid_bag,2)
 
+value wx_sizer_set_size_hints(value inSizer,value inWindow)
+{
+   wxWindow *window = 0;
+   wxSizer *sizer = Val2Sizer(inSizer);
+   if (sizer && ValueToWX(inWindow,window))
+       sizer->SetSizeHints(window);
+	return alloc_null();
+}
+DEFINE_PRIM(wx_sizer_set_size_hints,2)
+
+
+value wx_sizer_fit(value inSizer,value inWindow)
+{
+   wxWindow *window = 0;
+   wxSizer *sizer = Val2Sizer(inSizer);
+   if (sizer && ValueToWX(inWindow,window))
+       sizer->Fit(window);
+	return alloc_null();
+}
+DEFINE_PRIM(wx_sizer_fit,2)
+
+
 
 
 
@@ -91,3 +113,22 @@ value wx_sizer_add_growable_col(value inHandle,value inCol, value inProportion)
 	return alloc_null();
 }
 DEFINE_PRIM(wx_sizer_add_growable_col,3)
+
+value wx_sizer_create_from_static_box(value inBox, value inVertical)
+{
+   wxStaticBox *box=0;
+   if (ValueToWX(inBox,box))
+      return WXToValue(new wxStaticBoxSizer(box, (val_bool(inVertical) ? wxVERTICAL : wxHORIZONTAL )));
+   return alloc_null();
+}
+DEFINE_PRIM(wx_sizer_create_from_static_box,2)
+
+value wx_sizer_create_static_box(value inVertical, value inParent, value inTitle)
+{
+   wxWindow *parent=0;
+   if (ValueToWX(inParent,parent))
+      return WXToValue(new wxStaticBoxSizer(val_bool(inVertical) ? wxVERTICAL : wxHORIZONTAL, parent, Val2Str(inTitle)));
+   return alloc_null();
+}
+DEFINE_PRIM(wx_sizer_create_static_box,3)
+
