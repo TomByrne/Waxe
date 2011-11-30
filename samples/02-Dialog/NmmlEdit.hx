@@ -3,15 +3,15 @@ import wx.EventID;
 import wx.Sizer;
 import wx.BoxSizer;
 import wx.Panel;
-import wx.StaticBox;
-import wx.StaticBoxSizer;
 import wx.CheckBox;
+import wx.Notebook;
 
 import neko.io.Process;
 
 class NmmlEdit
 {
    var root:Window;
+   var notebook:Notebook;
    var items_sizer:Sizer;
    var dialogSizer:Sizer;
 
@@ -25,30 +25,47 @@ class NmmlEdit
 
       dialogSizer = BoxSizer.create(true);
 
-      dialogSizer.add( createApplicationBox() ,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
+      notebook = wx.Notebook.create(root);
 
-      dialogSizer.add( createWindowBox() ,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
+      dialogSizer.add( notebook,1,Sizer.EXPAND|Sizer.BORDER_ALL,4);
 
-      dialogSizer.add( createIconBox() ,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
+      createApplicationPage();
 
-      dialogSizer.add( createHaxeLibBox() ,0,Sizer.EXPAND|Sizer.BORDER_ALL,4);
+      createWindowPage();
+
+      createIconPage();
+
+      createHaxeLibPage();
+
+      root = frame;
 
       dialogSizer.add(createButtons(),0,
          Sizer.ALIGN_CENTRE | Sizer.BORDER_TOP | Sizer.BORDER_BOTTOM, 10);
 
-      root.sizer = dialogSizer;
+      frame.sizer = dialogSizer;
       dialogSizer.setSizeHints(ApplicationMain.frame);
+      //frame.size = { width:500, height:500 };
    }
 
-   function createApplicationBox()
+   function beginPage()
    {
-      var box_sizer = StaticBoxSizer.create(true,root,"Application");
-
+      root = Window.create(notebook);
       var s = wx.FlexGridSizer.create(null,2);
       s.addGrowableCol(1,1);
       items_sizer = s;
-      box_sizer.add(items_sizer,1,Sizer.EXPAND);
+   }
 
+   function endPage(inName:String)
+   {
+      root.sizer = items_sizer;
+      items_sizer.setSizeHints(root);
+      notebook.addPage(root,inName);
+   }
+
+
+   function createApplicationPage()
+   {
+      beginPage();
 
       addLabel("Main Class");
       var cls = wx.TextCtrl.create(root,null,"Main" );
@@ -74,18 +91,16 @@ class NmmlEdit
       var style = wx.ComboBox.create(root,null,"", ["Frame","Dialog","MDIParentFrame"]);
       addControl(style);
 
-      return box_sizer;
+      endPage("Application");
    }
 
-   function createWindowBox()
+   function createWindowPage()
    {
-      // --- Window -------------------------
-      var box_sizer = StaticBoxSizer.create(true,root,"Window");
+      beginPage();
 
       var s = wx.FlexGridSizer.create(null,2);
       s.addGrowableCol(1,1);
       items_sizer = s;
-      box_sizer.add(items_sizer,1,Sizer.EXPAND);
 
       addLabel("Width");
       var width = wx.TextCtrl.create(root,null,"800" );
@@ -107,30 +122,25 @@ class NmmlEdit
       var orientation = wx.ComboBox.create(root,null,"", ["landscape","portrait"]);
       addControl(orientation);
 
-      return box_sizer;
+      endPage("Window");
    }
 
-   function createIconBox()
+   function createIconPage()
    {
-      var box_sizer = StaticBoxSizer.create(true,root,"Icon");
-
-      var s = wx.FlexGridSizer.create(null,2);
-      s.addGrowableCol(1,1);
-      items_sizer = s;
-      box_sizer.add(items_sizer,1,Sizer.EXPAND);
+      beginPage();
 
       addLabel("Icon");
       var icon = wx.TextCtrl.create(root,null,"" );
       addControl(icon);
 
-      return box_sizer;
+      endPage("Icon");
    }
 
 
-   function createHaxeLibBox()
+   function createHaxeLibPage()
    {
-      var box_sizer = StaticBoxSizer.create(true,root,"HaxeLibs");
-      items_sizer = box_sizer;
+      root = Window.create(notebook);
+      items_sizer = wx.BoxSizer.create(true);
 
       var libs = new Array<String>();
       var proc = new Process ("haxelib", ["list"]);
@@ -153,10 +163,8 @@ class NmmlEdit
          addControl(checkbox);
       }
 
-      return box_sizer;
+      endPage("Haxe Libs");
    }
-
-
 
 
    function createButtons()
