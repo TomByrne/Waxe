@@ -17,7 +17,7 @@ class ComboBox extends ControlWithItems
 			throw Error.INVALID_PARENT;
       var handle = wx_combo_box_create(
 			[inParent.wxHandle,inID,inValue,inPosition,inSize, inStyle], inChoices );
-      return new Button(handle);
+      return new ComboBox(handle);
    }
 
 

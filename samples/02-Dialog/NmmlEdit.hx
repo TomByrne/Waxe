@@ -5,6 +5,7 @@ import wx.BoxSizer;
 import wx.Panel;
 import wx.CheckBox;
 import wx.Notebook;
+import wx.ListBox;
 
 import neko.io.Process;
 
@@ -36,6 +37,8 @@ class NmmlEdit
       createIconPage();
 
       createHaxeLibPage();
+
+      createClassPathsPage();
 
       root = frame;
 
@@ -164,6 +167,28 @@ class NmmlEdit
       }
 
       endPage("Haxe Libs");
+   }
+
+   var classPaths:ListBox;
+   function editClassPath(inEvent:Dynamic)
+   {
+      var pos = classPaths.selection;
+      if (pos>=0)
+      {
+         trace(classPaths.getString(pos));
+      }
+   }
+
+   function createClassPathsPage()
+   {
+      root = Window.create(notebook);
+      items_sizer = wx.BoxSizer.create(true);
+
+      classPaths = ListBox.create(root,null,null,null,["..","c:/SomePath"]);
+      classPaths.onDClick = editClassPath;
+      addControl(classPaths);
+
+      endPage("Class Paths");
    }
 
 

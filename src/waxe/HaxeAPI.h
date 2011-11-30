@@ -7,7 +7,7 @@
 typedef unsigned char uint8;
 
 wxString Val2Str(value inVal);
-int Val2Int(value inVal, int inDefault);
+int Val2Int(value inVal, int inDefault=0);
 wxPoint Val2Point(value inVal);
 wxSize Val2Size(value inVal);
 wxSizer *Val2Sizer(value inVal);
@@ -25,7 +25,7 @@ ByteData Val2ByteData(value inData);
 
 value WXToValue(const wxPoint &inPoint);
 value WXToValue(const wxSize &inSize);
-value WXToValue(int &inVal);
+value WXToValue(const int &inVal);
 value WXToValue(const bool &inVal);
 value WXToValue(const wxString &inStr);
 value WXToValue(const wxColour &inCol);
@@ -112,7 +112,6 @@ private:
    value *mObject;
 };
 
-#define CONVERT_WINDOW \
 
 #define WIN_PROPERTY(prefix,type,name,Get,Set,Transform) \
 value prefix##_get_##name(value inWindow) \
@@ -132,6 +131,29 @@ value prefix##_set_##name(value inWindow,value inValue) \
 	return alloc_null(); \
 } \
 DEFINE_PRIM(prefix##_set_##name,2)
+
+
+#define WIN_PROPERTY_IDX(prefix,type,name,Get,Set,Transform) \
+value prefix##_get_##name(value inWindow,value inIDX) \
+{ \
+	type *window; \
+	if (!ValueToWX(inWindow,window)) \
+		val_throw(alloc_string("Invalid Window")); \
+	return  WXToValue(window->Get(val_int(inIDX))); \
+} \
+DEFINE_PRIM(prefix##_get_##name,2) \
+value prefix##_set_##name(value inWindow,value inValue,value inIDX) \
+{ \
+	type *window; \
+	if (!ValueToWX(inWindow,window)) \
+		val_throw(alloc_string("Invalid Window")); \
+	window->Set(val_int(inIDX),Transform(inValue)); \
+	return alloc_null(); \
+} \
+DEFINE_PRIM(prefix##_set_##name,3)
+
+
+
 
 
 #endif

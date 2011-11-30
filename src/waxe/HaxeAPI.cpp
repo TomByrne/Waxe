@@ -170,7 +170,7 @@ value WXToValue(const wxSize &inSize)
 	return obj;
 }
 
-value WXToValue(int &inVal)
+value WXToValue(const int &inVal)
 {
 	return alloc_int(inVal);
 }

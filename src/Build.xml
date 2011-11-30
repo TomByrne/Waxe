@@ -40,6 +40,7 @@
    <file name="waxe/Panel.cpp"/>
    <file name="waxe/Dialog.cpp"/>
    <file name="waxe/Button.cpp"/>
+   <file name="waxe/ListBox.cpp"/>
    <file name="waxe/CheckBox.cpp"/>
    <file name="waxe/ComboBox.cpp"/>
    <file name="waxe/DC.cpp"/>
