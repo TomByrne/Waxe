@@ -45,6 +45,16 @@ class Sizer
 		var handle = Reflect.field(sizerOrWindow,"wxHandle");
 		wx_sizer_add(wxHandle,handle,proportion,flag,border);
 	}
+	public function addSpacer(inSize:Int)
+   {
+		wx_sizer_add_spacer(wxHandle,inSize,0);
+   }
+	public function addStretchSpacer(inProportion:Int)
+   {
+		wx_sizer_add_spacer(wxHandle,0,inProportion);
+   }
+
+
 
 	public function setSizeHints(inWindow:Window)
    {
@@ -60,6 +70,7 @@ class Sizer
 	static var wx_set_data = Loader.load("wx_set_data",2);
    static var wx_get_data = Loader.load("wx_get_data",1);
    static var wx_sizer_add = Loader.load("wx_sizer_add",5);
+   static var wx_sizer_add_spacer = Loader.load("wx_sizer_add_spacer",3);
    static var wx_sizer_set_size_hints = Loader.load("wx_sizer_set_size_hints",2);
    static var wx_sizer_fit = Loader.load("wx_sizer_fit",2);
 

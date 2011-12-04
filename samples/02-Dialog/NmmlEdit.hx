@@ -38,7 +38,7 @@ class NmmlEdit
 
       createHaxeLibPage();
 
-      createClassPathsPage();
+      createClassPathPage();
 
       root = frame;
 
@@ -125,6 +125,10 @@ class NmmlEdit
       var orientation = wx.ComboBox.create(root,null,"", ["landscape","portrait"]);
       addControl(orientation);
 
+      addSpacer();
+      var hw = CheckBox.create(root,null,"Hardware Acceleration");
+      addControl(hw);
+
       endPage("Window");
    }
 
@@ -138,6 +142,7 @@ class NmmlEdit
 
       endPage("Icon");
    }
+
 
 
    function createHaxeLibPage()
@@ -179,7 +184,7 @@ class NmmlEdit
       }
    }
 
-   function createClassPathsPage()
+   function createClassPathPage()
    {
       root = Window.create(notebook);
       items_sizer = wx.BoxSizer.create(true);
@@ -216,6 +221,10 @@ class NmmlEdit
    }
 
 
+   function addSpacer()
+   {
+      items_sizer.addSpacer(0);
+   }
 
    function addLabel(inLabel:String)
    {

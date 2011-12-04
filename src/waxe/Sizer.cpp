@@ -64,6 +64,23 @@ value wx_sizer_fit(value inSizer,value inWindow)
 DEFINE_PRIM(wx_sizer_fit,2)
 
 
+value wx_sizer_add_spacer(value inSizer,value inSize, value inProportion)
+{
+   wxSizer *sizer = Val2Sizer(inSizer);
+   if (sizer)
+   {
+      int size = val_int(inSize);
+      int prop = val_int(inProportion);
+      if (size==0)
+         sizer->AddStretchSpacer(prop);
+      else
+         sizer->AddSpacer(size);
+   }
+	return alloc_null();
+}
+DEFINE_PRIM(wx_sizer_add_spacer,3)
+
+
 
 
 
