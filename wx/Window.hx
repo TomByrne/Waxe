@@ -7,6 +7,53 @@ class Window extends EventHandler
 {
    var wxEventHandlers:IntHash<Dynamic->Void>;
 
+
+   // For use with top-level windows
+   public static inline var CENTRE                = 1<<0;
+   public static inline var FRAME_NO_TASKBAR      = 1<<1;
+   public static inline var FRAME_TOOL_WINDOW     = 1<<2;
+   public static inline var FRAME_FLOAT_ON_PARENT = 1<<3;
+   public static inline var FRAME_SHAPED = 1<<4;
+
+   public static inline var RESIZE_BORDER         = 1<<5;
+   public static inline var TINY_CAPTION_VERT     = 1<<7;
+   public static inline var DIALOG_NO_PARENT      = 1<<8;
+   public static inline var MAXIMIZE_BOX          = 1<<9;
+   public static inline var MINIMIZE_BOX          = 1<<10;
+   public static inline var SYSTEM_MENU           = 1<<11;
+   public static inline var CLOSE_BOX             = 1<<12;
+   public static inline var MAXIMIZE              = 1<<13;
+   public static inline var MINIMIZE              = 1<<14;
+   public static inline var STAY_ON_TOP          = 1<<15;
+
+   /*
+    Summary of the bits used by various styles.
+
+    High word, containing styles which can be used with many windows:
+
+   */
+
+   public static inline var FULL_REPAINT_ON_RESIZE = 1<<16;
+   public static inline var POPUP_WINDOW           = 1<<17;
+   public static inline var WANTS_CHARS            = 1<<18;
+   public static inline var TAB_TRAVERSAL          = 1<<19;
+   public static inline var TRANSPARENT_WINDOW     = 1<<20;
+   public static inline var BORDER_NONE            = 1<<21;
+   public static inline var CLIP_CHILDREN          = 1<<22;
+   public static inline var ALWAYS_SHOW_SB         = 1<<23;
+   public static inline var BORDER_STATIC          = 1<<24;
+   public static inline var BORDER_SIMPLE          = 1<<25;
+   public static inline var BORDER_RAISED          = 1<<26;
+   public static inline var BORDER_SUNKEN          = 1<<27;
+   public static inline var BORDER_DOUBLE          = 1<<28;
+   public static inline var CAPTION                = 1<<29;
+   public static inline var CLIP_SIBLINGS          = 1<<29;
+   public static inline var HSCROLL                = 1<<30;
+   #if !neko
+   public static inline var VSCROLL = 1<<31;
+   #end
+
+
    public static var INVALID_PARENT = "Invalid Parent";
 
 

@@ -6,6 +6,7 @@ import wx.Panel;
 import wx.CheckBox;
 import wx.Notebook;
 import wx.ListBox;
+import wx.DirDialog;
 
 import neko.io.Process;
 
@@ -180,7 +181,11 @@ class NmmlEdit
       var pos = classPaths.selection;
       if (pos>=0)
       {
-         trace(classPaths.getString(pos));
+         var dlg = new DirDialog(ApplicationMain.frame, "Edit class path", classPaths.getString(pos));
+         if (dlg.showModal())
+         {
+            trace(dlg.directory);
+         }
       }
    }
 

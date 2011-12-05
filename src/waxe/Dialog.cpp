@@ -52,3 +52,35 @@ value wx_file_dialog_show(value ioData)
 }
 
 DEFINE_PRIM(wx_file_dialog_show,1)
+
+
+
+value wx_dir_dialog_show(value ioData)
+{
+   wxWindow *parent = 0;
+   wxString message;
+   wxString directory;
+   int      style;
+   wxPoint  position;
+   wxSize   size;
+
+   ValueToWX(val_field(ioData,val_id("parent")),parent);
+   ValueToWX(val_field(ioData,val_id("message")),message);
+   ValueToWX(val_field(ioData,val_id("directory")),directory);
+   ValueToWX(val_field(ioData,val_id("style")),style);
+   ValueToWX(val_field(ioData,val_id("size")),size);
+
+   wxDirDialog *dlg = new wxDirDialog(parent,message,directory,style,position,size);
+   bool result = dlg->ShowModal()==wxID_OK;
+
+   if (result)
+   {
+     alloc_field(ioData,val_id("directory"), WXToValue(dlg->GetPath()));
+   }
+
+   dlg->Destroy();
+   return alloc_bool(result);
+}
+
+DEFINE_PRIM(wx_dir_dialog_show,1)
+
