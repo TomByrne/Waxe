@@ -4,7 +4,7 @@ import wx.Window;
 
 class StaticText extends Window
 {
-	public var label(getLabel,setLabel):String;
+	public var label(get_label,set_label):String;
 
    public static function create(inParent:Window, ?inID:Null<Int>, inText:String="",
 	                ?inPosition:Position,
@@ -12,8 +12,8 @@ class StaticText extends Window
    {
 		if (inParent==null)
 			throw Error.INVALID_PARENT;
-      var handle = wx_static_text_create(
-			[inParent.wxHandle,inID,inText,inPosition,inSize, inStyle] );
+			var arr:Array<Dynamic> = [inParent.wxHandle, inID, inText, inPosition, inSize, inStyle];
+      var handle = wx_static_text_create(arr);
       return new StaticText(handle);
    }
 
@@ -23,12 +23,12 @@ class StaticText extends Window
 	   super(inHandle);
    }
 
-	public function setLabel(inString:String) : String
+	private function set_label(inString:String) : String
 	{
 		wx_static_text_set_label(wxHandle,inString);
 		return inString;
 	}
-	public function getLabel() : String
+	private function get_label() : String
 	{
 		return wx_static_text_get_label(wxHandle);
 	}

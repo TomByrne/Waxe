@@ -2,15 +2,15 @@ package wx;
 
 class Frame extends TopLevelWindow
 {
-   public var menuBar(null,wxSetMenuBar) : wx.MenuBar;
-   var menuMap : IntHash<Dynamic->Void>;
+   public var menuBar(null,set) : wx.MenuBar;
+   var menuMap : Map<Int, Dynamic->Void>;
 
    public static function create(inParent:Window, ?inID:Int, inTitle:String="",
                   ?inPosition:{x:Int,y:Int},
                    ?inSize:{width:Int,height:Int}, ?inStyle:Int )
    {
-      var handle = wx_frame_create(
-         [inParent==null ? null : inParent.wxHandle,inID,inTitle,inPosition,inSize, inStyle] );
+	  var arr:Dynamic = [inParent == null ? null : inParent.wxHandle, inID, inTitle, inPosition, inSize, inStyle];
+      var handle = wx_frame_create(arr);
       return new Frame(handle);
    }
 
@@ -19,10 +19,10 @@ class Frame extends TopLevelWindow
    {
       super(inHandle);
       setHandler(EventID.COMMAND_MENU_SELECTED, onMenu);
-      menuMap = new IntHash<Dynamic->Void>();
+      menuMap = new Map<Int, Dynamic->Void>();
    }
 
-   public function wxSetMenuBar(inBar:wx.MenuBar)
+   private function set_menuBar(inBar:wx.MenuBar)
    {
       wx_frame_set_menu_bar(wxHandle,inBar.wxHandle);
       return inBar;

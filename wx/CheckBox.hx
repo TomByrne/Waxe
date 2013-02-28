@@ -4,8 +4,8 @@ import wx.Window;
 
 class CheckBox extends Window
 {
-	public var checked(getChecked,setChecked):Bool;
-	public var onCheck(null,setOnCheck) : Dynamic->Void;
+	public var checked(get,set):Bool;
+	public var onCheck(null,set) : Dynamic->Void;
 
    public static function create(inParent:Window, ?inID:Null<Int>, inLabel:String="",
 	                ?inPosition:Position,
@@ -13,8 +13,8 @@ class CheckBox extends Window
    {
 		if (inParent==null)
 			throw Error.INVALID_PARENT;
-      var handle = wx_checkbox_create(
-			[inParent.wxHandle,inID,inLabel,inPosition,inSize, inStyle] );
+		var arr:Array<Dynamic> = [inParent.wxHandle, inID, inLabel, inPosition, inSize, inStyle];
+      var handle = wx_checkbox_create(arr);
       return new CheckBox(handle);
    }
 
@@ -24,14 +24,14 @@ class CheckBox extends Window
 	   super(inHandle);
    }
 
-	function setOnCheck(f:Dynamic->Void) {setHandler(wx.EventID.COMMAND_CHECKBOX_CLICKED,f); return f;}
+	function set_onCheck(f:Dynamic->Void) {setHandler(wx.EventID.COMMAND_CHECKBOX_CLICKED,f); return f;}
 
-	public function setChecked(inVal:Bool) : Bool
+	private function set_checked(inVal:Bool) : Bool
 	{
 		wx_checkbox_set_checked(wxHandle,inVal);
 		return inVal;
 	}
-	public function getChecked() : Bool
+	private function get_checked() : Bool
 	{
 		return wx_checkbox_get_checked(wxHandle);
 	}

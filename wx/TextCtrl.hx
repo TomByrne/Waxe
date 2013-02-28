@@ -4,7 +4,7 @@ import wx.Window;
 
 class TextCtrl extends Window
 {
-	public var value(getValue,setValue):String;
+	public var value(get,set):String;
 
    public static function create(inParent:Window, ?inID:Null<Int>, inText:String="",
 	                ?inPosition:Position,
@@ -12,8 +12,8 @@ class TextCtrl extends Window
    {
 		if (inParent==null)
 			throw Error.INVALID_PARENT;
-      var handle = wx_text_ctrl_create(
-			[inParent.wxHandle,inID,inText,inPosition,inSize, inStyle] );
+	  var arr:Array<Dynamic> = [inParent.wxHandle, inID, inText, inPosition, inSize, inStyle];
+      var handle = wx_text_ctrl_create(arr);
       return new TextCtrl(handle);
    }
 
@@ -23,12 +23,12 @@ class TextCtrl extends Window
 	   super(inHandle);
    }
 
-	public function setValue(inString:String) : String
+	private function set_value(inString:String) : String
 	{
 		wx_text_ctrl_set_value(wxHandle,inString);
 		return inString;
 	}
-	public function getValue() : String
+	private function get_value() : String
 	{
 		return wx_text_ctrl_get_value(wxHandle);
 	}
