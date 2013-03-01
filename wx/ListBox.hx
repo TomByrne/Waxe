@@ -50,6 +50,13 @@ class ListBox extends ControlWithItems
 
 
 
+
+
+   public function set(insertArray:Array<String>)  { wx_list_box_set(wxHandle,insertArray); }
+   static var wx_list_box_set = Loader.load("wx_list_box_set",2);
+   
+
+
    static var wx_list_box_create = Loader.load("wx_list_box_create",2);
    static var wx_list_box_get_selection = Loader.load("wx_list_box_get_selection",1);
    static var wx_list_box_set_selection = Loader.load("wx_list_box_set_selection",2);

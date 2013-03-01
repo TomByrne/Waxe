@@ -36,8 +36,14 @@ class CheckBox extends Window
 		return wx_checkbox_get_checked(wxHandle);
 	}
 
-
    static var wx_checkbox_create = Loader.load("wx_checkbox_create",1);
    static var wx_checkbox_get_checked = Loader.load("wx_checkbox_get_checked",1);
    static var wx_checkbox_set_checked = Loader.load("wx_checkbox_set_checked",2);
+
+
+
+   public function setValue(trueFalse:Bool)  { wx_checkbox_setValue(wxHandle,trueFalse); }
+   static var wx_checkbox_setValue = Loader.load("wx_checkbox_setValue",2);
+
+
 }
