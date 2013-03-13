@@ -2,7 +2,7 @@ package wx;
 
 import wx.Window;
 
-class CheckBox extends Window
+class CheckBox extends Control
 {
 	public var checked(getChecked,setChecked):Bool;
 	public var onCheck(null,setOnCheck) : Dynamic->Void;
