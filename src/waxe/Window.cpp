@@ -36,6 +36,15 @@ value wx_window_destroy(value inWindow)
 }
 DEFINE_PRIM(wx_window_destroy,1)
 
+value wx_window_get_effective_min_size(value inWindow)
+{
+   wxWindow *window;
+   if (ValueToWX(inWindow,window))
+       return WXToValue(window->GetEffectiveMinSize());
+   return alloc_null();
+}
+DEFINE_PRIM(wx_window_get_effective_min_size,1)
+
 
 
 WIN_PROPERTY(wx_window,wxWindow,size,GetSize,SetSize,Val2Size)

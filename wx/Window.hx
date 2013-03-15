@@ -163,6 +163,7 @@ class Window extends EventHandler
    }
 
 
+   public function getEffectiveMinSize() : Size { return wx_window_get_effective_min_size(wxHandle); }
 
 
 
@@ -200,6 +201,7 @@ class Window extends EventHandler
    static var wx_window_set_name = Loader.load("wx_window_set_name",2);
    static var wx_window_refresh = Loader.load("wx_window_refresh",1);
    static var wx_window_destroy = Loader.load("wx_window_destroy",1);
+   static var wx_window_get_effective_min_size = Loader.load("wx_window_get_effective_min_size",1);
 }
 
 
