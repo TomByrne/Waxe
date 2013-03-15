@@ -41,6 +41,7 @@
    <file name="waxe/StaticBox.cpp"/>
    <file name="waxe/Notebook.cpp"/>
    <file name="waxe/TextCtrl.cpp"/>
+   <file name="waxe/Slider.cpp"/>
    <file name="waxe/Sizer.cpp"/>
    <file name="waxe/Panel.cpp"/>
    <file name="waxe/ScrolledWindow.cpp"/>

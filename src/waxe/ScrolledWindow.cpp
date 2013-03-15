@@ -9,15 +9,23 @@ value wx_scrolled_window_create(value inParams)
 }
 DEFINE_PRIM(wx_scrolled_window_create,1)
 
-value wx_scrolled_window_set_scrollbars(value inWindow, value pixelsPerUnitX, value pixelsPerUnitY, value noUnitsX, value noUnitsY, value xPos, value yPos, value noRefresh)
+
+// args = inWindow, pixelsPerUnitX, pixelsPerUnitY, noUnitsX, noUnitsY, xPos, yPos, noRefresh
+value wx_scrolled_window_set_scrollbars(value inParams)
 {
-   wxScrolledWindow *window;
-  if (ValueToWX(inWindow,window))
-  {
-    window->SetScrollbars(val_int(pixelsPerUnitX), val_int(pixelsPerUnitY), val_int(noUnitsX), val_int(noUnitsY), val_int(xPos), val_int(yPos), Val2Bool(noRefresh));
-  }
+    wxScrolledWindow *window;
+   if (ValueToWX(val_array_i(inParams,0),window))
+   {
+     window->SetScrollbars(val_int(val_array_i(inParams,1)),
+                            val_int(val_array_i(inParams,2)),
+                            val_int(val_array_i(inParams,3)),
+                            val_int(val_array_i(inParams,4)),
+                            val_int(val_array_i(inParams,5)),
+                            val_int(val_array_i(inParams,6)),
+                            Val2Bool(val_array_i(inParams,7)));
+   }
 
    return alloc_null();
 }
 
-DEFINE_PRIM(wx_scrolled_window_set_scrollbars,8)
+DEFINE_PRIM(wx_scrolled_window_set_scrollbars,1)
