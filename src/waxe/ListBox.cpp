@@ -14,9 +14,6 @@ DEFINE_PRIM(wx_list_box_create,2)
 
 
 
-
-
-
 value wx_list_box_set(value inWindow, value arraySelection) 
 { 
 	wxListBox *window; 
@@ -28,7 +25,6 @@ value wx_list_box_set(value inWindow, value arraySelection)
 	return alloc_null();
 } 
 DEFINE_PRIM(wx_list_box_set,2);
-
 
 
 WIN_PROPERTY(wx_list_box,wxListBox,selection,GetSelection,SetSelection,Val2Int)

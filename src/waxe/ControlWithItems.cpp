@@ -41,6 +41,47 @@ value wx_wxControlWithItems_delete(value inWindow,value position)
 DEFINE_PRIM(wx_wxControlWithItems_delete,2);
 
 
+value wx_wxControlWithItems_get_selection(value inWindow) 
+{ 
+	wxControlWithItems *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	return WXToValue(window->GetSelection()); 
+} 
+DEFINE_PRIM(wx_wxControlWithItems_get_selection,1);
+
+
+value wx_wxControlWithItems_set_selection(value inWindow, value n) 
+{ 
+	wxControlWithItems *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	window->SetSelection(Val2Int(n)); 
+	return alloc_null();
+} 
+DEFINE_PRIM(wx_wxControlWithItems_set_selection,2);
+
+
+value wx_wxControlWithItems_get_string(value inWindow, value n) 
+{ 
+	wxControlWithItems *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	return WXToValue(window->GetString(Val2Int(n)));
+} 
+DEFINE_PRIM(wx_wxControlWithItems_get_string,2);
+
+
+value wx_wxControlWithItems_set_string(value inWindow, value n, value string) 
+{ 
+	wxControlWithItems *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	window->SetString(Val2Int(n), Val2Str(string)); 
+	return alloc_null();
+} 
+DEFINE_PRIM(wx_wxControlWithItems_set_string,3);
+
 
 
 

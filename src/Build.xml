@@ -36,6 +36,7 @@
    <file name="waxe/Window.cpp"/>
    <file name="waxe/Frame.cpp"/>
    <file name="waxe/Control.cpp"/>
+   <file name="waxe/ControlWithItems.cpp"/>
    <file name="waxe/MDI.cpp"/>
    <file name="waxe/StaticText.cpp"/>
    <file name="waxe/StaticBox.cpp"/>

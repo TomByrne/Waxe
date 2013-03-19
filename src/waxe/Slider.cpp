@@ -19,3 +19,57 @@ value wx_slider_create(value inParams)
     return WXToValue(window);
 }
 DEFINE_PRIM(wx_slider_create,1)
+
+
+
+value wx_slider_set_value(value inWindow, value state) 
+{ 
+	wxSlider *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	window->SetValue(Val2Int(state)); 
+	return alloc_null();
+} 
+DEFINE_PRIM(wx_slider_set_value,2);
+
+
+value wx_slider_get_value(value inWindow) 
+{ 
+	wxSlider *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	return WXToValue(window->GetValue());
+} 
+DEFINE_PRIM(wx_slider_get_value,1);
+
+
+
+value wx_slider_set_range(value inWindow, value minValue, value maxValue) 
+{ 
+	wxSlider *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	window->SetRange(Val2Int(minValue), Val2Int(maxValue)); 
+	return alloc_null();
+} 
+DEFINE_PRIM(wx_slider_set_range,3);
+
+
+value wx_slider_get_min(value inWindow) 
+{ 
+	wxSlider *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	return WXToValue(window->GetMin());
+} 
+DEFINE_PRIM(wx_slider_get_min,1);
+
+
+value wx_slider_get_max(value inWindow) 
+{ 
+	wxSlider *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	return WXToValue(window->GetMax());
+} 
+DEFINE_PRIM(wx_slider_get_max,1);
