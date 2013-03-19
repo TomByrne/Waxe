@@ -12,6 +12,15 @@ wxSizer *Val2Sizer(value inVal)
 	return sizer;
 }
 
+value wx_sizer_box_GetOrientation(value inWindow)
+{
+	wxBoxSizer *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	return WXToValue(window->GetOrientation());
+}
+DEFINE_PRIM(wx_sizer_box_GetOrientation,1)
+
 
 value wx_sizer_create_box(value inVertical)
 {

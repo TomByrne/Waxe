@@ -25,5 +25,6 @@ class Button extends Control
 
 	function set_onClick(f:Dynamic->Void) {setHandler(wx.EventID.COMMAND_BUTTON_CLICKED,f); return f;}
 
+
    static var wx_button_create = Loader.load("wx_button_create",1);
 }

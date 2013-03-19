@@ -1,5 +1,3 @@
-
-
 Build for Windows
 =================
 
@@ -7,7 +5,7 @@ Build for Windows
 1.) Install HXCPP and Visual Studio C++ Express (if you don't have them already)
 
 
-2.) Download wxWidgets 2.9.3 and extract it into "wxwidgets" next to the waxe directory (or you can set WXROOT for a different path)
+2.) Download wxWidgets 2.9.x and extract it into "wxwidgets" next to the waxe directory (or you can set WXROOT for a different path)
 
 
 3.) Browse to where you extracted wxWidgets and edit "build/msw/config.vc"
@@ -33,7 +31,7 @@ Build for Mac
 =============
 
 
-1.) Download wxWidgets 2.9.3 and extract it into "wxwidgets" next to the waxe directory (or you can set WXROOT for a different path)
+1.) Download wxWidgets 2.9.x and extract it into "wxwidgets" next to the waxe directory (or you can set WXROOT for a different path)
 
 
 2.) Change to the directory where you extracted wxWidgets, using a terminal, then compile the library
@@ -63,7 +61,7 @@ NOTE: Everything compiles successfully, but there are some linker errors at the 
 	sudo apt-get install build-essential libgtk2.0-dev ia32-libs gcc-multilib g++-multilib
 
 
-2.) Download wxWidgets 2.9.3 and extract it into "wxwidgets" next to the waxe directory (or you can set WXROOT for a different path)
+2.) Download wxWidgets 2.9.x and extract it into "wxwidgets" next to the waxe directory (or you can set WXROOT for a different path)
 
 
 3.) Change to the directory where you extracted wxWidgets, using a terminal, then compile the library

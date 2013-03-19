@@ -12,3 +12,14 @@ DEFINE_PRIM(wx_checkbox_create,1)
 
 WIN_PROPERTY(wx_checkbox,wxCheckBox,checked,IsChecked,SetValue,Val2Bool)
 
+
+
+value wx_checkbox_setValue(value inWindow, value state) 
+{ 
+	wxCheckBox *window; 
+	if (!ValueToWX(inWindow,window)) 
+		val_throw(alloc_string("Invalid Window")); 
+	window->SetValue(Val2Bool(state)); 
+	return alloc_null();
+} 
+DEFINE_PRIM(wx_checkbox_setValue,2);

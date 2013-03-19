@@ -10,6 +10,11 @@ class BoxSizer extends Sizer
 	}
 
 
-	static var wx_sizer_create_box = Loader.load("wx_sizer_create_box",1);
 
+
+	static var wx_sizer_create_box = Loader.load("wx_sizer_create_box",1);
+   	
+
+   	public function getOrientation()  { return wx_sizer_box_GetOrientation(wxHandle); }
+	static var wx_sizer_box_GetOrientation = Loader.load("wx_sizer_box_GetOrientation",1);
 }
