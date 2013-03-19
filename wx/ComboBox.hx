@@ -4,7 +4,6 @@ import wx.Window;
 
 class ComboBox extends ControlWithItems
 {
-	//public var label(getLabel,setLabel):String;
 	public var onSelected(null,setOnSelected) : Dynamic->Void;
 	public var onTextEnter(null,setOnTextEnter) : Dynamic->Void;
 	public var onTextUpdated(null,setOnTextUpdated) : Dynamic->Void;
