@@ -6,9 +6,8 @@ class ListBox extends ControlWithItems
 {
    public static inline var NO_SELECTION = -1;
    
-	public var onSelected(null,setOnSelected) : Dynamic->Void;
-	public var onDClick(null,setOnDClick) : Dynamic->Void;
-   public var selection(getSelection,setSelection) : Int;
+	public var onSelected(null,set) : Dynamic->Void;
+	public var onDClick(null,set) : Dynamic->Void;
 
    public static function create(inParent:Window, ?inID:Null<Int>,
 	                ?inPosition:Position,
@@ -16,8 +15,8 @@ class ListBox extends ControlWithItems
    {
 		if (inParent==null)
 			throw Error.INVALID_PARENT;
-      var handle = wx_list_box_create(
-			[inParent.wxHandle,inID,"",inPosition,inSize, inStyle], inValues );
+	  var arr:Dynamic = [inParent.wxHandle,inID,"",inPosition,inSize, inStyle];
+      var handle = wx_list_box_create(arr, inValues );
       return new ListBox(handle);
    }
 
@@ -27,9 +26,9 @@ class ListBox extends ControlWithItems
 	   super(inHandle);
    }
 
-	function setOnSelected(f:Dynamic->Void)
+	function set_onSelected(f:Dynamic->Void)
 	   {setHandler(wx.EventID.COMMAND_LISTBOX_SELECTED,f); return f;}
-	function setOnDClick(f:Dynamic->Void)
+	function set_onDClick(f:Dynamic->Void)
 	   {setHandler(wx.EventID.COMMAND_LISTBOX_DOUBLECLICKED,f); return f;}
 
 

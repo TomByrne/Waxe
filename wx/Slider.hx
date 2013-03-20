@@ -10,8 +10,8 @@ class Slider extends Control
    {
 		if (inParent==null)
 			throw Error.INVALID_PARENT;
-      var handle = wx_slider_create(
-			[inParent.wxHandle,inID,value,minValue,maxValue,inPosition,inSize, inStyle] );
+	  var arr:Dynamic = [inParent.wxHandle,inID,value,minValue,maxValue,inPosition,inSize, inStyle];
+      var handle = wx_slider_create(arr);
       return new Slider(handle);
    }
    static var wx_slider_create = Loader.load("wx_slider_create", 1);
@@ -22,7 +22,7 @@ class Slider extends Control
 	   super(inHandle);
    }
    
-   public var value(get_value, set_value):Int;
+   public var value(get, set):Int;
    private function get_value():Int
    {
       return wx_slider_get_value(wxHandle);
@@ -36,7 +36,7 @@ class Slider extends Control
    static var wx_slider_set_value = Loader.load("wx_slider_set_value", 2);
    
    
-   public var min(get_min, null):Int;
+   public var min(get, null):Int;
    private function get_min():Int
    {
       return wx_slider_get_min(wxHandle);

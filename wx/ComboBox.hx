@@ -4,9 +4,9 @@ import wx.Window;
 
 class ComboBox extends ControlWithItems
 {
-	public var onSelected(null,setOnSelected) : Dynamic->Void;
-	public var onTextEnter(null,setOnTextEnter) : Dynamic->Void;
-	public var onTextUpdated(null,setOnTextUpdated) : Dynamic->Void;
+	public var onSelected(null,set) : Dynamic->Void;
+	public var onTextEnter(null,set) : Dynamic->Void;
+	public var onTextUpdated(null,set) : Dynamic->Void;
 
    public static function create(inParent:Window, ?inID:Null<Int>, inValue:String="",
 	                ?inPosition:Position,
@@ -14,8 +14,8 @@ class ComboBox extends ControlWithItems
    {
 		if (inParent==null)
 			throw Error.INVALID_PARENT;
-      var handle = wx_combo_box_create(
-			[inParent.wxHandle,inID,inValue,inPosition,inSize, inStyle], inChoices );
+	  var arr:Dynamic = [inParent.wxHandle,inID,inValue,inPosition,inSize, inStyle];
+      var handle = wx_combo_box_create(arr, inChoices );
       return new ComboBox(handle);
    }
 
@@ -25,11 +25,11 @@ class ComboBox extends ControlWithItems
 	   super(inHandle);
    }
 
-	function setOnSelected(f:Dynamic->Void)
+	function set_onSelected(f:Dynamic->Void)
 	   {setHandler(wx.EventID.COMMAND_COMBOBOX_SELECTED,f); return f;}
-	function setOnTextUpdated(f:Dynamic->Void)
+	function set_onTextUpdated(f:Dynamic->Void)
 	   {setHandler(wx.EventID.COMMAND_TEXT_UPDATED,f); return f;}
-	function setOnTextEnter(f:Dynamic->Void)
+	function set_onTextEnter(f:Dynamic->Void)
 	   {setHandler(wx.EventID.COMMAND_TEXT_ENTER,f); return f;}
 
 

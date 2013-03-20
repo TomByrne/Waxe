@@ -4,6 +4,9 @@ import wx.Window;
 
 class ControlWithItems extends Control
 {
+   public var selection(get, set) : Int;
+   
+   
 	function new(inHandle:Dynamic) { super(inHandle); }
 
 	public function clear()  { wx_controlWithItems_clear(wxHandle); }
@@ -24,8 +27,8 @@ class ControlWithItems extends Control
 	*/
 	
 	
-   public function getSelection() : Int { return wx_wxControlWithItems_get_selection(wxHandle); }
-   public function setSelection(val:Int) : Int
+   public function get_selection() : Int { return wx_wxControlWithItems_get_selection(wxHandle); }
+   public function set_selection(val:Int) : Int
    {
       wx_wxControlWithItems_set_selection(wxHandle,val);
       return val;
