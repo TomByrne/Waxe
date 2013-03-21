@@ -45,6 +45,16 @@ value wx_window_get_effective_min_size(value inWindow)
 }
 DEFINE_PRIM(wx_window_get_effective_min_size,1)
 
+value wx_window_set_tool_tip(value inWindow, value toolTip)
+{
+   wxWindow *window;
+   wxToolTip *tip;
+   if (ValueToWX(inWindow,window) && ValueToWX(toolTip,tip))
+       window->SetToolTip(tip);
+   return alloc_null();
+}
+DEFINE_PRIM(wx_window_set_tool_tip,2)
+
 
 
 WIN_PROPERTY(wx_window,wxWindow,size,GetSize,SetSize,Val2Size)

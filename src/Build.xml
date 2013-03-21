@@ -60,6 +60,7 @@
    <file name="waxe/Scintilla.cpp"/>
    <file name="waxe/GLCanvas.cpp"/>
    <file name="waxe/Timer.cpp"/>
+   <file name="waxe/ToolTip.cpp"/>
 
    <file name="waxe/Clay.cpp"/>
    <file name="waxe/clay/Container.cpp"/>

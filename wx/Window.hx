@@ -164,6 +164,12 @@ class Window extends EventHandler
 
 
    public function getEffectiveMinSize() : Size { return wx_window_get_effective_min_size(wxHandle); }
+   
+   
+   public function setToolTip(toolTip:ToolTip) : Void
+   {
+      wx_window_set_tool_tip(wxHandle, toolTip.wxHandle);
+   }
 
 
 
@@ -183,6 +189,7 @@ class Window extends EventHandler
 
 
 
+   static var wx_window_set_tool_tip = Loader.load("wx_window_set_tool_tip",2);
    static var wx_window_get_position = Loader.load("wx_window_get_position",1);
    static var wx_window_set_position = Loader.load("wx_window_set_position",2);
    static var wx_window_get_size = Loader.load("wx_window_get_size",1);
